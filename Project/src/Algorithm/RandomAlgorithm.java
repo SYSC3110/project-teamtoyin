@@ -97,6 +97,7 @@ public class RandomAlgorithm implements Algorithm {
 	 * Testing
 	 */
 	public static void main(String[] args) {
+		
 		Network n = new Network();
 		n.add("A");
 		n.add("B");
@@ -110,6 +111,7 @@ public class RandomAlgorithm implements Algorithm {
 		
 		RandomAlgorithm algo = new RandomAlgorithm(n, "A", "D");
 		algo.run();
+		
 	}
 
 }
