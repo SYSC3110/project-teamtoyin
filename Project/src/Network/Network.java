@@ -25,7 +25,7 @@ public class Network {
 	 */
 	public boolean add(String n) {
 		
-		//If the node isn't present in the network return
+		//If the node is present in the network return
 		if (nodes.containsKey(n)) {
 			return false;
 		}
