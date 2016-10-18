@@ -110,10 +110,16 @@ public class Network {
 	 */
 	public boolean link(String n1, String n2) {
 		
-		//Force node name to uppercase
+		//Validate n1 has a value
+		if (n1 == null || n1 == "") { return false; } 
+		
+		//Validate n has a value
+		if (n2 == null || n2 == "") { return false; } 
+		
+		//Force n1 name to uppercase
 		n1 = n1.toUpperCase();
 		
-		//Force node name to uppercase
+		//Force n2 name to uppercase
 		n2 = n2.toUpperCase();			
 		
 		//Verify n1 is in the network
@@ -135,10 +141,16 @@ public class Network {
 	 */
 	public boolean unlink(String n1, String n2) {
 		
-		//Force node name to uppercase
+		//Validate n1 has a value
+		if (n1 == null || n1 == "") { return false; } 
+		
+		//Validate n has a value
+		if (n2 == null || n2 == "") { return false; } 
+		
+		//Force n1 name to uppercase
 		n1 = n1.toUpperCase();
 		
-		//Force node name to uppercase
+		//Force n2 name to uppercase
 		n2 = n2.toUpperCase();				
 		
 		//Verify n1 is in the network
