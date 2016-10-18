@@ -28,6 +28,9 @@ public class Network {
 		//Validate n has a value
 		if (n == null || n == "") { return false; } 
 		
+		//Force node name to uppercase
+		n = n.toUpperCase();
+		
 		//If the node is present in the network return
 		if (nodes.containsKey(n)) {
 			return false;
@@ -48,6 +51,9 @@ public class Network {
 		
 		//Validate n has a value
 		if (n == null || n == "") { return false; } 
+		
+		//Force node name to uppercase
+		n = n.toUpperCase();
 		
 		//If the node isn't present in the network return		
 		if (!nodes.containsKey(n)) { return false; }
@@ -72,6 +78,9 @@ public class Network {
 		//Validate n has a value
 		if (n == null || n == "") { return false; } 
 		
+		//Force node name to uppercase
+		n = n.toUpperCase();
+		
 		//Node not present in hashmap
 		if (!nodes.containsKey(n)) { 
 			return false; 
@@ -87,6 +96,9 @@ public class Network {
 		//Validate n has a value
 		if (n == null || n == "") { return null; } 
 		
+		//Force node name to uppercase
+		n = n.toUpperCase();
+		
 		//If the node isn't present in the network return				
 		if (!nodes.containsKey(n)) { return null; }
 		
@@ -97,6 +109,12 @@ public class Network {
 	 * Links two nodes in the network together
 	 */
 	public boolean link(String n1, String n2) {
+		
+		//Force node name to uppercase
+		n1 = n1.toUpperCase();
+		
+		//Force node name to uppercase
+		n2 = n2.toUpperCase();			
 		
 		//Verify n1 is in the network
 		if (!nodes.containsKey(n1)) { return false; } 
@@ -116,6 +134,12 @@ public class Network {
 	 * Unlinks two nodes in the network from each other
 	 */
 	public boolean unlink(String n1, String n2) {
+		
+		//Force node name to uppercase
+		n1 = n1.toUpperCase();
+		
+		//Force node name to uppercase
+		n2 = n2.toUpperCase();				
 		
 		//Verify n1 is in the network
 		if (!nodes.containsKey(n1)) { return false; } 
