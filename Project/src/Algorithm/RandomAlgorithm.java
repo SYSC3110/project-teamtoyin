@@ -60,7 +60,7 @@ public class RandomAlgorithm implements Algorithm {
 			//A packet was transferred
 			this.countPacket();
 			
-		} while (current_n != end_n);
+		} while (!current_n.equals(end_n));
 		
 		//Done
 		
