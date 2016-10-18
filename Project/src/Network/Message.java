@@ -6,8 +6,11 @@ package Network;
 /**
  * @author Lina El Sadek
  * @date 10/16/2016
- *
+ * 
+ * 
  */
+// Modified October 18th 2016 <Scott Hanton> - Changed to account for hops a message goes through
+
 public class Message {
 	
 	private String contents;	//Message contents
