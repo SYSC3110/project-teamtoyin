@@ -1,7 +1,7 @@
 package Algorithm;
 import java.util.HashSet;
 import java.util.Random;
-import Network.Network;
+import Network.*;
 
 /**
  * 
@@ -14,21 +14,16 @@ public class RandomAlgorithm implements Algorithm {
 	private Random random;		//Random instance for selecting next node
 	private String start_n;		//Start node in the network
 	private String end_n;		//End node in the network
+	private int packet_count; 	//Number of packets transmitted during message sending
 	
 	/**
 	 * Constructor to assign network to the algorithm along with
 	 * the start and end nodes.
 	 */
-	public RandomAlgorithm(Network n, String start, String end) {
+	public RandomAlgorithm(Network n) {
 		
 		//Assign network we will run algorithm on
 		this.network = n;
-		
-		//Network node we begin at
-		this.start_n = start;
-		
-		//Network node we traverse to
-		this.end_n = end;
 		
 		//Initialize the random class
 		this.random = new Random();
@@ -39,7 +34,13 @@ public class RandomAlgorithm implements Algorithm {
 	 * Traverses the network of nodes beginning at the start node
 	 * and ending at the end node specified in the constructor.
 	 */
-	public void run() {
+	public void run(Message m) {
+		
+		//Get the messages start node
+		this.start_n = m.getSource();
+		
+		//Get the messages end node
+		this.end_n = m.getDestination();
 		
 		//Set the current node as our start node
 		String current_n = this.start_n;
@@ -55,6 +56,9 @@ public class RandomAlgorithm implements Algorithm {
 			
 			//Assign chosen node to current node
 			current_n = new_n;
+			
+			//A packet was transferred
+			this.countPacket();
 			
 		} while (current_n != end_n);
 		
@@ -94,6 +98,28 @@ public class RandomAlgorithm implements Algorithm {
 	}
 	
 	/**
+	 * Increment the counter for number of packets transmitted
+	 * during message sending.
+	 */
+	public void countPacket() {
+		
+		//Increment packets counter
+		this.packet_count ++;
+		
+	}
+	
+	/**
+	 * Returns number of packets transmitted during message 
+	 * sending.
+	 */
+	public int getPacketCount() {
+		
+		//Increment packets counter
+		return this.packet_count;
+		
+	}
+	
+	/**
 	 * Testing
 	 */
 	public static void main(String[] args) {
@@ -109,9 +135,14 @@ public class RandomAlgorithm implements Algorithm {
 		n.link("C", "D");
 		n.link("B", "D");
 		
-		RandomAlgorithm algo = new RandomAlgorithm(n, "A", "D");
-		algo.run();
+		RandomAlgorithm algo = new RandomAlgorithm(n);
+		
+		Message m = new Message("Message contents", "A", "D");
+		algo.run(m);
+		System.out.println("Packets sent during transmission: " + algo.getPacketCount());
 		
 	}
+	
+	
 
 }

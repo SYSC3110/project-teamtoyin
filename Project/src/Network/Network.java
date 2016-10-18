@@ -3,7 +3,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 
 /**
- * 
+ * @author Richard Hanton
  * The network holds all nodes and nodes neighbors
  *
  */
@@ -25,6 +25,9 @@ public class Network {
 	 */
 	public boolean add(String n) {
 		
+		//Validate n has a value
+		if (n == null || n == "") { return false; } 
+		
 		//If the node is present in the network return
 		if (nodes.containsKey(n)) {
 			return false;
@@ -42,6 +45,9 @@ public class Network {
 	 * Removes a node from the network, unlinking it from its neighbors
 	 */
 	public boolean remove(String n) {
+		
+		//Validate n has a value
+		if (n == null || n == "") { return false; } 
 		
 		//If the node isn't present in the network return		
 		if (!nodes.containsKey(n)) { return false; }
@@ -63,6 +69,9 @@ public class Network {
 	 */
 	public boolean contains(String n) {
 		
+		//Validate n has a value
+		if (n == null || n == "") { return false; } 
+		
 		//Node not present in hashmap
 		if (!nodes.containsKey(n)) { 
 			return false; 
@@ -75,6 +84,9 @@ public class Network {
 	 */
 	public HashSet<String> getNeighbors(String n) {
 		
+		//Validate n has a value
+		if (n == null || n == "") { return null; } 
+		
 		//If the node isn't present in the network return				
 		if (!nodes.containsKey(n)) { return null; }
 		
@@ -85,6 +97,12 @@ public class Network {
 	 * Links two nodes in the network together
 	 */
 	public boolean link(String n1, String n2) {
+		
+		//Verify n1 is in the network
+		if (!nodes.containsKey(n1)) { return false; } 
+		
+		//Verify n2 is in the network
+		if (!nodes.containsKey(n2)) { return false; } 
 		
 		//Add node 2 as neighbor to node 1 and vice-versa
 		if (nodes.get(n1).add(n2) && nodes.get(n2).add(n1)) {
@@ -98,6 +116,12 @@ public class Network {
 	 * Unlinks two nodes in the network from each other
 	 */
 	public boolean unlink(String n1, String n2) {
+		
+		//Verify n1 is in the network
+		if (!nodes.containsKey(n1)) { return false; } 
+		
+		//Verify n2 is in the network
+		if (!nodes.containsKey(n2)) { return false; } 
 		
 		//Remove node 2 as neighbor from node 1 and vice versa
 		if (nodes.get(n1).remove(n2) && nodes.get(n2).remove(n1)) {
