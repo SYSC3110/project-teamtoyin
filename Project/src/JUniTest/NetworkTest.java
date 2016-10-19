@@ -61,8 +61,6 @@ public class NetworkTest {
 		//Attempt to add a null to the network
 		assertFalse(network.add(null));
 		
-		//Attempt to add nodes with Symbols as names
-		assertFalse(network.add(";"));
 		
 	}
 
