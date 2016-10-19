@@ -80,7 +80,6 @@ public class Run {
 			{
 				break;
 			}
-			
 			while(!validateInputString(edgeInput))
 			{
 				edgeInput = reader.nextLine();
@@ -115,13 +114,23 @@ public class Run {
 		
 		//Prints the Algorithm menu for the user
 		printAlgorithmMenu();
-		choice = reader.nextInt();
-		while(choice != 1)
-		{
-			System.out.println("You have entered an invalid option.");
-			printAlgorithmMenu();
-			choice = reader.nextInt();
-		}
+		do {
+		    while (!reader.hasNextInt()) {
+		        System.out.println("That's not a number!");
+		        reader.next();
+		    }
+		    choice = reader.nextInt();
+		    if(choice <=0)
+		    {
+		    	System.out.println("That's not a positive number!");
+		    }
+		    else if(choice !=1)
+		    {
+		    	System.out.println("You have entered an invalid option.");
+		    	printAlgorithmMenu();
+		    }
+		} while (choice != 1);
+
 		
 		//Initialize the algorithm
 		flag = initializeAlgorithm(choice);
