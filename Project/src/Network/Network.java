@@ -26,13 +26,16 @@ public class Network {
 	public boolean add(String n) {
 		
 		//Validate n has a value
-		if (n == null || n == "") { return false; } 
+		if (n == null || n == "") { 
+			System.out.println("Enter a valid node");
+			return false; } 
 		
 		//Force node name to uppercase
 		n = n.toUpperCase();
 		
 		//If the node is present in the network return
 		if (nodes.containsKey(n)) {
+			System.out.println("Node name already exists");
 			return false;
 		}
 		
@@ -50,13 +53,18 @@ public class Network {
 	public boolean remove(String n) {
 		
 		//Validate n has a value
-		if (n == null || n == "") { return false; } 
+		if (n == null || n == "") { 
+			System.out.println("Node you entered is invalid");
+			return false; } 
 		
 		//Force node name to uppercase
 		n = n.toUpperCase();
 		
 		//If the node isn't present in the network return		
-		if (!nodes.containsKey(n)) { return false; }
+		if (!nodes.containsKey(n)) { 
+			System.out.println("Node does not exist");
+			return false; 
+		}
 		
 		//For each of the nodes neighbors
 		for (String neighbor : nodes.get(n)) {
@@ -86,7 +94,7 @@ public class Network {
 			return false; 
 		} else { 
 			return true;}
-		}	
+	}	
 	
 	/**
 	 * Returns the neighbors of a node
@@ -113,7 +121,7 @@ public class Network {
 		//Validate n1 has a value
 		if (n1 == null || n1 == "") { return false; } 
 		
-		//Validate n has a value
+		//Validate n2 has a value
 		if (n2 == null || n2 == "") { return false; } 
 		
 		//Force n1 name to uppercase
@@ -121,12 +129,11 @@ public class Network {
 		
 		//Force n2 name to uppercase
 		n2 = n2.toUpperCase();			
-		
-		//Verify n1 is in the network
-		if (!nodes.containsKey(n1)) { return false; } 
-		
-		//Verify n2 is in the network
-		if (!nodes.containsKey(n2)) { return false; } 
+
+		//verify n1 and n2 are in the network
+		if(!(nodes.containsKey(n1) && nodes.containsKey(n2))){
+			return false;
+		}
 		
 		//Add node 2 as neighbor to node 1 and vice-versa
 		if (nodes.get(n1).add(n2) && nodes.get(n2).add(n1)) {
@@ -153,11 +160,10 @@ public class Network {
 		//Force n2 name to uppercase
 		n2 = n2.toUpperCase();				
 		
-		//Verify n1 is in the network
-		if (!nodes.containsKey(n1)) { return false; } 
-		
-		//Verify n2 is in the network
-		if (!nodes.containsKey(n2)) { return false; } 
+		//verify n1 and n2 are in the network
+		if(!(nodes.containsKey(n1) && nodes.containsKey(n2))){
+			return false;
+		}
 		
 		//Remove node 2 as neighbor from node 1 and vice versa
 		if (nodes.get(n1).remove(n2) && nodes.get(n2).remove(n1)) {

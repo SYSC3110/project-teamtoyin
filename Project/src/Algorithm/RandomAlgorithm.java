@@ -86,7 +86,7 @@ public class RandomAlgorithm implements Algorithm {
 		
 		//Fetch the random neighbor and return it
 		int i = 0;
-		for(String rn : neighbors) {
+		for(String rn: neighbors) {
 		    if (i == random_neighbor)
 		        return rn;
 		    i = i + 1;
