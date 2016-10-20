@@ -52,6 +52,7 @@ public class MessageTest {
 	@Test
 	public void testgetContenets(){
 		assertEquals("Hey", message1.getContents());
+		assertNotEquals("HEYY", message1.getContents());
 		assertEquals(null, message3.getContents());
 		
 	}
