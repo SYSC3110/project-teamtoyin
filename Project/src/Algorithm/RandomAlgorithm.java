@@ -1,4 +1,5 @@
 package Algorithm;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Random;
 import Network.*;
@@ -143,7 +144,7 @@ public class RandomAlgorithm implements Algorithm {
 		System.out.println("Packets sent during transmission: " + algo.getPacketCount());
 		
 	}
-	
+
 	
 
 }
