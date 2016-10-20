@@ -29,7 +29,8 @@ public class Network {
 		//Validate n has a value
 		if (n == null || n == "") { 
 			System.out.println("Enter a valid node");
-			return false; } 
+			return false; 
+		} 
 		
 		//Force node name to uppercase
 		n = n.toUpperCase();
@@ -56,7 +57,8 @@ public class Network {
 		//Validate n has a value
 		if (n == null || n == "") { 
 			System.out.println("Node you entered is invalid");
-			return false; } 
+			return false; 
+		} 
 		
 		//Force node name to uppercase
 		n = n.toUpperCase();
@@ -95,7 +97,8 @@ public class Network {
 		if (!nodes.containsKey(n)) { 
 			return false; 
 		} else { 
-			return true;}
+			return true;
+		}
 	}	
 	
 	/**
