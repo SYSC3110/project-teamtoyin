@@ -59,7 +59,8 @@ public class RandomAlgorithm implements Algorithm {
 			
 			//A packet was transferred
 			this.countPacket();
-			
+			//to increment the hop count messages have gone through
+			m.countHop();
 		} while (!current_n.equals(end_n));
 		
 		//Done

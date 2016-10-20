@@ -4,6 +4,7 @@ import java.util.HashSet;
 
 /**
  * @author Richard Hanton
+ * Osama Buhamad: Modified some logic to simplify and readability
  * The network holds all nodes and nodes neighbors
  *
  */
@@ -73,7 +74,8 @@ public class Network {
 			this.unlink(n, neighbor);
 			
 		}
-		
+		//remove the node from the HashMap
+		nodes.remove(n);
 		//Successfully removed
 		return true;
 	}
