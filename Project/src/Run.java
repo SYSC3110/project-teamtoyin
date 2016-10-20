@@ -14,6 +14,7 @@ public class Run {
 	private static Network network;
 	private static Algorithm algorithm;
 	private static Message msg;
+	
 	public static void main(String[] args)
 	{
 		//Variable definition and initialization

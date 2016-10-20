@@ -50,6 +50,7 @@ public class NetworkTest {
 		//Add a new Node to the network, with different formats
 		assertTrue(network.add("A"));
 		assertTrue(network.add("0"));
+		assertTrue(network.add(","));
 		
 		//Add an Existing Node to the Network
 		assertFalse(network.add("A"));
@@ -60,6 +61,8 @@ public class NetworkTest {
 		
 		//Attempt to add a null to the network
 		assertFalse(network.add(null));
+		
+		
 		
 		
 	}
@@ -85,6 +88,9 @@ public class NetworkTest {
 		
 		//Attempt to remove empty string
 		assertFalse(network.remove(""));
+		
+		//Attempt to remove a space string
+		assertFalse(network.remove(" "));
 
 	}
 
@@ -102,10 +108,16 @@ public class NetworkTest {
 		
 		//Attempt to look for not existing node
 		assertFalse(network.contains("A"));
+		network.add("$");
+		
+		//Attempt to look for a symbol
+		assertTrue(network.contains("$"));
 		
 		network.add("A");
+		
 		//Attempt to look for existing node with matching case
 		assertTrue(network.contains("A"));
+		
 		//Attempt to look for existing node with mismatching case
 		assertTrue(network.contains("a"));
 	}
