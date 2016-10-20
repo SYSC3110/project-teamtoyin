@@ -10,7 +10,7 @@ import Network.Network;
 
 public class MessageTest {
 
-	private Message message1, message2;
+	private Message message1, message2,message3;
 	
 	/**
 	 * @throws java.lang.Exception
@@ -19,6 +19,7 @@ public class MessageTest {
 	public void setUp() throws Exception {
 		message1 = new Message("Hey", "A", "E");
 		message2 = null;
+		message3= new Message (null, null, null); 
 	}
 
 	/**
@@ -32,12 +33,32 @@ public class MessageTest {
 	public void testMessage(){
 		assertNotNull(message1);
 		assertNull(message2);
+		assertNotNull(message3);
 	}
 	
 	@Test
 	public void testgetSource(){
 		assertEquals("A", message1.getSource());
+		assertNotEquals("@", message1.getSource());
+		assertEquals(null, message3.getSource());
 	} 
+	
+	@Test
+	public void testgetDestination(){
+		assertEquals("E", message1.getDestination());
+		assertEquals(null, message3.getDestination());
+	}
+	
+	@Test
+	public void testgetContenets(){
+		assertEquals("Hey", message1.getContents());
+		assertEquals(null, message3.getContents());
+		
+	}
+	
+	
+	
+	
 	
 	
 
