@@ -16,3 +16,20 @@ remove(String n): takes in a string object that represents a node and for every 
 contains(String n): returns true if the input String object is in the HashMap as a key so it represents a unique node.
 getNeighbours(String n): takes in a string object which represents a node and returns the HashSet associated with that node which are the node’s neighbours. 
 
+Message.java
+This class encapsulates everything about a message. In the constructor, it takes the content of the message you are trying to pass on, also the source of the message and the desired destination. This class contains a method called countHop() and this method increments a counter for every time this message goes through a hop which is an intermediary node. 
+Algorithm.java 
+This class is the Algorithm interface and is following the strategy pattern since we are going to have different routing algorithms. The methods in this class are not implemented and will be implemented in the concrete algorithms that will implement this Algorithm.java class
+
+RandomAlgorithm.java
+This class is a concrete Algorithm class and it implements the methods defined in the interface Algorithm.java class. This constructor takes in a network object and the run method takes in a message object that is going to be transported from one node to the next.
+next(String n): this method takes in a string object that represents a node and determines the next node that a packet should traverse from the current node. It does this by:
+•	Checks if node actually exists in the HashMap
+•	Gets neighbours of the present node which are in the HashSet 
+•	For random algorithm, we get the size of the neighbours and then get a random number within the range of the size of the neighbours
+•	Now all we do is fetch the random neighbour and return it
+run(Message m): this method takes in a message object and gets the message source and destination. The next node is selected in this method by invoking the next() method. The current node is then updated to the next node. The packet transmitted gets incremented each time a packet is received at a node and also the number of hops a message goes through gets incremented. 
+  
+Run.java
+This class contains the main method to run the program. Takes in user inputs when prompted on the console with the aid of Scanner and also print statements to tell the user when to enter these inputs.
+
