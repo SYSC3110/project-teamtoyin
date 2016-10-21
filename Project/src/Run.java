@@ -30,6 +30,7 @@ public class Run {
 		int edgeNum = 0;
 		int counter = 0;
 		int nodeNum = 0;
+		int rateNum = 0;
 		int choice = 0;
 		network = new Network();
 		
@@ -132,13 +133,25 @@ public class Run {
 		    }
 		} while (choice != 1);
 
-		
+		//Prompt the user to enter number of times for rate 
+		System.out.println("Please enter the value for rate: ");
+		do {
+		    while (!reader.hasNextInt()) {
+		        System.out.println("That's not a number!");
+		        reader.next();
+		    }
+		    rateNum = reader.nextInt();
+		    if(rateNum <=0)
+		    {
+		    	System.out.println("That's not a positive number!");
+		    }
+		} while (rateNum <= 0);
 		//Initialize the algorithm
 		flag = initializeAlgorithm(choice);
 		
 		//Runs the algorithm on the network
 		if(flag){
-			algorithm.run(msg);
+			algorithm.run(msg, 5);
 			System.out.println("Number of Packets generated: "+algorithm.getPacketCount());
 			System.out.println("Number of hops taken: " + msg.getHopCount());
 		}

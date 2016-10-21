@@ -15,8 +15,9 @@ public interface Algorithm {
 	 * to its destination using the algorithms method for selecting 
 	 * the next node.
 	 * @param m
+	 * @param rate
 	 */
-	public void run(Message m);
+	public void run(Message m, int rate);
 	
 	/**
 	 * Returns the next node to travel to based on the current node.

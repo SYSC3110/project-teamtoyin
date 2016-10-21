@@ -16,7 +16,7 @@ public class FloodingAlgorithm implements Algorithm {
 		this.network = n;
 	}
 	
-	public void run(Message m) {
+	public void run(Message m, int run) {
 		// TODO Auto-generated method stub
 		//Get the messages start node
 		this.start_n = m.getSource();
@@ -80,7 +80,7 @@ public class FloodingAlgorithm implements Algorithm {
 		FloodingAlgorithm algo = new FloodingAlgorithm(n);
 		
 		Message m = new Message("Message contents", "A", "D");
-		algo.run(m);
+		algo.run(m, 5);
 		System.out.println("Packets sent during transmission: " + algo.getPacketCount());
 		
 	}

@@ -16,6 +16,7 @@ public class RandomAlgorithm implements Algorithm {
 	private String start_n;		//Start node in the network
 	private String end_n;		//End node in the network
 	private int packet_count; 	//Number of packets transmitted during message sending
+	private int rate;			//this is the rate at which new packets are created and transmitted
 	
 	/**
 	 * Constructor to assign network to the algorithm along with
@@ -35,7 +36,7 @@ public class RandomAlgorithm implements Algorithm {
 	 * Traverses the network of nodes beginning at the start node
 	 * and ending at the end node specified in the constructor.
 	 */
-	public void run(Message m) {
+	public void run(Message m, int rate) {
 		
 		//Get the messages start node
 		this.start_n = m.getSource();
@@ -140,7 +141,7 @@ public class RandomAlgorithm implements Algorithm {
 		RandomAlgorithm algo = new RandomAlgorithm(n);
 		
 		Message m = new Message("Message contents", "A", "D");
-		algo.run(m);
+		algo.run(m, 5);
 		System.out.println("Packets sent during transmission: " + algo.getPacketCount());
 		
 	}
