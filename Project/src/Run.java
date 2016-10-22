@@ -155,6 +155,9 @@ public class Run {
 			    {
 			    	System.out.println("That's not a positive number!");
 			    }
+			    if(rateNum <2){
+			    	rateNum = 2;
+			    }
 			} while (rateNum <= 0);
 		}
 		//Initialize the algorithm
@@ -162,7 +165,7 @@ public class Run {
 		
 		//Runs the algorithm on the network
 		if(flag){
-			algorithm.run(msg, 5);
+			algorithm.run(msg, rateNum);
 			System.out.println("Number of Packets generated: "+algorithm.getPacketCount());
 			System.out.println("Number of hops taken: " + msg.getHopCount());
 		}
