@@ -134,7 +134,7 @@ public class Run {
 		} while (choice != 1);
 
 		//Prompt the user to enter number of times for rate 
-		System.out.println("Please enter the value for rate: ");
+		System.out.println("Please enter the value for rate (Rate has to be greater than 3): ");
 		do {
 		    while (!reader.hasNextInt()) {
 		        System.out.println("That's not a number!");
@@ -145,13 +145,16 @@ public class Run {
 		    {
 		    	System.out.println("That's not a positive number!");
 		    }
-		} while (rateNum <= 0);
+		    if(rateNum <=2){
+		    	rateNum = 3;
+		    }
+		} while (rateNum < 0);
 		//Initialize the algorithm
 		flag = initializeAlgorithm(choice);
 		
 		//Runs the algorithm on the network
 		if(flag){
-			algorithm.run(msg, 5);
+			algorithm.run(msg, rateNum);
 			System.out.println("Number of Packets generated: "+algorithm.getPacketCount());
 			System.out.println("Number of hops taken: " + msg.getHopCount());
 		}

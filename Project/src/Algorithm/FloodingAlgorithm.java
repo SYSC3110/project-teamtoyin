@@ -16,7 +16,7 @@ public class FloodingAlgorithm implements Algorithm {
 		this.network = n;
 	}
 	
-	public void run(Message m, int run) {
+	public boolean run(Message m, int run) {
 		// TODO Auto-generated method stub
 		//Get the messages start node
 		this.start_n = m.getSource();
@@ -32,6 +32,7 @@ public class FloodingAlgorithm implements Algorithm {
 			}while
 		}*/
 		this.user(neighbors, currentNode, count, start_n);
+		return false;
 	}
 
 	public String next(String n) {
