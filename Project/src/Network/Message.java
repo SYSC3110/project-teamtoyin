@@ -5,8 +5,7 @@ package Network;
 
 /**
  * @author Lina El Sadek
- * @date 10/16/2016
- * 
+ *  
  * 
  */
 // Modified October 18th 2016 <Scott Hanton> - Changed to account for hops a message goes through
@@ -20,9 +19,9 @@ public class Message {
 	
 	/**
 	 * The constructor is meant to create a message to be sent to a node
-	 * @param msg
+	 * @param contents
 	 * @param destination
-	 * @param sourceOfMessage
+	 * @param source
 	 */
 	public Message (String contents, String source, String destination) {
 		

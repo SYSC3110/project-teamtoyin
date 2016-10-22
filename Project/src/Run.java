@@ -4,8 +4,7 @@ import Algorithm.*;
 import Network.*;
 
 /**
- * @author Lina El Sadek3
- * @date 10/18/2016
+ * @author Lina El Sadek
  * 
  * 
  */
@@ -136,13 +135,12 @@ public class Run {
 		System.out.println("Do you want to add a rate value enter yes or no?");
 		String rateFlag = reader.next();
 		
-		rateFlag = rateFlag.toUpperCase();
 
-		if(!(rateFlag.equals("YES") || rateFlag.equals("NO"))){
+		while(!(rateFlag.toUpperCase().equals("YES") || rateFlag.toUpperCase().equals("NO"))){
 			System.out.println("Please enter yes or no. Thanks");
-			reader.next();
+			rateFlag = reader.next();
 		}
-		if(rateFlag.equals("YES")){
+		if(rateFlag.toUpperCase().equals("YES")){
 			//Prompt the user to enter number of times for rate 
 			System.out.println("Please enter the value for rate: ");
 			do {
@@ -151,7 +149,7 @@ public class Run {
 			        reader.next();
 			    }
 			    rateNum = reader.nextInt();
-			    if(rateNum <=0)
+			    if(rateNum <0)
 			    {
 			    	System.out.println("That's not a positive number!");
 			    }

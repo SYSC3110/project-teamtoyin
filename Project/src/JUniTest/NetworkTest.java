@@ -10,29 +10,24 @@ import Network.Network;
 
 /**
  * @author Lina El Sadek
- * @date 10/16/2016
  *
  */
 public class NetworkTest {
 	private Network network;
 	
-	/**
-	 * @throws java.lang.Exception
-	 */
+
 	@Before
 	public void setUp() throws Exception {
 		network = new Network();
 	}
 
-	/**
-	 * @throws java.lang.Exception
-	 */
+
 	@After
 	public void tearDown() throws Exception {
 	}
 
 	/**
-	 * Test method for {@link Network.Network#Network()}.
+	 * Test method for Network()
 	 */
 	@Test
 	public void testNetwork() {
@@ -42,7 +37,7 @@ public class NetworkTest {
 	}
 
 	/**
-	 * Test method for {@link Network.Network#add(java.lang.String)}.
+	 * Test method for add()
 	 */
 	@Test
 	public void testAdd() {
@@ -68,7 +63,7 @@ public class NetworkTest {
 	}
 
 	/**
-	 * Test method for {@link Network.Network#remove(java.lang.String)}.
+	 * Test method for remove()
 	 */
 	@Test
 	public void testRemove() {
@@ -95,7 +90,7 @@ public class NetworkTest {
 	}
 
 	/**
-	 * Test method for {@link Network.Network#contains(java.lang.String)}.
+	 * Test method for Contains()
 	 */
 	@Test
 	public void testContains() {
@@ -123,7 +118,7 @@ public class NetworkTest {
 	}
 
 	/**
-	 * Test method for {@link Network.Network#getNeighbors(java.lang.String)}.
+	 * Test method for getNeighbors()
 	 */
 	@Test
 	public void testGetNeighbors() {
@@ -147,7 +142,7 @@ public class NetworkTest {
 	}
 
 	/**
-	 * Test method for {@link Network.Network#link(java.lang.String, java.lang.String)}.
+	 * Test method for Link()
 	 */
 	@Test
 	public void testLink() {
@@ -165,7 +160,7 @@ public class NetworkTest {
 	}
 
 	/**
-	 * Test method for {@link Network.Network#unlink(java.lang.String, java.lang.String)}.
+	 * Test method for unlink()
 	 */
 	@Test
 	public void testUnlink() {

@@ -11,10 +11,6 @@ import Network.Network;
 public class MessageTest {
 
 	private Message message1, message2,message3;
-	
-	/**
-	 * @throws java.lang.Exception
-	 */
 	@Before
 	public void setUp() throws Exception {
 		message1 = new Message("Hey", "A", "E");
@@ -22,15 +18,13 @@ public class MessageTest {
 		message3= new Message (null, null, null); 
 	}
 
-	/**
-	 * @throws java.lang.Exception
-	 */
+
 	@After
 	public void tearDown() throws Exception {
 	}
 	
 	/**
-	 * Test method for {@link Network.Message#Message(java.lang.String,java.lang.String,java.lang.String)}.
+	 * Test method for Message()
 	 */
 	@Test
 	public void testMessage(){
@@ -40,7 +34,7 @@ public class MessageTest {
 	}
 	
 	/**
-	 * Test method for {@link Network.Message#getSource()}.
+	 * Test method for getSource()
 	 */
 	@Test
 	public void testgetSource(){
@@ -50,7 +44,7 @@ public class MessageTest {
 	} 
 	
 	/**
-	 * Test method for {@link Network.Message#setSource(java.lang.String)}.
+	 * Test method for setSource()
 	 */
 	@Test 
 	public void testsetSource(){
@@ -59,7 +53,7 @@ public class MessageTest {
 	}
 	
 	/**
-	 * Test method for {@link Network.Message#getDestination()}.
+	 * Test method for getDestination()
 	 */
 	@Test
 	public void testgetDestination(){
@@ -68,7 +62,7 @@ public class MessageTest {
 	}
 	
 	/**
-	 * Test method for {@link Network.Message#getContents()}.
+	 * Test method for getContents()
 	 */
 	@Test
 	public void testgetContents(){
