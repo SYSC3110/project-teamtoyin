@@ -4,7 +4,7 @@ import Algorithm.*;
 import Network.*;
 
 /**
- * @author Lina El Sadek
+ * @author Lina El Sadek3
  * @date 10/18/2016
  * 
  * 
@@ -132,20 +132,31 @@ public class Run {
 		    	printAlgorithmMenu();
 		    }
 		} while (choice != 1);
+		//Promt the user if he wants to add rate or not
+		System.out.println("Do you want to add a rate value enter yes or no?");
+		String rateFlag = reader.next();
+		
+		rateFlag = rateFlag.toUpperCase();
 
-		//Prompt the user to enter number of times for rate 
-		System.out.println("Please enter the value for rate: ");
-		do {
-		    while (!reader.hasNextInt()) {
-		        System.out.println("That's not a number!");
-		        reader.next();
-		    }
-		    rateNum = reader.nextInt();
-		    if(rateNum <=0)
-		    {
-		    	System.out.println("That's not a positive number!");
-		    }
-		} while (rateNum <= 0);
+		if(!(rateFlag.equals("YES") || rateFlag.equals("NO"))){
+			System.out.println("Please enter yes or no. Thanks");
+			reader.next();
+		}
+		if(rateFlag.equals("YES")){
+			//Prompt the user to enter number of times for rate 
+			System.out.println("Please enter the value for rate: ");
+			do {
+			    while (!reader.hasNextInt()) {
+			        System.out.println("That's not a number!");
+			        reader.next();
+			    }
+			    rateNum = reader.nextInt();
+			    if(rateNum <=0)
+			    {
+			    	System.out.println("That's not a positive number!");
+			    }
+			} while (rateNum <= 0);
+		}
 		//Initialize the algorithm
 		flag = initializeAlgorithm(choice);
 		
