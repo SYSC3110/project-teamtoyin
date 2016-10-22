@@ -36,8 +36,9 @@ public class RandomAlgorithm implements Algorithm {
 	 * Traverses the network of nodes beginning at the start node
 	 * and ending at the end node specified in the constructor.
 	 */
-	public void run(Message m, int rate) {
-		
+	
+	public boolean run(Message m, int rate) {
+		boolean check=false;
 		//Get the messages start node
 		this.start_n = m.getSource();
 		
@@ -46,6 +47,7 @@ public class RandomAlgorithm implements Algorithm {
 		
 		//Set the current node as our start node
 		String current_n = this.start_n;
+
 		
 		//Loop until we reach the end node
 		do {
@@ -63,10 +65,29 @@ public class RandomAlgorithm implements Algorithm {
 			this.countPacket();
 			//to increment the hop count messages have gone through
 			m.countHop();
+			
+
+			if(new_n.equals(m.getDestination())){
+				System.out.println("Packet Delivered");
+				return true;
+			}
+			
+		if(rate !=0){
+			if(m.getHopCount()%rate ==0 && !m.getDestination().equals(current_n)){
+				//creating a new message recursively 
+				System.out.println("retransmitting..");
+				check = this.run(m, rate);
+				}
+		}
+		
+		if (check)
+			
+			return true;
+			
 		} while (!current_n.equals(end_n));
 		
 		//Done
-		
+		return true;
 	}
 	
 	/**
@@ -141,7 +162,7 @@ public class RandomAlgorithm implements Algorithm {
 		RandomAlgorithm algo = new RandomAlgorithm(n);
 		
 		Message m = new Message("Message contents", "A", "D");
-		algo.run(m, 5);
+		algo.run(m, 3);
 		System.out.println("Packets sent during transmission: " + algo.getPacketCount());
 		
 	}

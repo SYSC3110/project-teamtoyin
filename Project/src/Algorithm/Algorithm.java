@@ -17,7 +17,7 @@ public interface Algorithm {
 	 * @param m
 	 * @param rate
 	 */
-	public void run(Message m, int rate);
+	public boolean run(Message m, int rate);
 	
 	/**
 	 * Returns the next node to travel to based on the current node.
