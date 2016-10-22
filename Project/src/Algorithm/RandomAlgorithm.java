@@ -63,6 +63,11 @@ public class RandomAlgorithm implements Algorithm {
 			this.countPacket();
 			//to increment the hop count messages have gone through
 			m.countHop();
+			
+			if(m.getHopCount()%rate ==0 && !m.getDestination().equals(current_n)){
+				System.out.println("I'm here!!! the hop count is: "+m.getHopCount());
+				this.run(m, rate);
+				}
 		} while (!current_n.equals(end_n));
 		
 		//Done
@@ -141,7 +146,7 @@ public class RandomAlgorithm implements Algorithm {
 		RandomAlgorithm algo = new RandomAlgorithm(n);
 		
 		Message m = new Message("Message contents", "A", "D");
-		algo.run(m, 5);
+		algo.run(m, 3);
 		System.out.println("Packets sent during transmission: " + algo.getPacketCount());
 		
 	}
