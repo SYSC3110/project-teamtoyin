@@ -2,6 +2,8 @@ package UserInterface;
 
 
 import java.awt.BorderLayout;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import javax.swing.*;
 
@@ -34,11 +36,19 @@ public class UserInterface extends JFrame {
 	private JLabel lblRate;
 	private JPanel PnlRate;
 	
-	private JPanel PnlNode;
+	private JPanel PnlNodeNum;
 	private JLabel lblNode;
 	
 	private JTextField nodeNum;
 	private JTextField rateNum;
+	
+	/*private JPanel pnlNode;
+	private JLabel lblNodeName;
+	
+	private JPanel pnlEdge;
+	private JLabel lblNodeEdge;
+	
+	private int NumberOfNodes = 3;*/
 
 	public UserInterface()
 	{
@@ -49,7 +59,8 @@ public class UserInterface extends JFrame {
 		ChooseAlgorithm();
 		createRate();
 		createJMenu();
-		
+		//createNodeNameFields();
+		//createNodeEdgeFields();
 		setSize(500,500);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setVisible(true);
@@ -108,8 +119,8 @@ public class UserInterface extends JFrame {
 	
 	private void createNodeNum()
 	{
-		PnlNode = new JPanel();
-		PnlNode.setLayout(new GridLayout(2, 1));
+		PnlNodeNum = new JPanel();
+		PnlNodeNum.setLayout(new GridLayout(2, 1));
 		
 		lblNode = new JLabel("Number of Nodes");
 		
@@ -118,9 +129,9 @@ public class UserInterface extends JFrame {
 		nodeNum.setText("Number of Nodes");
 
 		
-		PnlNode.add(lblNode);
-		PnlNode.add(nodeNum);
-		top.add(PnlNode);
+		PnlNodeNum.add(lblNode);
+		PnlNodeNum.add(nodeNum);
+		top.add(PnlNodeNum);
 	}
 	
 	private void ChooseAlgorithm()
@@ -162,6 +173,51 @@ public class UserInterface extends JFrame {
 		top.add(PnlRate);
 	}
 	
+	/*private void createNodeNameFields()
+	{
+		JPanel nodeTextFields = new JPanel();
+		nodeTextFields.setLayout(new GridLayout(NumberOfNodes, 1));
+		pnlNode = new JPanel();
+		pnlNode.setLayout(new GridLayout(2, 1));
+		
+			
+		lblNodeName = new JLabel("Enter Node Names");
+		
+		pnlNode.add(lblNodeName);
+		
+		for(int i=0; i<NumberOfNodes; i++)
+		{
+			nodeTextFields.add(new JTextField());
+		}
+		
+		pnlNode.add(nodeTextFields);
+		middle.add(pnlNode);
+		
+	}
+	
+	private void createNodeEdgeFields()
+	{
+		JPanel nodeEdgeFields = new JPanel();
+		nodeEdgeFields.setLayout(new GridLayout(NumberOfNodes*NumberOfNodes, 3));
+		pnlEdge = new JPanel();
+		pnlEdge.setLayout(new GridLayout(2, 1));
+		
+			
+		lblNodeEdge = new JLabel("Enter Edge Between Nodes");
+		
+		pnlEdge.add(lblNodeEdge);
+		
+		for(int i=0; i<(NumberOfNodes*NumberOfNodes); i++)
+		{
+			nodeEdgeFields.add(new JTextField());
+			nodeEdgeFields.add(new JLabel(","));
+			nodeEdgeFields.add(new JTextField());
+		}
+		
+		pnlEdge.add(nodeEdgeFields);
+		middle.add(pnlEdge);
+		
+	}*/
 	public static void main(String[] args)
 	{
 		UserInterface UI = new UserInterface();
