@@ -3,7 +3,11 @@ package UserInterface;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.JRadioButton;
 import javax.swing.JTextField;
+
+import Algorithm.*;
+import Network.Network;
 
 /**
  * 
@@ -13,6 +17,15 @@ import javax.swing.JTextField;
  */
 public class UserInterfaceController implements ActionListener{
 
+	private Algorithm algorithm;
+	private Network network;
+	private UserInterface UI;
+	
+	public UserInterfaceController(){
+		network = new Network();
+		UI = new UserInterface(this);
+		network.addObserver(UI);
+	}
 	public void actionPerformed(ActionEvent e) {
 		String command = "";
 		
@@ -25,6 +38,7 @@ public class UserInterfaceController implements ActionListener{
 				try{
 					int numOfNodesInt = Integer.parseInt(numOfNodesString);
 					System.out.println(numOfNodesInt);
+					network.notifyNodeNumIsAvailable(numOfNodesInt);
 					if(numOfNodesInt<=0)
 					{
 						((JTextField)e.getSource()).setText("Must be positive integer");
@@ -46,6 +60,18 @@ public class UserInterfaceController implements ActionListener{
 				}catch(NumberFormatException err){
 					((JTextField)e.getSource()).setText("Must be positive integer or zero");
 				}
+			}
+		}
+		else if (e.getSource() instanceof JRadioButton)
+		{
+			command = e.getActionCommand();
+			if(command.equals("RandomAlgorithm"))
+			{
+				algorithm = new RandomAlgorithm(network);
+			}
+			else if(command.equals("FloodingAlgorithm"))
+			{
+				algorithm = new FloodingAlgorithm(network);
 			}
 		}
 		

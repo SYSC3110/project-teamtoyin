@@ -5,7 +5,12 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
+import java.util.Observable;
+import java.util.Observer;
+
 import javax.swing.*;
+
+import Network.Network;
 
 /**
  * 
@@ -13,7 +18,7 @@ import javax.swing.*;
  * @date 10/23/2016
  *
  */
-public class UserInterface extends JFrame{
+public class UserInterface extends JFrame implements Observer{
 	
 	private JMenuBar menuBar;
 	private JMenu menu;
@@ -42,13 +47,13 @@ public class UserInterface extends JFrame{
 	private JTextField nodeNum;
 	private JTextField rateNum;
 	
-	/*private JPanel pnlNode;
+	private JPanel pnlNode;
 	private JLabel lblNodeName;
 	
 	private JPanel pnlEdge;
 	private JLabel lblNodeEdge;
 	
-	private int NumberOfNodes = 3;*/
+	private int NumberOfNodes;
 	
 	private UserInterfaceController UIC;
 
@@ -186,16 +191,15 @@ public class UserInterface extends JFrame{
 		top.add(PnlRate);
 	}
 	
-	/*private void createNodeNameFields()
+	private void createNodeNameFields()
 	{
 		JPanel nodeTextFields = new JPanel();
 		nodeTextFields.setLayout(new GridLayout(NumberOfNodes, 1));
 		pnlNode = new JPanel();
 		pnlNode.setLayout(new GridLayout(2, 1));
 		
-			
 		lblNodeName = new JLabel("Enter Node Names");
-		
+
 		pnlNode.add(lblNodeName);
 		
 		for(int i=0; i<NumberOfNodes; i++)
@@ -203,8 +207,10 @@ public class UserInterface extends JFrame{
 			nodeTextFields.add(new JTextField());
 		}
 		
+		middle.removeAll();
 		pnlNode.add(nodeTextFields);
 		middle.add(pnlNode);
+		middle.revalidate();
 		
 	}
 	
@@ -229,12 +235,44 @@ public class UserInterface extends JFrame{
 		
 		pnlEdge.add(nodeEdgeFields);
 		middle.add(pnlEdge);
+		middle.revalidate();
 		
-	}*/
+	}
 	public static void main(String[] args)
 	{
 		UserInterfaceController controller = new UserInterfaceController();
-		UserInterface UI = new UserInterface(controller);
+		//UserInterface UI = new UserInterface(controller);
+		//Network n = new Network();
+		//n.addObserver(UI);
+	}
+
+	public void update(Observable o, Object arg) {
+		String command = "";
+		if(arg instanceof String)
+		{
+			command = (String)arg;
+			if(command.contains("NodeNumAvailable"))
+			{
+				String[] getNodeNum = new String[2];
+				getNodeNum = command.split(":");
+				try
+				{
+					NumberOfNodes = Integer.parseInt(getNodeNum[1]);
+					createNodeNameFields();
+					createNodeEdgeFields();
+				}
+				catch(NumberFormatException err)
+				{
+					System.out.println("Oops, cannot convert to integer");
+				}
+				catch(NullPointerException err)
+				{
+					System.out.println("Number of Nodes was not provided");
+				}	
+			}
+			
+		}
+		
 	}
 
 }

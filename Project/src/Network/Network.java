@@ -1,17 +1,18 @@
 package Network;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Observable;
 
 /**
  * @author Richard Hanton
  * Osama Buhamad: Modified some logic to simplify and readability
  * The network holds all nodes and nodes neighbors
- *
+ *	Modified By: Lina El Sadek on 10/25/2016
  */
-public class Network {
+public class Network extends Observable{
 	
 	private HashMap<String, HashSet<String>> nodes;	//Stores all of the network nodes with their neighbors
-
+	private String command;
 	/**
 	 * Constructor to initialize our network of nodes
 	 */
@@ -19,6 +20,7 @@ public class Network {
 		
 		//Initialize new hashmap for nodes and neighbors
 		nodes = new HashMap<String, HashSet<String>>();
+		command = "";
 	}
 
 	/**
@@ -176,6 +178,13 @@ public class Network {
 		} else {
 			return false;
 		}
+	}
+	
+	public void notifyNodeNumIsAvailable(int nodeNum)
+	{
+		command = "NodeNumAvailable:"+nodeNum;
+		setChanged();
+		notifyObservers(command);
 	}
 	
 }
