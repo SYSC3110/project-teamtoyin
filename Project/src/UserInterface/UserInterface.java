@@ -150,7 +150,12 @@ public class UserInterface extends JFrame{
 		
 		algorithmGroup = new ButtonGroup();
 		randomAlgo = new JRadioButton("Random Algorithm");
+		randomAlgo.setActionCommand("RandomAlgorithm");
+		randomAlgo.addActionListener(UIC);
+		
 		floodingAlgo = new JRadioButton("Flooding Algorithm");
+		floodingAlgo.setActionCommand("FloodingAlgorithm");
+		floodingAlgo.addActionListener(UIC);
 		
 		algorithmGroup.add(randomAlgo);
 		algorithmGroup.add(floodingAlgo);
