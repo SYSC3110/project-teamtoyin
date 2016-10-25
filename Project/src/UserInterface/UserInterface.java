@@ -172,6 +172,8 @@ public class UserInterface extends JFrame{
 		
 		rateNum = new JTextField();
 		rateNum.setEditable(true);
+		rateNum.setActionCommand("GetRateNumber");
+		rateNum.addActionListener(UIC);
 		
 		PnlRate.add(lblRate);
 		PnlRate.add(rateNum);

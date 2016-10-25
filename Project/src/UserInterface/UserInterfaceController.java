@@ -33,6 +33,20 @@ public class UserInterfaceController implements ActionListener{
 					((JTextField)e.getSource()).setText("Must be positive integer");
 				}
 			}
+			else if(command.equals("GetRateNumber"))
+			{
+				String rateNumString = ((JTextField)e.getSource()).getText();
+				try{
+					int rateNumInt = Integer.parseInt(rateNumString);
+					System.out.println(rateNumInt);
+					if(rateNumInt<0)
+					{
+						((JTextField)e.getSource()).setText("Must be positive integer or zero");
+					}
+				}catch(NumberFormatException err){
+					((JTextField)e.getSource()).setText("Must be positive integer or zero");
+				}
+			}
 		}
 		
 	}
