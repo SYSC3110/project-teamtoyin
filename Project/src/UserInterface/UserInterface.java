@@ -13,7 +13,7 @@ import javax.swing.*;
  * @date 10/23/2016
  *
  */
-public class UserInterface extends JFrame {
+public class UserInterface extends JFrame{
 	
 	private JMenuBar menuBar;
 	private JMenu menu;
@@ -49,10 +49,13 @@ public class UserInterface extends JFrame {
 	private JLabel lblNodeEdge;
 	
 	private int NumberOfNodes = 3;*/
+	
+	private UserInterfaceController UIC;
 
-	public UserInterface()
+	public UserInterface(UserInterfaceController UIC)
 	{
 		super("Team Toyin's Build-A-Network");
+		this.UIC = UIC;
 		setLayout(new GridLayout(3, 1));
 		CreatePanels();
 		createNodeNum();
@@ -81,6 +84,7 @@ public class UserInterface extends JFrame {
 		add(middle);
 		add(bottom);
 	}
+	
 	private void createJMenu()
 	{
 
@@ -127,6 +131,8 @@ public class UserInterface extends JFrame {
 		nodeNum = new JTextField();
 		nodeNum.setEditable(true);
 		nodeNum.setText("Number of Nodes");
+		nodeNum.setActionCommand("GetNumberOfNodes");
+		nodeNum.addActionListener(UIC);
 
 		
 		PnlNodeNum.add(lblNode);
@@ -220,7 +226,8 @@ public class UserInterface extends JFrame {
 	}*/
 	public static void main(String[] args)
 	{
-		UserInterface UI = new UserInterface();
+		UserInterfaceController controller = new UserInterfaceController();
+		UserInterface UI = new UserInterface(controller);
 	}
 
 }
