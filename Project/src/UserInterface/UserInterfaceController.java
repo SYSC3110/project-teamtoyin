@@ -61,6 +61,21 @@ public class UserInterfaceController implements ActionListener{
 					((JTextField)e.getSource()).setText("Must be positive integer or zero");
 				}
 			}
+			else if(command.equals("NodeNameInserted"))
+			{
+				String nodeName = ((JTextField)e.getSource()).getText();
+				network.add(nodeName);
+			}
+			else if(command.equals("FirstEdgeInserted"))
+			{
+				String nodeName = ((JTextField)e.getSource()).getText();
+				network.contains(nodeName);
+			}
+			else if(command.contentEquals("SecondEdgeInserted"))
+			{
+				String nodeName = ((JTextField)e.getSource()).getText();
+				network.contains(nodeName);
+			}
 		}
 		else if (e.getSource() instanceof JRadioButton)
 		{

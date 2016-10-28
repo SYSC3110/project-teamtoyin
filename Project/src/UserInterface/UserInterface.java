@@ -51,6 +51,8 @@ public class UserInterface extends JFrame implements Observer{
 	private int NumberOfNodes;
 	
 	private UserInterfaceController UIC;
+	
+	private JOptionPane errorDialog;
 
 	public UserInterface(UserInterfaceController UIC)
 	{
@@ -187,6 +189,7 @@ public class UserInterface extends JFrame implements Observer{
 	private void createNodeNameFields()
 	{
 		JPanel nodeTextFields = new JPanel();
+		JTextField nodeNameTextField;
 		nodeTextFields.setLayout(new GridLayout(NumberOfNodes, 1));
 		pnlNode = new JPanel();
 		pnlNode.setLayout(new GridLayout(2, 1));
@@ -197,7 +200,10 @@ public class UserInterface extends JFrame implements Observer{
 		
 		for(int i=0; i<NumberOfNodes; i++)
 		{
-			nodeTextFields.add(new JTextField());
+			nodeNameTextField = new JTextField();
+			nodeNameTextField.setActionCommand("NodeNameInserted");
+			nodeNameTextField.addActionListener(UIC);
+			nodeTextFields.add(nodeNameTextField);
 		}
 		
 		middle.removeAll();
@@ -210,6 +216,7 @@ public class UserInterface extends JFrame implements Observer{
 	private void createNodeEdgeFields()
 	{
 		JPanel nodeEdgeFields = new JPanel();
+		JTextField edgeTextField;
 		nodeEdgeFields.setLayout(new GridLayout(NumberOfNodes, 2, 2, 4));
 		pnlEdge = new JPanel();
 		pnlEdge.setLayout(new GridLayout(2, 1));
@@ -221,22 +228,36 @@ public class UserInterface extends JFrame implements Observer{
 		
 		for(int i=0; i<NumberOfNodes; i++)
 		{
-			nodeEdgeFields.add(new JTextField());
-			nodeEdgeFields.add(new JTextField());
+			edgeTextField = new JTextField();
+			edgeTextField.setActionCommand("FirstEdgeInserted");
+			edgeTextField.addActionListener(UIC);
+			nodeEdgeFields.add(edgeTextField);
+			edgeTextField = new JTextField();
+			edgeTextField.setActionCommand("SecondEdgeInserted");
+			edgeTextField.addActionListener(UIC);
+			nodeEdgeFields.add(edgeTextField);
 		}
 		
 		pnlEdge.add(nodeEdgeFields);
 		middle.add(pnlEdge);
-		middle.revalidate();
-		
+		middle.revalidate();		
 	}
 	
-	
-	public static void main(String[] args)
+	private void createJOptionPane(String header, String errorMsg, String dialogType)
 	{
-		UserInterfaceController controller = new UserInterfaceController();
+		errorDialog = new JOptionPane();
+		if(dialogType.equals("Warning"))
+		{
+			JOptionPane.showMessageDialog(this,errorMsg,
+			    header, JOptionPane.WARNING_MESSAGE);
+		}
+		else if(dialogType.equals("Error"))
+		{
+			JOptionPane.showMessageDialog(this,errorMsg,
+				    header, JOptionPane.ERROR_MESSAGE);
+		}
 	}
-
+	
 	public void update(Observable o, Object arg) {
 		String command = "";
 		if(arg instanceof String)
@@ -261,9 +282,29 @@ public class UserInterface extends JFrame implements Observer{
 					System.out.println("Number of Nodes was not provided");
 				}	
 			}
+			else if(command.equals("InvalidNodeName"))
+			{
+				createJOptionPane("Error", "You have entered an invalid name to the node.", "Error");
+			}
+			else if(command.equals("NodeExists"))
+			{
+				createJOptionPane("Warning!", "The node name you entered already exists.", "Warning");
+			}
+			else if(command.equals("NodeEmpty"))
+			{
+				createJOptionPane("Warning!", "You have left one of the edges empty.", "Warning");
+			}
+			else if(command.equals("NodeDoesNotExist"))
+			{
+				createJOptionPane("Error", "The node you entered does not exist.", "Error");
+			}
 			
 		}
 		
 	}
-
+	
+	public static void main(String[] args)
+	{
+		UserInterfaceController controller = new UserInterfaceController();
+	}
 }

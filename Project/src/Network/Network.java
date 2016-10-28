@@ -29,8 +29,9 @@ public class Network extends Observable{
 	public boolean add(String n) {
 		
 		//Validate n has a value
-		if (n == null || n == "") { 
+		if (n == null || n.equals("")) { 
 			System.out.println("Enter a valid node");
+			setCommandAndNotify("InvalidNodeName");
 			return false; 
 		} 
 		
@@ -40,6 +41,7 @@ public class Network extends Observable{
 		//If the node is present in the network return
 		if (nodes.containsKey(n)) {
 			System.out.println("Node name already exists");
+			setCommandAndNotify("NodeExists");
 			return false;
 		}
 		
@@ -57,7 +59,7 @@ public class Network extends Observable{
 	public boolean remove(String n) {
 		
 		//Validate n has a value
-		if (n == null || n == "") { 
+		if (n == null || n.equals("")) { 
 			System.out.println("Node you entered is invalid");
 			return false; 
 		} 
@@ -90,13 +92,17 @@ public class Network extends Observable{
 	public boolean contains(String n) {
 		
 		//Validate n has a value
-		if (n == null || n == "") { return false; } 
+		if (n == null || n.equals("")) { 
+			setCommandAndNotify("NodeEmpty");
+			return false; 
+		} 
 		
 		//Force node name to uppercase
 		n = n.toUpperCase();
 		
 		//Node not present in hashmap
-		if (!nodes.containsKey(n)) { 
+		if (!nodes.containsKey(n)) {
+			setCommandAndNotify("NodeDoesNotExist");
 			return false; 
 		} else { 
 			return true;
@@ -109,7 +115,7 @@ public class Network extends Observable{
 	public HashSet<String> getNeighbors(String n) {
 		
 		//Validate n has a value
-		if (n == null || n == "") { return null; } 
+		if (n == null || n.equals("")) { return null; } 
 		
 		//Force node name to uppercase
 		n = n.toUpperCase();
@@ -126,10 +132,10 @@ public class Network extends Observable{
 	public boolean link(String n1, String n2) {
 		
 		//Validate n1 has a value
-		if (n1 == null || n1 == "") { return false; } 
+		if (n1 == null || n1.equals("")) { return false; } 
 		
 		//Validate n2 has a value
-		if (n2 == null || n2 == "") { return false; } 
+		if (n2 == null || n2.equals("")) { return false; } 
 		
 		//Force n1 name to uppercase
 		n1 = n1.toUpperCase();
@@ -156,10 +162,10 @@ public class Network extends Observable{
 	public boolean unlink(String n1, String n2) {
 		
 		//Validate n1 has a value
-		if (n1 == null || n1 == "") { return false; } 
+		if (n1 == null || n1.equals("")) { return false; } 
 		
 		//Validate n has a value
-		if (n2 == null || n2 == "") { return false; } 
+		if (n2 == null || n2.equals("")) { return false; } 
 		
 		//Force n1 name to uppercase
 		n1 = n1.toUpperCase();
@@ -185,6 +191,13 @@ public class Network extends Observable{
 		command = "NodeNumAvailable:"+nodeNum;
 		setChanged();
 		notifyObservers(command);
+	}
+	
+	private void setCommandAndNotify(String command)
+	{
+		this.command = command;
+		setChanged();
+		notifyObservers(this.command);
 	}
 	
 }
