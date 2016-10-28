@@ -91,4 +91,9 @@ public class UserInterfaceController implements ActionListener{
 		}
 		
 	}
+	
+	public void connectEdges(String n1, String n2)
+	{
+		network.link(n1, n2);
+	}
 }

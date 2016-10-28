@@ -104,7 +104,8 @@ public class Network extends Observable{
 		if (!nodes.containsKey(n)) {
 			setCommandAndNotify("NodeDoesNotExist");
 			return false; 
-		} else { 
+		} else {
+			setCommandAndNotify("SetEditableNextNode");
 			return true;
 		}
 	}	

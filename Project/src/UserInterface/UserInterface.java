@@ -2,6 +2,7 @@ package UserInterface;
 
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
+import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
 import javax.swing.*;
@@ -53,6 +54,7 @@ public class UserInterface extends JFrame implements Observer{
 	private UserInterfaceController UIC;
 	
 	private JOptionPane errorDialog;
+	private ArrayList<JTextField> allEdgetextFields;
 
 	public UserInterface(UserInterfaceController UIC)
 	{
@@ -216,10 +218,11 @@ public class UserInterface extends JFrame implements Observer{
 	private void createNodeEdgeFields()
 	{
 		JPanel nodeEdgeFields = new JPanel();
-		JTextField edgeTextField;
+		JTextField edgeTextField ;
 		nodeEdgeFields.setLayout(new GridLayout(NumberOfNodes, 2, 2, 4));
 		pnlEdge = new JPanel();
 		pnlEdge.setLayout(new GridLayout(2, 1));
+		allEdgetextFields = new ArrayList<JTextField>();
 		
 			
 		lblNodeEdge = new JLabel("Enter Edge Between Nodes");
@@ -228,14 +231,26 @@ public class UserInterface extends JFrame implements Observer{
 		
 		for(int i=0; i<NumberOfNodes; i++)
 		{
+			
 			edgeTextField = new JTextField();
 			edgeTextField.setActionCommand("FirstEdgeInserted");
 			edgeTextField.addActionListener(UIC);
+			if(i == 0)
+				edgeTextField.setEditable(true);
+			else
+				edgeTextField.setEditable(false);
+			
 			nodeEdgeFields.add(edgeTextField);
+			allEdgetextFields.add(edgeTextField);
+			
 			edgeTextField = new JTextField();
 			edgeTextField.setActionCommand("SecondEdgeInserted");
 			edgeTextField.addActionListener(UIC);
+			edgeTextField.setEditable(false);
+			allEdgetextFields.add(edgeTextField);
 			nodeEdgeFields.add(edgeTextField);
+			
+			
 		}
 		
 		pnlEdge.add(nodeEdgeFields);
@@ -298,7 +313,25 @@ public class UserInterface extends JFrame implements Observer{
 			{
 				createJOptionPane("Error", "The node you entered does not exist.", "Error");
 			}
-			
+			else if(command.equals("SetEditableNextNode"))
+			{
+				
+				for(int i=0; i<allEdgetextFields.size(); i++)
+				{
+					if(i%2==0 && i>=2)//if it's an odd and greater than 2, get the last two nodes
+					{
+						if(allEdgetextFields.get(i-2).isEditable() && allEdgetextFields.get(i-1).isEditable())
+							UIC.connectEdges(allEdgetextFields.get(i-2).getText(), allEdgetextFields.get(i-1).getText());
+					}
+					
+					if(!allEdgetextFields.get(i).isEditable())
+					{
+						allEdgetextFields.get(i).setEditable(true);
+						
+						break;
+					}
+				}
+			}		
 		}
 		
 	}
