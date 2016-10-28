@@ -1,16 +1,11 @@
 package UserInterface;
 
-
 import java.awt.BorderLayout;
-import java.awt.Dimension;
-import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.util.Observable;
 import java.util.Observer;
-
 import javax.swing.*;
 
-import Network.Network;
 
 /**
  * 
@@ -67,8 +62,6 @@ public class UserInterface extends JFrame implements Observer{
 		ChooseAlgorithm();
 		createRate();
 		createJMenu();
-		//createNodeNameFields();
-		//createNodeEdgeFields();
 		setSize(500,500);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setVisible(true);
@@ -217,7 +210,7 @@ public class UserInterface extends JFrame implements Observer{
 	private void createNodeEdgeFields()
 	{
 		JPanel nodeEdgeFields = new JPanel();
-		nodeEdgeFields.setLayout(new GridLayout(NumberOfNodes*NumberOfNodes, 3));
+		nodeEdgeFields.setLayout(new GridLayout(NumberOfNodes, 2, 2, 4));
 		pnlEdge = new JPanel();
 		pnlEdge.setLayout(new GridLayout(2, 1));
 		
@@ -226,10 +219,9 @@ public class UserInterface extends JFrame implements Observer{
 		
 		pnlEdge.add(lblNodeEdge);
 		
-		for(int i=0; i<(NumberOfNodes*NumberOfNodes); i++)
+		for(int i=0; i<NumberOfNodes; i++)
 		{
 			nodeEdgeFields.add(new JTextField());
-			nodeEdgeFields.add(new JLabel(","));
 			nodeEdgeFields.add(new JTextField());
 		}
 		
@@ -238,12 +230,11 @@ public class UserInterface extends JFrame implements Observer{
 		middle.revalidate();
 		
 	}
+	
+	
 	public static void main(String[] args)
 	{
 		UserInterfaceController controller = new UserInterfaceController();
-		//UserInterface UI = new UserInterface(controller);
-		//Network n = new Network();
-		//n.addObserver(UI);
 	}
 
 	public void update(Observable o, Object arg) {
