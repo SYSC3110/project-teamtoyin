@@ -1,5 +1,6 @@
 package Algorithm;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 /*
  * Author Toyin Odujebe
@@ -12,8 +13,13 @@ public class FloodingAlgorithm implements Algorithm {
 	private Network network;	//Network of nodes the algorithm is running on
 	private String start_n;		//represents the start node of the message
 	private String end_n;		//End node in the network
+	private String curr_Node;
 	private int neighboursSize;	//represents the number of neighbours a node has
-
+	private ArrayList<String> nextNodes;	//an array list of all the next ndoes from a current node
+	int count, count2, packetCounter;
+	private HashSet<String> neighbors;
+	private HashSet<String> neighbors1;
+	
 	public FloodingAlgorithm(Network n){
 		this.network = n;
 	}
@@ -24,17 +30,32 @@ public class FloodingAlgorithm implements Algorithm {
 		this.start_n = m.getSource();
 		this.end_n = m.getDestination();
 		String currentNode = start_n;
-		int count = 0;
+		count = 0;
 		//Get the nodes neighbors
-		HashSet<String> neighbors;
+		//HashSet<String> neighbors;
+		//HashSet<String> neighbors1;
 		neighbors = network.getNeighbors(start_n);
-		/*for (String str: neighbors){
-			do{
-				this.user(neighbors, currentNode, count, start_n);
-			}while
-		}*/
-		this.user(neighbors, currentNode, count, start_n);
+		this.user(neighbors, currentNode);
+		System.out.println("Toyins network");
+		while(this.curr_Node != this.end_n){
+			forwardPacket(neighbors);
+		}
+		
 		return false;
+	}
+
+	private void forwardPacket(HashSet<String> neighbors) {
+		HashSet<String> neighbors1;
+		for (String str: neighbors){
+			int value = 0;
+			this.curr_Node = str;
+			do{
+				value++;
+				neighbors1 = network.getNeighbors(str);
+				this.user(neighbors1, str);
+			}while(value != neighbors1.size());
+		}
+
 	}
 
 	public String next(String n) {
@@ -43,25 +64,39 @@ public class FloodingAlgorithm implements Algorithm {
 
 	public void countPacket() {
 		// TODO Auto-generated method stub
+		count++;
+		packetCounter++;
 		
 	}
 
 	public int getPacketCount() {
 		// TODO Auto-generated method stub
-		return 0;
+		return this.packetCounter;
 	}
-	public void user(HashSet<String> neighbors2, String currentNode, int count, String node){
-		neighbors2 = network.getNeighbors(node);
+	public void user(HashSet<String> neighbors2, String currentNode){
+		//nextNodes = new ArrayList<String>();
+		this.curr_Node = currentNode;
+		int counter = 0;
+		neighbors2 = network.getNeighbors(currentNode);
 		for (String str: neighbors2){
+			counter++;
 			String newNode = str;
 			System.out.println("From "+ currentNode + " to " + newNode);
+			//System.out.println(node);
 			//currentNode = newNode;
-			count++;
-			if(count == neighbors2.size()){
-				currentNode = newNode;
+			countPacket();
+			if(this.count == neighbors2.size()){
+				System.out.println("Count value: " + count);
+				System.out.println("neighbours size: "+ neighbors2.size());
+				this.count = 0;
+				System.out.println("Hey");
+				//currentNode = newNode;
 			}
 		}
+		System.out.println("Count value: " + count);
 	}
+	
+
 	
 	public static void main(String[] args) {
 		
