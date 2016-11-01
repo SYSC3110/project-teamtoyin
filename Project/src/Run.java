@@ -112,7 +112,7 @@ public class Run {
 		
 		//Prompts the user to create a message, with source node, and destination node
 		System.out.println("Now enter the your message parameters");
-		System.out.print("\tMessage:");
+		System.out.print("\tMessage Content:");
 		msgStr = reader.nextLine();
 		System.out.print("\n\tSourceNode:");
 		sourceNode = reader.next();
