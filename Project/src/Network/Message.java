@@ -68,8 +68,22 @@ public class Message {
 		if(n != null && n !="") {
 			
 			//Set message source node
-			this.source = n;
+			this.source = n.toUpperCase();
 			
+		}
+	}
+	
+	/**
+	 * Sets the destination node for the message
+	 * @param str
+	 */
+	public void setDestination(String str)
+	{
+		//If destination string not empty or null
+		if(str != null && str !="") {
+			
+			//Set message destination node
+			this.destination = str.toUpperCase();
 		}
 	}
 	
