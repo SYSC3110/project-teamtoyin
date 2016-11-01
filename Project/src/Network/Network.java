@@ -11,9 +11,9 @@ import java.util.Observable;
  */
 public class Network extends Observable{
 	
-	private HashSet<Node> nodes;	//Stores all of the network nodes
+	private HashSet<Node> nodes;		//Stores all of the network nodes
 	private String command;
-	
+
 	/**
 	 * Constructor to initialize our network of nodes
 	 */
