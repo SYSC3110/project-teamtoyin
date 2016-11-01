@@ -2,6 +2,7 @@ package Algorithm;
 
 
 import Network.Message; 
+import Network.Node; 
 
 /**
  * 
@@ -23,7 +24,7 @@ public interface Algorithm {
 	 * Returns the next node to travel to based on the current node.
 	 * @param n
 	 */
-	public String next(String n);
+	public Node next(Node n);
 	
 	/**
 	 * Counts a packet transfer in the network when moving a message

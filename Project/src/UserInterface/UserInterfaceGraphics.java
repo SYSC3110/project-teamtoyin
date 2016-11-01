@@ -8,6 +8,7 @@ import javax.swing.JPanel;
 
 import Algorithm.Algorithm;
 import Network.Network;
+import Network.Node;
 
 public class UserInterfaceGraphics extends JPanel {
 	
@@ -45,15 +46,20 @@ public class UserInterfaceGraphics extends JPanel {
 
 	public static void main(String[] args) {
 		Network n = new Network();
-		n.add("A");
-		n.add("B");
-		n.add("C");
-		n.add("D");
 		
-		n.link("A", "B");
-		n.link("B", "C");
-		n.link("C", "D");
-		n.link("B", "D");
+		Node n1 = new Node("A");
+		Node n2 = new Node("B");
+		Node n3 = new Node("C");
+		Node n4 = new Node("D");
+		
+		n.add(n1);
+		n.add(n2);
+		n.add(n3);
+		n.add(n4);
+		
+		n.link(n1, n2);
+		n.link(n2, n3);
+		n.link(n3, n4);
 		
 		UserInterfaceGraphics graph = new UserInterfaceGraphics(4);
 		
