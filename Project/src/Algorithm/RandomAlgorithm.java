@@ -41,8 +41,8 @@ public class RandomAlgorithm implements Algorithm {
 		//Initialize rate, packet_count, start_n, end_n
 		rate = 0;
 		packet_count = 0;
-		start_n = "";
-		end_n = "";
+		start_n = null;
+		end_n = null;
 	}
 	
 	/**
