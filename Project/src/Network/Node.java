@@ -1,6 +1,14 @@
 package Network;
 import java.util.HashSet;
 
+/**
+ * 
+ * @author Richard Hanton
+ * @date 11/1/2016
+ * 
+ * Modified by: Lina El Sadek
+ *
+ */
 public class Node {
 	private String name;				//Nodes name
 	private HashSet<Node> neighbors;	//All of this nodes neighbors
@@ -11,7 +19,12 @@ public class Node {
 	public Node(String name) {
 		
 		//Set nodes name
-		this.name = name;
+		if (name == null)
+			throw new NullPointerException();
+		else if (name.equals(""))
+			throw new IllegalArgumentException();
+		else
+			this.name = name.toUpperCase();
 		
 	}
 	
