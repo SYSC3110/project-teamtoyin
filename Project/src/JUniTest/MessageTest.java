@@ -7,6 +7,7 @@ import org.junit.Test;
 
 import Network.Message;
 import Network.Network;
+import Network.Node;
 /*
  * Author Toyin Odujebe
  * Modified Osama Buhamad, Lina El Sadek
@@ -16,19 +17,23 @@ public class MessageTest {
 	private Message message1, message2,message3;
 	@Before
 	public void setUp() throws Exception {
-		message1 = new Message("Hey", "A", "E");
+		Node src = new Node("A");
+		Node dst = new Node("E");
+		message1 = new Message("Hey", src, dst);
 		message2 = null;
-		message3= new Message (null, null, null); 
+		
 	}
 
 	/**
 	 * Test method for Message()
 	 */
-	@Test
+	@Test(expected = NullPointerException.class)
 	public void testMessage(){
 		assertNotNull(message1);
 		assertNull(message2);
-		assertNotNull(message3);
+		
+		//Confirm null input throws an error
+		message3= new Message (null, null, null); 
 	}
 	
 	/**
@@ -36,57 +41,45 @@ public class MessageTest {
 	 */
 	@Test
 	public void testgetSource(){
-		assertEquals("A", message1.getSource());
-		assertNotEquals("@", message1.getSource());
-		assertEquals("", message3.getSource());
+		assertEquals("A", message1.getSource().getName());
+		assertNotEquals("@", message1.getSource().getName());
 	} 
 	
 	/**
 	 * Test method for setSource()
 	 */
-	@Test 
+	@Test
 	public void testsetSource(){
-		message1.setSource("Toyin");
-		assertEquals("TOYIN", message1.getSource());
+		Node src2 = new Node("Toyin");
+		message1.setSource(src2);
+		assertEquals("TOYIN", message1.getSource().getName());
 		
 		//Ensure setter converts inputs to upper case
-		message1.setSource("a");
-		assertEquals("A", message1.getSource());
-		
-		//Ensure value did not change
-		message1.setSource(null);
-		assertEquals("A", message1.getSource());
-		message1.setSource("");
-		assertEquals("A", message1.getSource());
+		src2 = new Node("a");
+		message1.setSource(src2);
+		assertEquals("A", message1.getSource().getName());
 	}
 	
+	
 	/**
-	 * Test method for setDestination()
+	 * Test method for setDestination() and getDestination
 	 */
 	@Test 
 	public void testsetDestination(){
 		//A valid case
-		message1.setDestination("A");
-		assertEquals("A", message1.getDestination());
+		Node dst = new Node("A");
+		message1.setDestination(dst);
+		assertEquals("A", message1.getDestination().getName());
 		
 		//Lower Letter conversion to upper letter
-		message1.setDestination("a");
-		assertEquals("A", message1.getDestination());
+		dst = new Node("a");
+		message1.setDestination(dst);
+		assertEquals("A", message1.getDestination().getName());
 		
 		//Ensure value did not change
 		message1.setDestination(null);
-		assertEquals("A", message1.getDestination());
-		message1.setDestination("");
-		assertEquals("A", message1.getDestination());
-	}
-	
-	/**
-	 * Test method for getDestination()
-	 */
-	@Test
-	public void testgetDestination(){
-		assertEquals("E", message1.getDestination());
-		assertEquals("", message3.getDestination());
+		assertEquals("A", message1.getDestination().getName());
+		
 	}
 	
 	/**
@@ -95,9 +88,7 @@ public class MessageTest {
 	@Test
 	public void testgetContents(){
 		assertEquals("Hey", message1.getContents());
-		assertNotEquals("HEYY", message1.getContents());
-		assertEquals("", message3.getContents());
-		
+		assertNotEquals("HEYY", message1.getContents());	
 	}
 	
 	/**
