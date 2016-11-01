@@ -7,7 +7,10 @@ import org.junit.Test;
 
 import Network.Message;
 import Network.Network;
-
+/*
+ * Author Toyin Odujebe
+ * Modified Osama Buhamad
+ */
 public class MessageTest {
 
 	private Message message1, message2,message3;

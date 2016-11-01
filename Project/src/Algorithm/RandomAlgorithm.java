@@ -161,10 +161,10 @@ public class RandomAlgorithm implements Algorithm {
 		
 		RandomAlgorithm algo = new RandomAlgorithm(n);
 		
-		Message m = new Message("Message contents", "A", "D");
-		algo.run(m, 3);
+		Message m = new Message("Message contents", "A", "B");
+		boolean value = algo.run(m, 3);
 		System.out.println("Packets sent during transmission: " + algo.getPacketCount());
-		
+		System.out.println("true or false " + value);
 	}
 
 	
