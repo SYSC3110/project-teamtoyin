@@ -1,4 +1,5 @@
 package Network;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Observable;
@@ -11,9 +12,10 @@ import java.util.Observable;
  */
 public class Network extends Observable{
 	
-	private HashSet<Node> nodes;		//Stores all of the network nodes
+	private HashSet<Node> nodes;			//Stores all of the network nodes
 	private String command;
-
+	private ArrayList<Message> messages;	//List of messages present in the network
+	private boolean open;					//When true the network will stay open for accepting new messages
 	/**
 	 * Constructor to initialize our network of nodes
 	 */
@@ -21,7 +23,16 @@ public class Network extends Observable{
 		
 		//Initialize new hashmap for nodes and neighbors
 		nodes = new HashSet<Node>();
+		
+		//Initialize new arraylist for messages in network
+		messages = new ArrayList<Message>();
+		
+		//Initialize command to empty
 		command = "";
+		
+		//Set the network to open for accepting messages 
+		this.open = true;
+		
 	}
 
 	/**
@@ -143,6 +154,54 @@ public class Network extends Observable{
 		
 		//Remove node 2 as neighbor from node 1 and vice versa
 		if (n1.removeNeighbor(n2) && n2.removeNeighbor(n1)) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
+	/**
+	 * Determines whether the network has messages which 
+	 * need to keep moving. 
+	 */
+	public boolean messagesMoving() {
+		
+		//Loop each message
+		for (Message m : messages) {
+			
+			//If the message is not at the destination
+			if (m.getNode() != m.getDestination())
+				
+				//Messages are still moving, return true
+				return true;
+		}
+		
+		//All messages are at the destination
+		return false;
+		
+	}
+	
+	/**
+	 * Sets the network open or closed, if the network
+	 * is closed and no messages are moving, then 
+	 * the simulation is done.
+	 */
+	public void setOpen(boolean open) {
+		
+		//Set network open status
+		this.open = open;
+		
+	}
+	
+	/**
+	 * Returns whether or not the network is forced 
+	 * open. Meaning that there are no messages moving
+	 * but it is still accepting new messages.
+	 */
+	public boolean isOpen() {
+		
+		//If network is open
+		if (this.open) {
 			return true;
 		} else {
 			return false;
