@@ -13,6 +13,7 @@ import org.junit.Test;
 import Algorithm.RandomAlgorithm;
 import Network.Message;
 import Network.Network;
+import Network.Node;
 
 /**
  * 
@@ -24,19 +25,19 @@ public class RandomAlgorithmTest {
 	private Message message1;
 	private Random randomValue;
 	private RandomAlgorithm ra;
+	private Node src;
+	private Node dest;
 
 	@Before
 	public void setUp() throws Exception {
 		n1 = new Network();
-		message1 = new Message("Hey", "A", "B");	
+		src = new Node("A");
+		dest = new Node("B");
+		message1 = new Message("Hey", src, dest);	
 		randomValue = new Random();
 		ra = new RandomAlgorithm(n1);
 	}
 
-
-	@After
-	public void tearDown() throws Exception {
-	}
 	
 	@Test(expected = NullPointerException.class)
 	public void testRandomAlgorithm(){
@@ -54,30 +55,35 @@ public class RandomAlgorithmTest {
 	
 	@Test 
 	public void testnext(){
-		n1.add("A");
-		n1.add("B");
-		n1.link("A", "B");
-		assertNotNull(ra.next("A"));
-		assertEquals("A", ra.next("B"));
+		n1.add(src);
+		n1.add(dest);
+		n1.link(src, dest);
+		assertNotNull(ra.next(src));
+		assertEquals("A", ra.next(dest).getName());
 		
 	}
 	
 	@Test
 	public void testrun(){
 		Network n = new Network();
-		n.add("A");
-		n.add("B");
-		n.add("C");
-		n.add("D");
+		Node node1 = new Node("A");
+		Node node2 = new Node("B");
+		Node node3 = new Node("C");
+		Node node4 = new Node("D");
 		
-		n.link("A", "B");
-		n.link("B", "C");
-		n.link("C", "D");
-		n.link("B", "D");
+		n.add(node1);
+		n.add(node2);
+		n.add(node3);
+		n.add(node4);
+		
+		n.link(node1, node2);
+		n.link(node2, node3);
+		n.link(node3, node4);
+		n.link(node2, node4);
 		
 		RandomAlgorithm algo = new RandomAlgorithm(n);
 		
-		Message m = new Message("Message contents", "A", "D");
+		Message m = new Message("Message contents", node1, node4);
 		assertTrue(algo.run(m, 0));
 
 	}
