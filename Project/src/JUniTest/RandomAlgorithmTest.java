@@ -14,6 +14,11 @@ import Algorithm.RandomAlgorithm;
 import Network.Message;
 import Network.Network;
 
+/**
+ * 
+ * @author User
+ * Modified By: Lina El Sadek
+ */
 public class RandomAlgorithmTest {
 	private Network n1;
 	private Message message1;
@@ -33,12 +38,18 @@ public class RandomAlgorithmTest {
 	public void tearDown() throws Exception {
 	}
 	
-	@Test
+	@Test(expected = NullPointerException.class)
 	public void testRandomAlgorithm(){
 		assertNotNull(n1);
 		assertNotNull(message1);
 		assertNotNull(randomValue);
 		assertNotNull(ra);
+		
+		//Try adding an undefined network
+		Network nullNetwork = null;
+		ra = new RandomAlgorithm(nullNetwork);
+		
+		
 	}
 	
 	@Test 
