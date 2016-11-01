@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Observable;
 
+import Algorithm.RandomAlgorithm;
+
 /**
  * @author Richard Hanton
  * Osama Buhamad: Modified some logic to simplify and readability
@@ -236,6 +238,24 @@ public class Network extends Observable{
 		this.command = command;
 		setChanged();
 		notifyObservers(this.command);
+	}
+	
+	
+	/**
+	 * Testing
+	 */
+	public static void main(String[] args) {
+		
+		Network n = new Network();
+		Node n1 = new Node("A");
+		Node n2 = new Node("B");
+		
+		n.add(n1);
+		n.add(n2);
+		
+		n.link(n1,  n2);
+		n.unlink(n1,  n2);
+		
 	}
 	
 }

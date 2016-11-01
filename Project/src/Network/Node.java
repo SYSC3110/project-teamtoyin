@@ -26,6 +26,9 @@ public class Node {
 		else
 			this.name = name.toUpperCase();
 		
+		//Initialize HashSet
+		this.neighbors = new HashSet<Node>();
+		
 	}
 	
 	/**
