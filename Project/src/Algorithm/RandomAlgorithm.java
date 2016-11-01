@@ -2,10 +2,15 @@ package Algorithm;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Random;
+
+import org.junit.validator.ValidateWith;
+
 import Network.*;
 
 /**
  * 
+ * 
+ * Modified By: Lina El Sadek
  * The random algorithm selects the next node to traverse
  * to randomly.
  *
@@ -25,11 +30,19 @@ public class RandomAlgorithm implements Algorithm {
 	public RandomAlgorithm(Network n) {
 		
 		//Assign network we will run algorithm on
-		this.network = n;
+		if(n == null)
+			throw new NullPointerException(); //if it's a null then throw a null pointer exception
+		else
+			this.network = n;
 		
 		//Initialize the random class
 		this.random = new Random();
 		
+		//Initialize rate, packet_count, start_n, end_n
+		rate = 0;
+		packet_count = 0;
+		start_n = "";
+		end_n = "";
 	}
 	
 	/**
