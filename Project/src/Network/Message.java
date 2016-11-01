@@ -26,13 +26,25 @@ public class Message {
 	public Message (String contents, String source, String destination) {
 		
 		//Set message contents
-		this.contents = contents;
+		if( contents == null)
+			this.contents = "";
+		else
+			this.contents = contents;
 		
 		//Set message source node
-		this.source = source;
+		if(source == null)
+			this.source = "";
+		else
+			this.source = source;
 		
 		//Set message destination node
-		this.destination = destination;
+		if(destination == null)
+			this.destination = "";
+		else
+			this.destination = destination;
+		
+		//Initialize number of hops to 0
+		hops = 0;
 		
 	}
 	
