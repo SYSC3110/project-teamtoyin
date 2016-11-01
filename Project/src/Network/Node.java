@@ -1,5 +1,7 @@
 package Network;
 import java.util.HashSet;
+import java.util.Iterator;
+
 
 /**
  * 
@@ -48,6 +50,7 @@ public class Node {
 		
 		//Validate the neighbor node is not null
 		if (n == null) { return false; } 
+		
 		
 		//Check if already a neighbor
 		if (this.hasNeighbor(n)) { return true; } 
@@ -108,20 +111,24 @@ public class Node {
 	 */
 	public void removeNeighbors() {
 		
+		Iterator<Node> iter = neighbors.iterator();
+		
 		//Verify this node has neighbors
 		if (this.neighbors.isEmpty()) { return; }
 		
 		//Remove each neighbor
-		for (Node neighbor : this.neighbors) {
+		while(iter.hasNext())
+		{
+			//get the current node
+			Node n = iter.next();
 			
-			//Unlink the node from the neighbor
-			this.removeNeighbor(neighbor);
+			//remove this object as a neighbor from that object
+			n.removeNeighbor(this);
 			
-			//Unlink this node from the neighbor
-			neighbor.removeNeighbor(this);
+			//remove neighbor from this object
+			iter.remove();
 			
 		}
-		
 	}
 	
 	/**
