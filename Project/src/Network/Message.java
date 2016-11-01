@@ -26,7 +26,7 @@ public class Message {
 	public Message (String contents, String source, String destination) {
 		
 		//Set message contents
-		if( contents == null)
+		if(contents == null)
 			this.contents = "";
 		else
 			this.contents = contents;
@@ -124,6 +124,18 @@ public class Message {
 		
 		//Return number of hops taken
 		return this.hops;
+		
+	}
+	
+	/**
+	 * Sets the contents of the message
+	 * @param str
+	 */
+	public void setContent(String str)
+	{
+		if(str != null && str !="") {
+			contents = str;
+		}
 		
 	}
 }
