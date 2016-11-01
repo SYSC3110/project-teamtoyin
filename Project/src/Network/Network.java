@@ -16,6 +16,7 @@ public class Network extends Observable{
 	private String command;
 	private ArrayList<Message> messages;	//List of messages present in the network
 	private boolean open;					//When true the network will stay open for accepting new messages
+	
 	/**
 	 * Constructor to initialize our network of nodes
 	 */
@@ -178,6 +179,16 @@ public class Network extends Observable{
 		
 		//All messages are at the destination
 		return false;
+		
+	}
+	
+	/**
+	 * Returns the messages in the network 
+	 */
+	public ArrayList<Message> getMessages() {
+		
+		//Return messages currently in network
+		return this.messages;
 		
 	}
 	
