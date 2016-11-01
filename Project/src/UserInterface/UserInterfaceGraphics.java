@@ -63,17 +63,11 @@ public class UserInterfaceGraphics extends JPanel {
 		
 		UserInterfaceGraphics graph = new UserInterfaceGraphics(4);
 		
-
-		
 		JFrame f = new JFrame("nodes");
 		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		f.add(graph);
 		f.setSize(800,800);
 		f.setVisible(true);
-		
-		
-		
-		
 
 	}
 
