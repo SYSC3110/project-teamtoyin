@@ -18,11 +18,6 @@ public class MessageTest {
 		message3= new Message (null, null, null); 
 	}
 
-
-	@After
-	public void tearDown() throws Exception {
-	}
-	
 	/**
 	 * Test method for Message()
 	 */
@@ -40,7 +35,7 @@ public class MessageTest {
 	public void testgetSource(){
 		assertEquals("A", message1.getSource());
 		assertNotEquals("@", message1.getSource());
-		assertEquals(null, message3.getSource());
+		assertEquals("", message3.getSource());
 	} 
 	
 	/**
@@ -49,7 +44,11 @@ public class MessageTest {
 	@Test 
 	public void testsetSource(){
 		message1.setSource("Toyin");
-		assertEquals("Toyin", message1.getSource());
+		assertEquals("TOYIN", message1.getSource());
+		
+		//Ensure setter converts inputs to upper case
+		message1.setSource("a");
+		assertEquals("A", message1.getSource());
 	}
 	
 	/**
@@ -58,7 +57,7 @@ public class MessageTest {
 	@Test
 	public void testgetDestination(){
 		assertEquals("E", message1.getDestination());
-		assertEquals(null, message3.getDestination());
+		assertEquals("", message3.getDestination());
 	}
 	
 	/**
@@ -68,7 +67,7 @@ public class MessageTest {
 	public void testgetContents(){
 		assertEquals("Hey", message1.getContents());
 		assertNotEquals("HEYY", message1.getContents());
-		assertEquals(null, message3.getContents());
+		assertEquals("", message3.getContents());
 		
 	}
 	
