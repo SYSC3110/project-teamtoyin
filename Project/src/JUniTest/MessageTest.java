@@ -9,7 +9,7 @@ import Network.Message;
 import Network.Network;
 /*
  * Author Toyin Odujebe
- * Modified Osama Buhamad
+ * Modified Osama Buhamad, Lina El Sadek
  */
 public class MessageTest {
 
