@@ -26,13 +26,25 @@ public class Message {
 	public Message (String contents, Node source, Node destination) {
 		
 		//Set message contents
-		this.contents = contents;
+		if(contents == null)
+			this.contents = "";
+		else
+			this.contents = contents;
 		
 		//Set message source node
-		this.source = source;
+		if(source == null)
+			this.source = "";
+		else
+			this.source = source;
 		
 		//Set message destination node
-		this.destination = destination;
+		if(destination == null)
+			this.destination = "";
+		else
+			this.destination = destination;
+		
+		//Initialize number of hops to 0
+		hops = 0;
 		
 	}
 	
@@ -56,8 +68,22 @@ public class Message {
 		if(n != null) {
 			
 			//Set message source node
-			this.source = n;
+			this.source = n.toUpperCase();
 			
+		}
+	}
+	
+	/**
+	 * Sets the destination node for the message
+	 * @param str
+	 */
+	public void setDestination(String str)
+	{
+		//If destination string not empty or null
+		if(str != null && str !="") {
+			
+			//Set message destination node
+			this.destination = str.toUpperCase();
 		}
 	}
 	
@@ -98,6 +124,18 @@ public class Message {
 		
 		//Return number of hops taken
 		return this.hops;
+		
+	}
+	
+	/**
+	 * Sets the contents of the message
+	 * @param str
+	 */
+	public void setContent(String str)
+	{
+		if(str != null && str !="") {
+			contents = str;
+		}
 		
 	}
 }

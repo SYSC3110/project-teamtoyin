@@ -9,7 +9,7 @@ import Network.Message;
 import Network.Network;
 /*
  * Author Toyin Odujebe
- * Modified Osama Buhamad
+ * Modified Osama Buhamad, Lina El Sadek
  */
 public class MessageTest {
 
@@ -21,11 +21,6 @@ public class MessageTest {
 		message3= new Message (null, null, null); 
 	}
 
-
-	@After
-	public void tearDown() throws Exception {
-	}
-	
 	/**
 	 * Test method for Message()
 	 */
@@ -43,7 +38,7 @@ public class MessageTest {
 	public void testgetSource(){
 		assertEquals("A", message1.getSource());
 		assertNotEquals("@", message1.getSource());
-		assertEquals(null, message3.getSource());
+		assertEquals("", message3.getSource());
 	} 
 	
 	/**
@@ -52,7 +47,37 @@ public class MessageTest {
 	@Test 
 	public void testsetSource(){
 		message1.setSource("Toyin");
-		assertEquals("Toyin", message1.getSource());
+		assertEquals("TOYIN", message1.getSource());
+		
+		//Ensure setter converts inputs to upper case
+		message1.setSource("a");
+		assertEquals("A", message1.getSource());
+		
+		//Ensure value did not change
+		message1.setSource(null);
+		assertEquals("A", message1.getSource());
+		message1.setSource("");
+		assertEquals("A", message1.getSource());
+	}
+	
+	/**
+	 * Test method for setDestination()
+	 */
+	@Test 
+	public void testsetDestination(){
+		//A valid case
+		message1.setDestination("A");
+		assertEquals("A", message1.getDestination());
+		
+		//Lower Letter conversion to upper letter
+		message1.setDestination("a");
+		assertEquals("A", message1.getDestination());
+		
+		//Ensure value did not change
+		message1.setDestination(null);
+		assertEquals("A", message1.getDestination());
+		message1.setDestination("");
+		assertEquals("A", message1.getDestination());
 	}
 	
 	/**
@@ -61,7 +86,7 @@ public class MessageTest {
 	@Test
 	public void testgetDestination(){
 		assertEquals("E", message1.getDestination());
-		assertEquals(null, message3.getDestination());
+		assertEquals("", message3.getDestination());
 	}
 	
 	/**
@@ -71,8 +96,25 @@ public class MessageTest {
 	public void testgetContents(){
 		assertEquals("Hey", message1.getContents());
 		assertNotEquals("HEYY", message1.getContents());
-		assertEquals(null, message3.getContents());
+		assertEquals("", message3.getContents());
 		
+	}
+	
+	/**
+	 * Test method for setContents()
+	 */
+	@Test
+	public void testSetContents()
+	{
+		//Basic Case
+		message1.setContent("Hello");
+		assertEquals("Hello", message1.getContents());
+		
+		//Invalid case
+		message1.setContent(null);
+		assertEquals("Hello", message1.getContents());
+		message1.setContent("");
+		assertEquals("Hello", message1.getContents());
 	}
 	
 	
