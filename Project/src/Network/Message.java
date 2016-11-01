@@ -15,6 +15,7 @@ public class Message {
 	private String contents;	//Message contents
 	private Node destination;	//Message destination node
 	private Node source;		//Message source node
+	private Node position;		//Node the message is currently at
 	private int hops;			//Hops a message has taken in the network
 	
 	/**
@@ -32,10 +33,12 @@ public class Message {
 			this.contents = contents;
 		
 		//Set message source node
-		if(source == null)
+		if(source == null) {
 			throw new NullPointerException();
-		else
+		} else {
 			this.source = source;
+			this.position = source;
+		}
 		
 		//Set message destination node
 		if(destination == null)
@@ -69,6 +72,31 @@ public class Message {
 			
 			//Set message source node
 			this.source = n;
+			
+		}
+	}
+	
+	/**
+	 * Returns the node the message is currently on
+	 * @return
+	 */
+	public Node getNode() {
+		
+		//Return node the message is at
+		return this.position;
+	}
+	
+	/**
+	 * Sets the node the message is currently on
+	 * @param n
+	 */
+	public void setNode(Node n) {
+		
+		//If node is not null
+		if(n != null) {
+			
+			//Set messages position in the network
+			this.position = n;
 			
 		}
 	}
