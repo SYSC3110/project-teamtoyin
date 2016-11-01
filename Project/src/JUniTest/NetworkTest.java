@@ -7,6 +7,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import Network.Network;
+import Network.Node;
 
 /**
  * @author Lina El Sadek
@@ -42,24 +43,26 @@ public class NetworkTest {
 	@Test
 	public void testAdd() {
 		
+		Node n1 = new Node("A");
+		Node n2 = new Node("0");
+		Node n3 = new Node(",");
+		Node n4 = new Node("a");
+		
 		//Add a new Node to the network, with different formats
-		assertTrue(network.add("A"));
-		assertTrue(network.add("0"));
-		assertTrue(network.add(","));
+		assertTrue(network.add(n1));
+		assertTrue(network.add(n2));
+		assertTrue(network.add(n3));
 		
 		//Add an Existing Node to the Network
-		assertFalse(network.add("A"));
-		assertFalse(network.add("a"));
+		assertFalse(network.add(n1));
+		assertFalse(network.add(n4));
 		
 		//Attempt to add an empty string to the network
-		assertFalse(network.add(""));
+		//Not valid test anymore.
+		//assertFalse(network.add(""));
 		
 		//Attempt to add a null to the network
 		assertFalse(network.add(null));
-		
-		
-		
-		
 	}
 
 	/**
@@ -67,25 +70,31 @@ public class NetworkTest {
 	 */
 	@Test
 	public void testRemove() {
+		
+		Node n1 = new Node("A");
+
 		//Attempt to remove a node from an empty hashmap
-		assertFalse(network.remove("A"));
+		assertFalse(network.remove(n1));
 		
 		//Remove a node from the hashmap, with same case
-		network.add("A");
-		assertTrue(network.remove("A"));
+		network.add(n1);
+		assertTrue(network.remove(n1));
 		
 		//Remove a node from the hashmap, with different case
-		network.add("B");
-		assertTrue(network.remove("b"));
+		//not a valid test anymore
+		//network.add(n2);
+		//assertTrue(network.remove(n2));
 		
 		//Attempt to remove null value
 		assertFalse(network.remove(null));
 		
 		//Attempt to remove empty string
-		assertFalse(network.remove(""));
+		//not a valid test anymore
+		//assertFalse(network.remove(""));
 		
 		//Attempt to remove a space string
-		assertFalse(network.remove(" "));
+		//not a valid test anymore
+		//assertFalse(network.remove(" "));
 
 	}
 
@@ -94,51 +103,32 @@ public class NetworkTest {
 	 */
 	@Test
 	public void testContains() {
+		
+		Node n1 = new Node("A");
 
+		//Not a valid case anymore
 		//Attempt to look for empty strings
-		assertFalse(network.contains(""));
+		//assertFalse(network.contains(""));
 		
 		//Attempt to look for empty strings
 		assertFalse(network.contains(null));
 		
 		//Attempt to look for not existing node
-		assertFalse(network.contains("A"));
-		network.add("$");
+		assertFalse(network.contains(n1));
 		
+		//Not a valid test case
+		//network.add("$");
 		//Attempt to look for a symbol
-		assertTrue(network.contains("$"));
+		//assertTrue(network.contains("$"));
 		
-		network.add("A");
+		network.add(n1);
 		
 		//Attempt to look for existing node with matching case
-		assertTrue(network.contains("A"));
+		assertTrue(network.contains(n1));
 		
+		//Not a valid test case.
 		//Attempt to look for existing node with mismatching case
-		assertTrue(network.contains("a"));
-	}
-
-	/**
-	 * Test method for getNeighbors()
-	 */
-	@Test
-	public void testGetNeighbors() {
-
-		//Attempt to get neighbors from inexisting nodes
-		assertNull(network.getNeighbors(null));
-		assertNull(network.getNeighbors(""));
-		assertNull(network.getNeighbors("A"));
-		
-		network.add("A");
-		assertNotNull(network.getNeighbors("A"));
-		assertNotNull(network.getNeighbors("a"));
-		
-		network.add("B");
-		network.add("C");
-		network.link("A", "B");
-		network.link("B", "C");
-		network.link("C", "A");
-		assertNotNull(network.getNeighbors("B"));
-		assertNotNull(network.getNeighbors("C"));
+		//assertTrue(network.contains("a"));
 	}
 
 	/**
@@ -146,17 +136,21 @@ public class NetworkTest {
 	 */
 	@Test
 	public void testLink() {
+		
+		Node n1 = new Node("A");
+		Node n2 = new Node("B");
+		
 		//Attempt to link invalid inputs
 		assertFalse(network.link(null, null));
-		assertFalse(network.link("", null));
+		//assertFalse(network.link("", null)); //not valid test case
 		
 		//Attempt to link inexistent nodes
-		assertFalse(network.link("A", "B"));
+		assertFalse(network.link(n1, n2));
 		
 		//Link existent nodes
-		network.add("A");
-		network.add("B");
-		assertTrue(network.link("A", "B"));
+		network.add(n1);
+		network.add(n2);
+		assertTrue(network.link(n1, n2));
 	}
 
 	/**
@@ -164,18 +158,26 @@ public class NetworkTest {
 	 */
 	@Test
 	public void testUnlink() {
+		
+		Node n1 = new Node("A");
+		Node n2 = new Node("B");
+		
 		//Attempt to link invalid inputs
 		assertFalse(network.unlink(null, null));
-		assertFalse(network.unlink("", null));
+		//assertFalse(network.unlink("", null)); //not valid testcase
 		
 		//Attempt to link inexistent nodes
-		assertFalse(network.unlink("A", "B"));
+		assertFalse(network.unlink(n1, n2));
 		
 		//Link existent nodes
-		network.add("A");
-		network.add("B");
-		network.link("A", "B");
-		assertTrue(network.unlink("A", "B"));
+		network.add(n1);
+		network.add(n2);
+		
+		//Attempt to unlink nodes are not linked
+		assertTrue(network.unlink(n1, n2));
+		
+		network.link(n1, n2);
+		assertTrue(network.unlink(n1, n2));
 	}
 
 }

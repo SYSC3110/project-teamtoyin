@@ -107,11 +107,4 @@ public class MessageTest {
 		message1.setContent("");
 		assertEquals("Hello", message1.getContents());
 	}
-	
-	
-	
-	
-	
-	
-
 }
