@@ -2,23 +2,24 @@ package Algorithm;
 
 import java.util.ArrayList;
 import java.util.HashSet;
+import Network.Message;
+import Network.Network;
+import Network.Node; 
+
 /*
  * Author Toyin Odujebe
  */
 
-import Network.Message;
-import Network.Network;
-
 public class FloodingAlgorithm implements Algorithm {
 	private Network network;	//Network of nodes the algorithm is running on
-	private String start_n;		//represents the start node of the message
-	private String end_n;		//End node in the network
-	private String curr_Node;
+	private Node start_n;		//represents the start node of the message
+	private Node end_n;		//End node in the network
+	private Node curr_Node;
 	private int neighboursSize;	//represents the number of neighbours a node has
-	private ArrayList<String> nextNodes;	//an array list of all the next ndoes from a current node
+	private ArrayList<Node> nextNodes;	//an array list of all the next ndoes from a current node
 	int count, count2, packetCounter;
-	private HashSet<String> neighbors;
-	private HashSet<String> neighbors1;
+	private HashSet<Node> neighbors;
+	private HashSet<Node> neighbors1;
 	
 	public FloodingAlgorithm(Network n){
 		this.network = n;
@@ -29,12 +30,12 @@ public class FloodingAlgorithm implements Algorithm {
 		//Get the messages start node
 		this.start_n = m.getSource();
 		this.end_n = m.getDestination();
-		String currentNode = start_n;
+		Node currentNode = start_n;
 		count = 0;
 		//Get the nodes neighbors
 		//HashSet<String> neighbors;
 		//HashSet<String> neighbors1;
-		neighbors = network.getNeighbors(start_n);
+		neighbors = start_n.getNeighbors();
 		this.user(neighbors, currentNode);
 		System.out.println("Toyins network");
 		while(this.curr_Node != this.end_n){
@@ -44,21 +45,21 @@ public class FloodingAlgorithm implements Algorithm {
 		return false;
 	}
 
-	private void forwardPacket(HashSet<String> neighbors) {
-		HashSet<String> neighbors1;
-		for (String str: neighbors){
+	private void forwardPacket(HashSet<Node> neighbors) {
+		HashSet<Node> neighbors1;
+		for (Node n: neighbors){
 			int value = 0;
-			this.curr_Node = str;
+			this.curr_Node = n;
 			do{
 				value++;
-				neighbors1 = network.getNeighbors(str);
-				this.user(neighbors1, str);
+				neighbors1 = n.getNeighbors();
+				this.user(neighbors1, n);
 			}while(value != neighbors1.size());
 		}
 
 	}
 
-	public String next(String n) {
+	public Node next(Node n) {
 		return null;
 	}
 
@@ -73,14 +74,15 @@ public class FloodingAlgorithm implements Algorithm {
 		// TODO Auto-generated method stub
 		return this.packetCounter;
 	}
-	public void user(HashSet<String> neighbors2, String currentNode){
+	
+	public void user(HashSet<Node> neighbors2, Node currentNode){
 		//nextNodes = new ArrayList<String>();
 		this.curr_Node = currentNode;
 		int counter = 0;
-		neighbors2 = network.getNeighbors(currentNode);
-		for (String str: neighbors2){
+		neighbors2 = currentNode.getNeighbors();
+		for (Node n: neighbors2){
 			counter++;
-			String newNode = str;
+			Node newNode = n;
 			System.out.println("From "+ currentNode + " to " + newNode);
 			//System.out.println(node);
 			//currentNode = newNode;
@@ -101,23 +103,29 @@ public class FloodingAlgorithm implements Algorithm {
 	public static void main(String[] args) {
 		
 		Network n = new Network();
-		n.add("A");
-		n.add("B");
-		n.add("C");
-		n.add("D");
-		n.add("E");
+		Node n1 = new Node("A");
+		Node n2 = new Node("B");
+		Node n3 = new Node("C");
+		Node n4 = new Node("D");
+		Node n5 = new Node("E");
 		
-		n.link("A", "B");
-		n.link("A", "C");
-		n.link("A", "D");
-		n.link("C", "B");
-		n.link("B", "D");
-		n.link("B", "E");
-		n.link("D", "E");
+		n.add(n1);
+		n.add(n2);
+		n.add(n3);
+		n.add(n4);
+		n.add(n5);
+		
+		n.link(n1, n2);
+		n.link(n1, n2);
+		n.link(n1, n3);
+		n.link(n2, n3);
+		n.link(n2, n4);
+		n.link(n2, n5);
+		n.link(n4, n5);
 		
 		FloodingAlgorithm algo = new FloodingAlgorithm(n);
 		
-		Message m = new Message("Message contents", "A", "D");
+		Message m = new Message("Message contents", n1, n5);
 		algo.run(m, 5);
 		System.out.println("Packets sent during transmission: " + algo.getPacketCount());
 		

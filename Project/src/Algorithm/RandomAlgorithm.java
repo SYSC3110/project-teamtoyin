@@ -13,8 +13,8 @@ import Network.*;
 public class RandomAlgorithm implements Algorithm {
 	private Network network;	//Network of nodes the algorithm is running on
 	private Random random;		//Random instance for selecting next node
-	private String start_n;		//Start node in the network
-	private String end_n;		//End node in the network
+	private Node start_n;		//Start node in the network
+	private Node end_n;		//End node in the network
 	private int packet_count; 	//Number of packets transmitted during message sending
 	private int rate;			//this is the rate at which new packets are created and transmitted
 	
@@ -38,7 +38,7 @@ public class RandomAlgorithm implements Algorithm {
 	 */
 	
 	public boolean run(Message m, int rate) {
-		boolean check=false;
+
 		//Get the messages start node
 		this.start_n = m.getSource();
 		
@@ -46,14 +46,13 @@ public class RandomAlgorithm implements Algorithm {
 		this.end_n = m.getDestination();
 		
 		//Set the current node as our start node
-		String current_n = this.start_n;
+		Node current_n = this.start_n;
 
-		
 		//Loop until we reach the end node
 		do {
 			
 			//Select the next node to traverse to
-			String new_n = this.next(current_n);
+			Node new_n = this.next(current_n);
 			
 			//Display debug
 			System.out.println("Going from " + current_n + " to " + new_n);
@@ -63,26 +62,9 @@ public class RandomAlgorithm implements Algorithm {
 			
 			//A packet was transferred
 			this.countPacket();
+			
 			//to increment the hop count messages have gone through
 			m.countHop();
-			
-
-			if(new_n.equals(m.getDestination())){
-				System.out.println("Packet Delivered");
-				return true;
-			}
-			
-		if(rate !=0){
-			if(m.getHopCount()%rate ==0 && !m.getDestination().equals(current_n)){
-				//creating a new message recursively 
-				System.out.println("retransmitting..");
-				check = this.run(m, rate);
-				}
-		}
-		
-		if (check)
-			
-			return true;
 			
 		} while (!current_n.equals(end_n));
 		
@@ -93,14 +75,14 @@ public class RandomAlgorithm implements Algorithm {
 	/**
 	 * Selects the next node to travel to and returns it.
 	 */
-	public String next(String n) {
+	public Node next(Node n) {
 		
 		//If the node isn't present in the network return				
-		if (!network.contains(n)) { System.out.println("Does not contain " + n); return null; }
+		if (!network.contains(n)) { System.out.println("Does not contain node " + n.getName()); return null; }
 		
 		//Get the nodes neighbors
-		HashSet<String> neighbors;
-		neighbors = network.getNeighbors(n);
+		HashSet<Node> neighbors;
+		neighbors = n.getNeighbors();
 		
 		//Get amount of neighbors
 		int neighbor_count = neighbors.size();
@@ -110,7 +92,7 @@ public class RandomAlgorithm implements Algorithm {
 		
 		//Fetch the random neighbor and return it
 		int i = 0;
-		for(String rn: neighbors) {
+		for(Node rn: neighbors) {
 		    if (i == random_neighbor)
 		        return rn;
 		    i = i + 1;
@@ -149,19 +131,24 @@ public class RandomAlgorithm implements Algorithm {
 	public static void main(String[] args) {
 		
 		Network n = new Network();
-		n.add("A");
-		n.add("B");
-		n.add("C");
-		n.add("D");
+		Node n1 = new Node("A");
+		Node n2 = new Node("B");
+		Node n3 = new Node("C");
+		Node n4 = new Node("D");
 		
-		n.link("A", "B");
-		n.link("B", "C");
-		n.link("C", "D");
-		n.link("B", "D");
+		n.add(n1);
+		n.add(n2);
+		n.add(n3);
+		n.add(n4);
+
+		
+		n.link(n1, n2);
+		n.link(n2, n3);
+		n.link(n3, n4);
 		
 		RandomAlgorithm algo = new RandomAlgorithm(n);
 		
-		Message m = new Message("Message contents", "A", "B");
+		Message m = new Message("Message contents", n1, n2);
 		boolean value = algo.run(m, 3);
 		System.out.println("Packets sent during transmission: " + algo.getPacketCount());
 		System.out.println("true or false " + value);

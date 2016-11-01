@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
 import javax.swing.*;
+import Network.Node;
 
 
 /**
@@ -275,6 +276,9 @@ public class UserInterface extends JFrame implements Observer{
 	
 	public void update(Observable o, Object arg) {
 		String command = "";
+		Node n1;
+		Node n2;
+		
 		if(arg instanceof String)
 		{
 			command = (String)arg;
@@ -320,8 +324,12 @@ public class UserInterface extends JFrame implements Observer{
 				{
 					if(i%2==0 && i>=2)//if it's an odd and greater than 2, get the last two nodes
 					{
-						if(allEdgetextFields.get(i-2).isEditable() && allEdgetextFields.get(i-1).isEditable())
-							UIC.connectEdges(allEdgetextFields.get(i-2).getText(), allEdgetextFields.get(i-1).getText());
+						if(allEdgetextFields.get(i-2).isEditable() && allEdgetextFields.get(i-1).isEditable()) {
+							n1 = new Node(allEdgetextFields.get(i-2).getText());
+							n2 = new Node(allEdgetextFields.get(i-1).getText());
+							
+							UIC.connectEdges(n1, n2);
+						}
 					}
 					
 					if(!allEdgetextFields.get(i).isEditable())

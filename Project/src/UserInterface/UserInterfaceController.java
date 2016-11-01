@@ -8,6 +8,7 @@ import javax.swing.JTextField;
 
 import Algorithm.*;
 import Network.Network;
+import Network.Node;
 
 /**
  * 
@@ -64,17 +65,20 @@ public class UserInterfaceController implements ActionListener{
 			else if(command.equals("NodeNameInserted"))
 			{
 				String nodeName = ((JTextField)e.getSource()).getText();
-				network.add(nodeName);
+				Node n = new Node(nodeName);
+				network.add(n);
 			}
 			else if(command.equals("FirstEdgeInserted"))
 			{
 				String nodeName = ((JTextField)e.getSource()).getText();
-				network.contains(nodeName);
+				Node n = new Node(nodeName);
+				network.contains(n);
 			}
 			else if(command.contentEquals("SecondEdgeInserted"))
 			{
 				String nodeName = ((JTextField)e.getSource()).getText();
-				network.contains(nodeName);
+				Node n = new Node(nodeName);
+				network.contains(n);
 			}
 		}
 		else if (e.getSource() instanceof JRadioButton)
@@ -92,7 +96,7 @@ public class UserInterfaceController implements ActionListener{
 		
 	}
 	
-	public void connectEdges(String n1, String n2)
+	public void connectEdges(Node n1, Node n2)
 	{
 		network.link(n1, n2);
 	}

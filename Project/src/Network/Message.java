@@ -13,8 +13,8 @@ package Network;
 public class Message {
 	
 	private String contents;	//Message contents
-	private String destination;	//Message destination node
-	private String source;		//Message source node
+	private Node destination;	//Message destination node
+	private Node source;		//Message source node
 	private int hops;			//Hops a message has taken in the network
 	
 	/**
@@ -23,7 +23,7 @@ public class Message {
 	 * @param destination
 	 * @param source
 	 */
-	public Message (String contents, String source, String destination) {
+	public Message (String contents, Node source, Node destination) {
 		
 		//Set message contents
 		this.contents = contents;
@@ -40,7 +40,7 @@ public class Message {
 	 * Returns the source node for a message
 	 * @return
 	 */
-	public String getSource() {
+	public Node getSource() {
 		
 		//Return source node
 		return this.source;
@@ -50,10 +50,10 @@ public class Message {
 	 * Sets the source node for the message 
 	 * @param n
 	 */
-	public void setSource(String n) {
+	public void setSource(Node n) {
 		
 		//If source string not empty or null
-		if(n != null && n !="") {
+		if(n != null) {
 			
 			//Set message source node
 			this.source = n;
@@ -64,7 +64,7 @@ public class Message {
 	/**
 	 * Returns the destination node for a message
 	 */
-	public String getDestination() {
+	public Node getDestination() {
 		
 		//Return message destination
 		return this.destination;
