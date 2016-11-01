@@ -213,9 +213,13 @@ public class Network extends Observable{
 		
 		//If network is open
 		if (this.open) {
+			
 			return true;
+			
 		} else {
+			
 			return false;
+			
 		}
 	}
 	
