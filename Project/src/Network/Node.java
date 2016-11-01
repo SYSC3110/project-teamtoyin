@@ -13,6 +13,9 @@ public class Node {
 		//Set nodes name
 		this.name = name;
 		
+		//Initialize HashSet
+		this.neighbors = new HashSet<Node>();
+		
 	}
 	
 	/**
