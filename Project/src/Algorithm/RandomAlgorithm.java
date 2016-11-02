@@ -49,6 +49,7 @@ public class RandomAlgorithm implements Algorithm {
 	 */
 
 	public boolean run(Message m, int rate) {
+		int count = 0;	//Counter for step while loop
 		
 		//Set rate
 		this.rate = rate;
