@@ -21,6 +21,11 @@ public interface Algorithm {
 	public boolean run(Message m, int rate);
 	
 	/**
+	 * Performs a simulation step on the messages within the network
+	 */
+	public boolean step();
+	
+	/**
 	 * Returns the next node to travel to based on the current node.
 	 * @param n
 	 */
