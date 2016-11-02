@@ -2,6 +2,7 @@ package Algorithm;
 
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Random;
 
 import Network.*;
@@ -14,13 +15,10 @@ import Network.*;
  *
  */
 public class RandomAlgorithm implements Algorithm {
-	private Network network; // Network of nodes the algorithm is running on
-	private Random random; // Random instance for selecting next node
-	private Node start_n; // Start node in the network
-	private Node end_n; // End node in the network
-	private int packet_count; // Number of packets transmitted during message sending
-	private int rate; // Rate that messages should be injected into the network
-
+	private Network network; 	// Network of nodes the algorithm is running on
+	private Random random; 		// Random instance for selecting next node
+	private int packet_count; 	// Number of packets transmitted during message sending
+	private int max_injections = 20; //Maximum number of nodes to inject in the network
 	/**
 	 * Constructor to assign network to the algorithm along with the start and
 	 * end nodes.
@@ -36,10 +34,9 @@ public class RandomAlgorithm implements Algorithm {
 		// Initialize the random class
 		this.random = new Random();
 
-		// Initialize rate, packet_count, start_n, end_n
+		// Initialize packet_count
 		this.packet_count = 0;
-		this.start_n = null;
-		this.end_n = null;
+		
 
 	}
 
@@ -49,25 +46,42 @@ public class RandomAlgorithm implements Algorithm {
 	 */
 
 	public boolean run(Message m, int rate) {
-		int count = 0;	//Counter for step while loop
 		
-		//Set rate
-		this.rate = rate;
+		int count = 0;		//Counter for step while loop
+		int injected = 0;	//Counter for new message injections
+		Message new_m;		//New message to inject into the network
 		
 		//Inject message into network
 		network.injectMessage(m);
 		
-		//Set network to closed for now, rate is not yet implemented
-		network.setOpen(false);
 		
 		//While the network is good to go
 		while (step()) {
 			
-			//Inject new messages here based on rate??? 
-			//Will do this when babak emails me back
+			//If we should inject a new message 
+			if ( (count % rate) == 0 && injected < this.max_injections) {
+
+				//Create a new message
+				new_m = new Message(m.getContents() + " - " + count, m.getSource(), m.getDestination());
+				
+				//Inject message into network
+				network.injectMessage(new_m);
+				
+				//Increment injected counter
+				injected ++;
+				
+			} else if (injected >= this.max_injections) {
+				
+				//Network not open for new messages
+				network.setOpen(false);
+				
+			}
 			
 			//Step again until no more stepping required
 			System.out.println("Stepping again...");
+			
+			//Increment counter
+			count++;
 			
 		}
 		
@@ -92,13 +106,27 @@ public class RandomAlgorithm implements Algorithm {
 			return false;
 		}
 
-		// For each message in the network
-		for (Message m : network.getMessages()) {
+		//Iterator for messages in network
+		Iterator<Message> i = network.getMessages().iterator();
+		
+		//For each message in network
+		while (i.hasNext()) {
+			
+			Message m = i.next();
 
 			// If the message is already at its destination, skip
 			if (m.getNode() == m.getDestination()) {
+				
 				System.out.println(m.getContents() + " is at the destination node " + m.getNode().getName());
+				
+				//Node is at destination so remove it
+				i.remove();
+								
+				//Continue to next message
 				continue;
+				
+			} else {
+				System.out.println(m.getContents() + " is at node " + m.getNode().getName() + " and is going to node " + m.getDestination().getName());
 			}
 
 			// Get node to move message to
@@ -107,6 +135,8 @@ public class RandomAlgorithm implements Algorithm {
 			System.out.println("Message " + m.getContents() + " moving from " + m.getNode().getName() + " to " + new_n.getName());
 			
 			//Set messages new node
+			System.out.println("Node: " + m.getContents() + ", Changing node : " + network.getMessages().get(index).getContents());
+			
 			network.getMessages().get(index).setNode(new_n);
 			
 			//Increment packets sent
@@ -116,6 +146,7 @@ public class RandomAlgorithm implements Algorithm {
 			index ++;
 			
 		}
+		
 
 		//Step successfully completed
 		return true;
