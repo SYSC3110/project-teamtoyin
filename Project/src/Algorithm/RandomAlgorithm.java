@@ -18,20 +18,18 @@ public class RandomAlgorithm implements Algorithm {
 	private Random random; // Random instance for selecting next node
 	private Node start_n; // Start node in the network
 	private Node end_n; // End node in the network
-	private int packet_count; // Number of packets transmitted during message
-								// sending
+	private int packet_count; // Number of packets transmitted during message sending
 	private int rate; // Rate that messages should be injected into the network
 
 	/**
 	 * Constructor to assign network to the algorithm along with the start and
 	 * end nodes.
 	 */
-	public RandomAlgorithm(Network n, int rate) {
+	public RandomAlgorithm(Network n) {
 
-		// Assign network we will run algorithm on
+		//If network is null throw exception
 		if (n == null)
-			throw new NullPointerException(); // if it's a null then throw a
-												// null pointer exception
+			throw new NullPointerException();
 		else
 			this.network = n;
 
@@ -39,10 +37,9 @@ public class RandomAlgorithm implements Algorithm {
 		this.random = new Random();
 
 		// Initialize rate, packet_count, start_n, end_n
-		rate = rate;
-		packet_count = 0;
-		start_n = null;
-		end_n = null;
+		this.packet_count = 0;
+		this.start_n = null;
+		this.end_n = null;
 
 	}
 
@@ -51,39 +48,31 @@ public class RandomAlgorithm implements Algorithm {
 	 * the end node specified in the constructor.
 	 */
 
-	public boolean run(Message m) {
-
-		// Get the messages start node
-		this.start_n = m.getSource();
-
-		// Get the messages end node
-		this.end_n = m.getDestination();
-
-		// Set the current node as our start node
-		Node current_n = this.start_n;
-
-		// Loop until we reach the end node
-		do {
-
-			// Select the next node to traverse to
-			Node new_n = this.next(current_n);
-
-			// Display debug
-			System.out.println("Going from " + current_n + " to " + new_n);
-
-			// Assign chosen node to current node
-			current_n = new_n;
-
-			// A packet was transferred
-			this.countPacket();
-
-			// to increment the hop count messages have gone through
-			m.countHop();
-
-		} while (!current_n.equals(end_n));
-
-		// Done
+	public boolean run(Message m, int rate) {
+		
+		//Set rate
+		this.rate = rate;
+		
+		//Inject message into network
+		network.injectMessage(m);
+		
+		//Set network to closed for now, rate is not yet implemented
+		network.setOpen(false);
+		
+		//While the network is good to go
+		while (step()) {
+			
+			//Inject new messages here based on rate??? 
+			//Will do this when babak emails me back
+			
+			//Step again until no more stepping required
+			System.out.println("Stepping again...");
+			
+		}
+		
+		//Algorithm successfully ran if we reach here
 		return true;
+		
 	}
 
 	/**
@@ -93,10 +82,12 @@ public class RandomAlgorithm implements Algorithm {
 	 */
 	public boolean step() {
 
-		int index = 0; // Index in arraylist of messages
-		Node new_n; // New node to move message to
+		int index = 0; 	// Index in arraylist of messages
+		Node new_n; 	// New node to move message to
 
+		//If no more messages travelling in network and the network is not receiving new messages
 		if (!network.messagesMoving() && !network.isOpen()) {
+			System.out.println("No messages moving and network closed for new messages.");
 			return false;
 		}
 
@@ -104,14 +95,30 @@ public class RandomAlgorithm implements Algorithm {
 		for (Message m : network.getMessages()) {
 
 			// If the message is already at its destination, skip
-			if (m.getNode() == m.getDestination())
+			if (m.getNode() == m.getDestination()) {
+				System.out.println(m.getContents() + " is at the destination node " + m.getNode().getName());
 				continue;
+			}
 
 			// Get node to move message to
-
+			new_n = this.next(m.getNode());
+			
+			System.out.println("Message " + m.getContents() + " moving from " + m.getNode().getName() + " to " + new_n.getName());
+			
+			//Set messages new node
+			network.getMessages().get(index).setNode(new_n);
+			
+			//Increment packets sent
+			this.countPacket();
+			
+			//Increment index counter for messages arraylist
+			index ++;
+			
 		}
 
+		//Step successfully completed
 		return true;
+		
 	}
 
 	/**
@@ -190,9 +197,9 @@ public class RandomAlgorithm implements Algorithm {
 		n.link(n2, n3);
 		n.link(n3, n4);
 
-		RandomAlgorithm algo = new RandomAlgorithm(n, 0);
+		RandomAlgorithm algo = new RandomAlgorithm(n);
 
-		Message m = new Message("Message contents", n1, n2);
+		Message m = new Message("MSG1", n1, n4);
 		boolean value = algo.run(m, 3);
 		System.out.println("Packets sent during transmission: " + algo.getPacketCount());
 		System.out.println("true or false " + value);

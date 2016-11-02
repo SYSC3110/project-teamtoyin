@@ -164,6 +164,21 @@ public class Network extends Observable{
 	}
 	
 	/**
+	 * Injects a message into the network
+	 */
+	public boolean injectMessage(Message m) {
+		
+		//Check that message being added has source and destination
+		if (m.getSource() == null || m.getDestination() == null) { return false; }
+		
+		//Add message to our list of messages in the network
+		messages.add(m);
+		
+		//Successfully added
+		return true;
+		
+	}
+	/**
 	 * Determines whether the network has messages which 
 	 * need to keep moving. 
 	 */
