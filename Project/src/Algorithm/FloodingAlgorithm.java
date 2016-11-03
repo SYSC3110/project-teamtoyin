@@ -2,6 +2,8 @@ package Algorithm;
 
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.Iterator;
+
 import Network.Message;
 import Network.Network;
 import Network.Node; 
@@ -11,93 +13,220 @@ import Network.Node;
  */
 
 public class FloodingAlgorithm implements Algorithm {
-	private Network network;	//Network of nodes the algorithm is running on
-	private Node start_n;		//represents the start node of the message
-	private Node end_n;		//End node in the network
-	private Node curr_Node;
-	private int neighboursSize;	//represents the number of neighbours a node has
-	private ArrayList<Node> nextNodes;	//an array list of all the next ndoes from a current node
-	int count, count2, packetCounter;
-	private HashSet<Node> neighbors;
-	private HashSet<Node> neighbors1;
-	
+	private Network network;			//Network of nodes the algorithm is running on
+	int packet_count;					// Number of packets transmitted during message sending
+	private int max_injections = 20; 	//Maximum number of nodes to inject in the network	
+	/**
+	 * Constructor to assign network to the algorithm.
+	 */
 	public FloodingAlgorithm(Network n){
 		this.network = n;
 	}
 	
-	public boolean run(Message m, int run) {
-		// TODO Auto-generated method stub
-		//Get the messages start node
-		this.start_n = m.getSource();
-		this.end_n = m.getDestination();
-		Node currentNode = start_n;
-		count = 0;
-		//Get the nodes neighbors
-		//HashSet<String> neighbors;
-		//HashSet<String> neighbors1;
-		neighbors = start_n.getNeighbors();
-		this.user(neighbors, currentNode);
-		System.out.println("Toyins network");
-		while(this.curr_Node != this.end_n){
-			forwardPacket(neighbors);
+	/**
+	 * Traverses the network of nodes beginning at the start node and ending at
+	 * the end node specified in the constructor.
+	 */	
+	public boolean run(Message m, int rate) {
+		
+		int count = 0;		//Counter for step while loop
+		int injected = 0;	//Counter for new message injections		
+		Message new_m; //New message to inject into the network
+		
+		//Inject message into the network
+		network.injectMessage(m);
+		
+		//If the rate is 0, the network is closed for new messages
+		if (rate == 0) {
+			
+			//Set network to closed
+			network.setOpen(false);
+			
 		}
 		
-		return false;
-	}
-
-	private void forwardPacket(HashSet<Node> neighbors) {
-		HashSet<Node> neighbors1;
-		for (Node n: neighbors){
-			int value = 0;
-			this.curr_Node = n;
-			do{
-				value++;
-				neighbors1 = n.getNeighbors();
-				this.user(neighbors1, n);
-			}while(value != neighbors1.size());
-		}
-
-	}
-
-	public Node next(Node n) {
-		return null;
-	}
-
-	public void countPacket() {
-		// TODO Auto-generated method stub
-		count++;
-		packetCounter++;
-		
-	}
-
-	public int getPacketCount() {
-		// TODO Auto-generated method stub
-		return this.packetCounter;
-	}
-	
-	public void user(HashSet<Node> neighbors2, Node currentNode){
-		//nextNodes = new ArrayList<String>();
-		this.curr_Node = currentNode;
-		int counter = 0;
-		neighbors2 = currentNode.getNeighbors();
-		for (Node n: neighbors2){
-			counter++;
-			Node newNode = n;
-			System.out.println("From "+ currentNode + " to " + newNode);
-			//System.out.println(node);
-			//currentNode = newNode;
-			countPacket();
-			if(this.count == neighbors2.size()){
-				System.out.println("Count value: " + count);
-				System.out.println("neighbours size: "+ neighbors2.size());
-				this.count = 0;
-				System.out.println("Hey");
-				//currentNode = newNode;
+		//While the network is good to go
+		while (step()) {
+			
+			//If we should inject a new message 
+			if ( ( rate != 0 ) && ( (count % rate) == 0 ) && ( injected < this.max_injections ) ) {
+				
+				//Create a new message
+				new_m = new Message(m.getContents() + " - " + count, m.getSource(), m.getDestination());
+				
+				//Inject message into network
+				network.injectMessage(new_m);
+				
+				//Increment injected counter
+				injected ++;
+				
+			} else if (rate > 0 && injected >= this.max_injections) {
+				
+				//Network not open for new messages
+				network.setOpen(false);
+				
 			}
+			
+			//Step again until no more stepping required
+			System.out.println("");
+			System.out.println(" ------ Stepping again...   ------ ");
+			System.out.println("");
+			
+			//Increment counter
+			count++;			
+			
 		}
-		System.out.println("Count value: " + count);
+		
+		//Algorithm successfully ran if we reach here	
+		return true;
+		
 	}
 	
+	/**
+	 * Performs a simulation step, moving messages to the next node and
+	 * injecting new messages as required. Returns false when there is no
+	 * further step to take.
+	 */
+	public boolean step() {
+		Node new_n; 				//New node to move message to
+		Message new_m;				//New message created to flood out
+		ArrayList<Message> messages;//New list of messages for the network
+		
+		//Initialize arraylist of messages
+		messages = new ArrayList<Message>();
+		
+		//If no more messages travelling in network and the network is not receiving new messages
+		if (!network.messagesMoving() && !network.isOpen()) {
+			System.out.println("No messages moving and network closed for new messages.");
+			return false;
+		}
+
+		//Iterator for messages in network
+		Iterator<Message> i = network.getMessages().iterator();
+		
+		//For each message in network
+		while (i.hasNext()) {
+			
+			System.out.println("Message under considering...");
+			
+			//Get message
+			Message m = i.next();
+			
+			// If the message is already at its destination, skip
+			if (m.getNode() == m.getDestination()) {
+				
+				//Debug
+				System.out.println(m.getContents() + " is at the destination node " + m.getNode().getName());
+				
+				//Node is at destination so remove it
+				i.remove();
+								
+				//Continue to next message
+				continue;
+				
+			} else {
+				
+				//Debug
+				System.out.println(m.getContents() + " is at node " + m.getNode().getName() + " and is going to node " + m.getDestination().getName());
+			
+			}
+
+			// Get node to move message to
+			new_n = this.next(m);
+			
+			//Send to all neighbors that havn't received it yet
+			while (new_n != null) {
+								
+				//Create a copy of the message
+				new_m = new Message(m);
+				
+				//Move the message to the next node
+				new_m.setNode(new_n);
+				
+				//Count a hop for this new message
+				new_m.countHop();
+				
+				//Add to list of updated network messages
+				messages.add(new_m);
+				
+				//Add new node to current messages history so we dont send another message there
+				m.addHistory(new_n);
+				
+				//Increment packets sent
+				this.countPacket();
+				
+				//Debug
+				System.out.println("Copy of message going from " + m.getNode().getName() + " to " + new_m.getNode().getName())
+				;
+				// Get next node to move message to
+				new_n = this.next(m);
+
+			}				
+			
+			//Remove original message, it has been passed to all eligible neighbors
+			i.remove();
+			
+		}
+		
+		//Update messages in network
+		network.setMessages(messages);
+
+		//Step successfully completed
+		return true;
+		
+	}
+	
+	/**
+	 * Selects the next node to travel to and returns it.
+	 */
+	public Node next(Message m) {
+		
+		//Get messages current node
+		Node n = m.getNode();
+		
+		// If the node isn't present in the network return
+		if (!network.contains(n)) {
+			System.out.println("Does not contain node " + n.getName());
+			return null;
+		}
+
+		// Get the nodes neighbors
+		HashSet<Node> neighbors;
+		neighbors = n.getNeighbors();
+
+		// Fetch the random neighbor and return it
+		for (Node neighbor_n : neighbors) {
+			if (!m.getHistory().contains(neighbor_n))
+				return neighbor_n;
+			else
+				System.out.println("Message history contains " + neighbor_n.getName());
+		}
+
+		// We should not get to this point
+		System.out.println("No new neighbor nodes to send this message to");
+		return null;
+		
+	}
+
+	/**
+	 * Increment the counter for number of packets transmitted during message
+	 * sending.
+	 */
+	public void countPacket() {
+
+		// Increment packets counter
+		this.packet_count++;
+
+	}
+
+	/**
+	 * Returns number of packets transmitted during message sending.
+	 */
+	public int getPacketCount() {
+
+		// Increment packets counter
+		return this.packet_count;
+
+	}
 
 	
 	public static void main(String[] args) {
@@ -105,29 +234,28 @@ public class FloodingAlgorithm implements Algorithm {
 		Network n = new Network();
 		Node n1 = new Node("A");
 		Node n2 = new Node("B");
-		Node n3 = new Node("C");
+		Node n3 = new Node("C");		
 		Node n4 = new Node("D");
 		Node n5 = new Node("E");
-		
+
 		n.add(n1);
 		n.add(n2);
 		n.add(n3);
 		n.add(n4);
 		n.add(n5);
-		
+
 		n.link(n1, n2);
-		n.link(n1, n2);
-		n.link(n1, n3);
 		n.link(n2, n3);
-		n.link(n2, n4);
-		n.link(n2, n5);
+		n.link(n2, n4);	
+		n.link(n3, n5);		
 		n.link(n4, n5);
-		
+
 		FloodingAlgorithm algo = new FloodingAlgorithm(n);
-		
-		Message m = new Message("Message contents", n1, n5);
-		algo.run(m, 5);
+
+		Message m = new Message("MSG1", n1, n5);
+		boolean value = algo.run(m, 0);
 		System.out.println("Packets sent during transmission: " + algo.getPacketCount());
+		System.out.println("true or false " + value);
 		
 	}
 

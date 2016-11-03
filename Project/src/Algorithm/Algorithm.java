@@ -26,10 +26,9 @@ public interface Algorithm {
 	public boolean step();
 	
 	/**
-	 * Returns the next node to travel to based on the current node.
-	 * @param n
+	 * Returns the next node to travel to basd on the message
 	 */
-	public Node next(Node n);
+	public Node next(Message m);	
 	
 	/**
 	 * Counts a packet transfer in the network when moving a message

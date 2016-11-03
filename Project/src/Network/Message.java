@@ -1,7 +1,6 @@
-/**
- * 
- */
 package Network;
+
+import java.util.ArrayList;
 
 /**
  * @author Lina El Sadek
@@ -12,11 +11,12 @@ package Network;
 
 public class Message {
 	
-	private String contents;	//Message contents
-	private Node destination;	//Message destination node
-	private Node source;		//Message source node
-	private Node position;		//Node the message is currently at
-	private int hops;			//Hops a message has taken in the network
+	private String contents;			//Message contents
+	private Node destination;			//Message destination node
+	private Node source;				//Message source node
+	private Node position;				//Node the message is currently at
+	private int hops;					//Hops a message has taken in the network
+	private ArrayList<Node> history;	//Stores the messages node traveling history 
 	
 	/**
 	 * The constructor is meant to create a message to be sent to a node
@@ -48,6 +48,40 @@ public class Message {
 		
 		//Initialize number of hops to 0
 		hops = 0;
+		
+		//Initialize history ArrayList
+		history = new ArrayList<Node>();
+		
+	}
+	
+	/**
+	 * A constructor to create a new message which is a copy of an 
+	 * existing message
+	 */
+	public Message (Message m) {
+		
+		//Check m is null
+		if (m == null) {
+			throw new NullPointerException();
+		}
+		
+		//Duplicate message contents
+		this.contents = m.getContents();
+		
+		//Duplicate message destination
+		this.destination = m.getDestination();
+		
+		//Duplicate message source
+		this.source = m.getSource();
+		
+		//Duplicate message position
+		this.position = m.getNode();
+		
+		//Duplicate message hops
+		this.hops = m.getHopCount();
+		
+		//Duplicate message history
+		this.history = new ArrayList<Node>(m.getHistory());
 		
 	}
 	
@@ -95,10 +129,30 @@ public class Message {
 		//If node is not null
 		if(n != null) {
 			
+			//Save current node in history
+			this.history.add(this.position);
+			
+			System.out.println("Added " + this.position.getName() + " to my history because moving forward");
+			
 			//Set messages position in the network
 			this.position = n;
 			
 		}
+	}
+	
+	/**
+	 * Adds to a nodes history
+	 */
+	public void addHistory(Node n) {
+		
+		//Check if n is null
+		if (n == null) { return; }
+		
+		//Add to history
+		this.history.add(n);
+		
+		return;
+		
 	}
 	
 	/**
@@ -164,6 +218,16 @@ public class Message {
 		if(str != null && str !="") {
 			contents = str;
 		}
+		
+	}
+	
+	/**
+	 * Returns the nodes history
+	 */
+	public ArrayList<Node> getHistory() {
+		
+		//Return history ArrayList
+		return this.history;
 		
 	}
 }

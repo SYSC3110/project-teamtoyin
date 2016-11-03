@@ -210,6 +210,22 @@ public class Network extends Observable{
 	}
 	
 	/**
+	 * Sets all the messages in the network
+	 */
+	public void setMessages(ArrayList<Message> messages) {
+		
+		//Check messages is not null
+		if (messages == null) { System.out.println("could not set messages, null"); return; } 
+		
+		//Set messages in network
+		this.messages = messages;
+		
+		//return
+		return;
+		
+	}
+	
+	/**
 	 * Sets the network open or closed, if the network
 	 * is closed and no messages are moving, then 
 	 * the simulation is done.

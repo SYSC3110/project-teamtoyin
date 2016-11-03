@@ -58,8 +58,8 @@ public class RandomAlgorithmTest {
 		n1.add(src);
 		n1.add(dest);
 		n1.link(src, dest);
-		assertNotNull(ra.next(src));
-		assertEquals("A", ra.next(dest).getName());
+		assertNotNull(ra.next(message1));
+		assertEquals(dest, ra.next(message1));
 		
 	}
 	

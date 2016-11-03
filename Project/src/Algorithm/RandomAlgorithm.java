@@ -15,13 +15,13 @@ import Network.*;
  *
  */
 public class RandomAlgorithm implements Algorithm {
-	private Network network; 	// Network of nodes the algorithm is running on
-	private Random random; 		// Random instance for selecting next node
-	private int packet_count; 	// Number of packets transmitted during message sending
-	private int max_injections = 20; //Maximum number of nodes to inject in the network
+	private Network network;			// Network of nodes the algorithm is running on
+	private Random random; 				// Random instance for selecting next node
+	private int packet_count; 		 	// Number of packets transmitted during message sending
+	private int max_injections = 20; 	//Maximum number of nodes to inject in the network
+	
 	/**
-	 * Constructor to assign network to the algorithm along with the start and
-	 * end nodes.
+	 * Constructor to assign network to the algorithm.
 	 */
 	public RandomAlgorithm(Network n) {
 
@@ -44,7 +44,6 @@ public class RandomAlgorithm implements Algorithm {
 	 * Traverses the network of nodes beginning at the start node and ending at
 	 * the end node specified in the constructor.
 	 */
-
 	public boolean run(Message m, int rate) {
 		
 		int count = 0;		//Counter for step while loop
@@ -54,12 +53,19 @@ public class RandomAlgorithm implements Algorithm {
 		//Inject message into network
 		network.injectMessage(m);
 		
+		//If the rate is 0, the network is closed for new messages
+		if (rate == 0) {
+			
+			//Set network to closed
+			network.setOpen(false);
+			
+		}
 		
 		//While the network is good to go
 		while (step()) {
 			
 			//If we should inject a new message 
-			if ( (count % rate) == 0 && injected < this.max_injections) {
+			if ( ( rate != 0 ) && ( (count % rate) == 0 ) && ( injected < this.max_injections ) ) {
 
 				//Create a new message
 				new_m = new Message(m.getContents() + " - " + count, m.getSource(), m.getDestination());
@@ -70,7 +76,7 @@ public class RandomAlgorithm implements Algorithm {
 				//Increment injected counter
 				injected ++;
 				
-			} else if (injected >= this.max_injections) {
+			} else if (rate > 0 && injected >= this.max_injections) {
 				
 				//Network not open for new messages
 				network.setOpen(false);
@@ -112,11 +118,13 @@ public class RandomAlgorithm implements Algorithm {
 		//For each message in network
 		while (i.hasNext()) {
 			
+			//Get message
 			Message m = i.next();
 
 			// If the message is already at its destination, skip
 			if (m.getNode() == m.getDestination()) {
 				
+				//Debug
 				System.out.println(m.getContents() + " is at the destination node " + m.getNode().getName());
 				
 				//Node is at destination so remove it
@@ -126,11 +134,14 @@ public class RandomAlgorithm implements Algorithm {
 				continue;
 				
 			} else {
+				
+				//Debug
 				System.out.println(m.getContents() + " is at node " + m.getNode().getName() + " and is going to node " + m.getDestination().getName());
+			
 			}
 
 			// Get node to move message to
-			new_n = this.next(m.getNode());
+			new_n = this.next(m);
 			
 			System.out.println("Message " + m.getContents() + " moving from " + m.getNode().getName() + " to " + new_n.getName());
 			
@@ -141,6 +152,9 @@ public class RandomAlgorithm implements Algorithm {
 			
 			//Increment packets sent
 			this.countPacket();
+			
+			//Count message hops
+			network.getMessages().get(index).countHop();
 			
 			//Increment index counter for messages arraylist
 			index ++;
@@ -156,8 +170,11 @@ public class RandomAlgorithm implements Algorithm {
 	/**
 	 * Selects the next node to travel to and returns it.
 	 */
-	public Node next(Node n) {
-
+	public Node next(Message m) {
+		
+		//Get messages current node
+		Node n = m.getNode();
+		
 		// If the node isn't present in the network return
 		if (!network.contains(n)) {
 			System.out.println("Does not contain node " + n.getName());
