@@ -16,6 +16,7 @@ public class FloodingAlgorithm implements Algorithm {
 	private Network network;			//Network of nodes the algorithm is running on
 	int packet_count;					// Number of packets transmitted during message sending
 	private int max_injections = 20; 	//Maximum number of nodes to inject in the network	
+	
 	/**
 	 * Constructor to assign network to the algorithm.
 	 */
@@ -155,8 +156,8 @@ public class FloodingAlgorithm implements Algorithm {
 				this.countPacket();
 				
 				//Debug
-				System.out.println("Copy of message going from " + m.getNode().getName() + " to " + new_m.getNode().getName())
-				;
+				System.out.println("Copy of message going from " + m.getNode().getName() + " to " + new_m.getNode().getName());
+				
 				// Get next node to move message to
 				new_n = this.next(m);
 
