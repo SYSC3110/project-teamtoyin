@@ -21,7 +21,16 @@ public class FloodingAlgorithm implements Algorithm {
 	 * Constructor to assign network to the algorithm.
 	 */
 	public FloodingAlgorithm(Network n){
-		this.network = n;
+		
+		//If network is null throw exception
+		if (n == null)
+			throw new NullPointerException();
+		else
+			this.network = n;
+		
+		// Initialize packet_count
+		this.packet_count = 0;
+		
 	}
 	
 	/**
