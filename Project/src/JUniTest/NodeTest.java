@@ -2,6 +2,8 @@ package JUniTest;
 
 import static org.junit.Assert.*;
 
+import java.util.HashSet;
+
 import org.junit.Before;
 import org.junit.Test;
 
@@ -113,13 +115,36 @@ public class NodeTest {
 	@Test
 	public void testGetNeighbours()
 	{
-		fail("Not implemented");
+		//Creating two nodes 
+		Node n1 = new Node("B");
+		Node n2 = new Node ("C");
+		
+		//adding the two nodes to add them as neighbors for node A
+		n.addNeighbor(n1);
+		n.addNeighbor(n2);
+		
+		//creating a HashSet of nodes and putting the two nodes created 
+		HashSet<Node> neighbors = new HashSet<Node>();
+		neighbors.add(n1);
+		neighbors.add(n2);
+		
+		//comparing the neighbors of node A with the the HashSet neighbors 
+		assertEquals(neighbors, n.getNeighbors());
 	}
 	
 	@Test
 	public void testEquals()
 	{
-		fail("Not implemented");
+		//creating a node with the same name 
+		Node n1 = new Node("a");
+		
+		//the equals method should return true  
+		assertTrue(n1.equals(n));
+		
+		//creating another node with a different name and comparing to nodes A and a 
+		Node n2 = new Node ("R");
+		assertFalse(n1.equals(n2));
+		assertFalse(n.equals(n2));
 	}
 
 }
