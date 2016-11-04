@@ -12,10 +12,13 @@ import Algorithm.RandomAlgorithm;
  * The network holds all nodes and nodes neighbors
  *	Modified By: Lina El Sadek on 10/25/2016
  */
+
+import Network.NetworkCommands;
 public class Network extends Observable{
 	
 	private HashSet<Node> nodes;			//Stores all of the network nodes
-	private String command;
+	private NetworkCommands command;
+	private String command2;
 	private ArrayList<Message> messages;	//List of messages present in the network
 	private boolean open;					//When true the network will stay open for accepting new messages
 	
@@ -31,7 +34,7 @@ public class Network extends Observable{
 		messages = new ArrayList<Message>();
 		
 		//Initialize command to empty
-		command = "";
+		//command = "";
 		
 		//Set the network to open for accepting messages 
 		this.open = true;
@@ -46,14 +49,14 @@ public class Network extends Observable{
 		//Validate n is not null
 		if (n == null) { 
 			System.out.println("Enter a valid node");
-			setCommandAndNotify("InvalidNodeName");
+			setCommandAndNotify(NetworkCommands.InvalidNodeName);
 			return false; 
 		} 
 		
 		//If the node is present in the network return
 		if (nodes.contains(n)) {
 			System.out.println("Node name already exists");
-			setCommandAndNotify("NodeExists");
+			setCommandAndNotify(NetworkCommands.NodeExists);
 			return false;
 		}
 		
@@ -100,16 +103,16 @@ public class Network extends Observable{
 		
 		//Validate n has a value
 		if (n == null) { 
-			setCommandAndNotify("NodeEmpty");
+			setCommandAndNotify(NetworkCommands.NodeEmpty);
 			return false; 
 		} 
 		
 		//Node not present in hashmap
 		if (!nodes.contains(n)) {
-			setCommandAndNotify("NodeDoesNotExist");
+			setCommandAndNotify(NetworkCommands.NodeDoesNotExist);
 			return false; 
 		} else {
-			setCommandAndNotify("SetEditableNextNode");
+			setCommandAndNotify(NetworkCommands.SetEditableNextNode);
 			return true;
 		}
 	}	
@@ -260,12 +263,12 @@ public class Network extends Observable{
 	 * Creates text fields for nodes on ui
 	 */
 	public void notifyNodeNumIsAvailable(int nodeNum) {
-		command = "NodeNumAvailable:"+nodeNum;
+		command2 = NetworkCommands.NodeNumAvailable.getCommand()+":"+nodeNum;
 		setChanged();
-		notifyObservers(command);
+		notifyObservers(command2);
 	}
 	
-	private void setCommandAndNotify(String command) {
+	private void setCommandAndNotify(NetworkCommands command) {
 		this.command = command;
 		setChanged();
 		notifyObservers(this.command);
