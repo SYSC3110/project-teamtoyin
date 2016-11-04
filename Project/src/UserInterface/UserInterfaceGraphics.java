@@ -16,17 +16,18 @@ public class UserInterfaceGraphics extends JPanel {
 	
 	//private Algorithm algorithm;
 	private Network network;
-	private int x1,x2,y1,y2;
+	private int xCoordinate,yCoordinate,boxDimension1,boxDimension2;
 	private int nodesNum;
 	public UserInterfaceGraphics(Network network){
 
 		this.network=network;
 		this.nodesNum=network.getNetworkNodesNumber();
-		System.out.println("node num: "+network.getNetworkNodesNumber());
-		x1=1;
-		x2=10;
-		y1=30;
-		y2=30;
+
+
+		xCoordinate=1;
+		yCoordinate=250;
+		boxDimension1=30;
+		boxDimension2=30;
 	}
 	
 	public void paintComponent(Graphics g){
@@ -38,10 +39,12 @@ public class UserInterfaceGraphics extends JPanel {
 	     List<Node> list = new ArrayList<Node>(network.getNodes());
 		for (Node n : list){
 			
-			g.drawRect(x1, x2, y1, y1);
-			g.drawString(n.getName(), x1+10, x2+20 );
-			setCoordinates(40);	
+			g.drawRect(xCoordinate, yCoordinate, boxDimension1, boxDimension2);
+			g.drawString(n.getName(), xCoordinate+10, yCoordinate+20 );
+			setCoordinates(60);	
 		}
+		
+		
 		
 		/*
 		for (int i=0;i<nodesNum;i++){
@@ -57,8 +60,8 @@ public class UserInterfaceGraphics extends JPanel {
 	}
 	
 	public void setCoordinates(int x){
-		x1+=x;
-		//x2+=x;
+		xCoordinate+=x;
+		//yCoordinate+=x;
 		
 	}
 
@@ -67,9 +70,9 @@ public class UserInterfaceGraphics extends JPanel {
 		
 		Node n1 = new Node("A");
 		Node n2 = new Node("B");
-		Node n3 = new Node("X");
-		Node n4 = new Node("Y");
-		Node n5 = new Node("Z");
+		Node n3 = new Node("C");
+		Node n4 = new Node("D");
+		Node n5 = new Node("E");
 		
 		n.add(n1);
 		n.add(n2);
@@ -77,6 +80,9 @@ public class UserInterfaceGraphics extends JPanel {
 		n.add(n4);
 		n.add(n5);
 		
+		
+		
+
 		//n.link(n1, n2);
 		//n.link(n2, n3);
 		//n.link(n3, n4);
