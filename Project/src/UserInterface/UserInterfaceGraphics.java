@@ -2,6 +2,8 @@ package UserInterface;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -31,14 +33,26 @@ public class UserInterfaceGraphics extends JPanel {
 		super.paintComponent(g);
 		
 		this.setBackground(Color.WHITE);
+		g.setColor(Color.BLUE);
+		// Creating a List of HashSet elements
+	     List<Node> list = new ArrayList<Node>(network.getNodes());
+		for (Node n : list){
+			
+			g.drawRect(x1, x2, y1, y1);
+			g.drawString(n.getName(), x1+10, x2+20 );
+			setCoordinates(40);	
+		}
+		
+		/*
 		for (int i=0;i<nodesNum;i++){
 			
-			Node n = new Node(" ");
+			
 			g.setColor(Color.BLUE);
 			g.drawRect(x1, x2, y1, y1);
 			
 			setCoordinates(40);
 		}
+		*/
 		
 	}
 	
@@ -53,9 +67,9 @@ public class UserInterfaceGraphics extends JPanel {
 		
 		Node n1 = new Node("A");
 		Node n2 = new Node("B");
-		Node n3 = new Node("C");
-		Node n4 = new Node("D");
-		Node n5 = new Node("E");
+		Node n3 = new Node("X");
+		Node n4 = new Node("Y");
+		Node n5 = new Node("Z");
 		
 		n.add(n1);
 		n.add(n2);
@@ -63,10 +77,10 @@ public class UserInterfaceGraphics extends JPanel {
 		n.add(n4);
 		n.add(n5);
 		
-		n.link(n1, n2);
-		n.link(n2, n3);
-		n.link(n3, n4);
-		n.link(n5, n2);
+		//n.link(n1, n2);
+		//n.link(n2, n3);
+		//n.link(n3, n4);
+		//n.link(n5, n2);
 		UserInterfaceGraphics graph = new UserInterfaceGraphics(n);
 		
 		JFrame f = new JFrame("nodes");
