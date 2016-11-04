@@ -142,11 +142,7 @@ public class RandomAlgorithm implements Algorithm {
 			// Get node to move message to
 			new_n = this.next(m);
 			
-			System.out.println("Message " + m.getContents() + " moving from " + m.getNode().getName() + " to " + new_n.getName());
-			
-			//Set messages new node
-			System.out.println("Node: " + m.getContents() + ", Changing node : " + network.getMessages().get(index).getContents());
-			
+			//Update the messages position in the network
 			network.getMessages().get(index).setNode(new_n);
 			
 			//Increment packets sent
