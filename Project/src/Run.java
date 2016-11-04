@@ -26,8 +26,8 @@ public class Run {
 		String edgeInput = "";
 		String doneCommand = "done";
 		Node n;
-		Node node_source = new Node("");
-		Node node_dest = new Node("");
+		Node node_source = new Node(" ");
+		Node node_dest = new Node(" ");
 		
 		String[] edgeInputArray = new String[2];
 		Boolean flag = false;
@@ -88,6 +88,7 @@ public class Run {
 		System.out.println("A sample input would be: Node1 Node2");
 		edgeInput = reader.nextLine();
 		
+		
 		//Prompts the user to enter the edges between the nodes
 		while(counter<edgeNum) {
 			
@@ -98,7 +99,7 @@ public class Run {
 			while(!validateInputString(edgeInput)) {
 				edgeInput = reader.nextLine();
 			}
-			
+		
 			edgeInputArray = edgeInput.split(" ");
 			Node n1 = new Node(edgeInputArray[0].toUpperCase());
 			Node n2 = new Node(edgeInputArray[1].toUpperCase());
@@ -116,7 +117,10 @@ public class Run {
 		msgStr = reader.nextLine();
 		System.out.print("\n\tSourceNode:");
 		sourceNode = reader.next();
-
+		
+		//create new node to represent the source node input
+		node_source = new Node(sourceNode); 
+		
 		while(!network.contains(node_source)) {
 			System.out.println("You have entered an invalid node. Make sure the node you enter is in the network");
 			sourceNode = reader.next();
@@ -126,6 +130,9 @@ public class Run {
 		System.out.print("\n\tDestinationNode:");
 		destinationNode = reader.next();
 		
+		//create new node to represent the source node input
+		node_dest = new Node(destinationNode);			
+
 		while(!network.contains(node_dest)) {
 			System.out.println("You have entered an invalid node. Make sure the node you enter is in the network");
 			destinationNode = reader.next();
