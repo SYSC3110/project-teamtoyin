@@ -284,6 +284,21 @@ public class Network extends Observable{
 		return this.nodes;
 	}
 	
+	/**
+	 * Returns a node based on a string
+	 */
+	public Node getNode(String nodeName) {
+		
+		
+		for(Node n : nodes)
+		{
+			if(n.getName().equals(nodeName.toUpperCase()))
+				return n;
+		}
+		
+		return null;
+	}	
+	
 	
 	
 	

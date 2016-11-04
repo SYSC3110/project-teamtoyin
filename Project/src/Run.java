@@ -101,8 +101,8 @@ public class Run {
 			}
 		
 			edgeInputArray = edgeInput.split(" ");
-			Node n1 = new Node(edgeInputArray[0].toUpperCase());
-			Node n2 = new Node(edgeInputArray[1].toUpperCase());
+			Node n1 = network.getNode(edgeInputArray[0].toUpperCase());
+			Node n2 = network.getNode(edgeInputArray[1].toUpperCase());
 			
 			network.link(n1, n2);
 			counter++;
@@ -126,6 +126,10 @@ public class Run {
 			sourceNode = reader.next();
 			node_source = new Node(sourceNode);
 		}
+		if(network.contains(node_source))
+		{
+			node_source = network.getNode(node_source.getName());
+		}
 		
 		System.out.print("\n\tDestinationNode:");
 		destinationNode = reader.next();
@@ -138,7 +142,10 @@ public class Run {
 			destinationNode = reader.next();
 			node_dest = new Node(destinationNode);			
 		}
-		
+		if(network.contains(node_dest))
+		{
+			node_dest = network.getNode(node_dest.getName());
+		}
 		
 		msg = new Message(msgStr, node_source, node_dest);
 		algorithm = new RandomAlgorithm(network);
@@ -163,7 +170,7 @@ public class Run {
 		    
 		} while (choice != 1);
 		
-		//Promt the user if he wants to add rate or not
+		//Prompt the user if he wants to add rate or not
 		System.out.println("Do you want to add a rate value enter yes or no?");
 		String rateFlag = reader.next();
 		
@@ -194,6 +201,10 @@ public class Run {
 			    	rateNum = 2;
 			    }
 			} while (rateNum <= 0);
+		}
+		else
+		{
+			rateNum = 0;
 		}
 		
 		//Initialize the algorithm
