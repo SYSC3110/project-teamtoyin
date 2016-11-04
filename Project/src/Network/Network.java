@@ -279,6 +279,11 @@ public class Network extends Observable{
 		return nodes.size();
 	}
 	
+	//returns the list of nodes
+	public HashSet<Node> getNodes(){
+		return this.nodes;
+	}
+	
 	
 	
 	

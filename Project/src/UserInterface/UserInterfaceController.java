@@ -33,7 +33,7 @@ public class UserInterfaceController implements ActionListener{
 		if(e.getSource() instanceof JTextField)
 		{
 			command = e.getActionCommand();
-			if(command.equals("GetNumberOfNodes"))
+			if(command.equals(UICCommands.GetNumberOfNodes.getCommand()))
 			{
 				String numOfNodesString = ((JTextField)e.getSource()).getText();
 				try{
@@ -48,7 +48,7 @@ public class UserInterfaceController implements ActionListener{
 					((JTextField)e.getSource()).setText("Must be positive integer");
 				}
 			}
-			else if(command.equals("GetRateNumber"))
+			else if(command.equals(UICCommands.GetRateNumber.getCommand()))
 			{
 				String rateNumString = ((JTextField)e.getSource()).getText();
 				try{
@@ -62,13 +62,13 @@ public class UserInterfaceController implements ActionListener{
 					((JTextField)e.getSource()).setText("Must be positive integer or zero");
 				}
 			}
-			else if(command.equals("NodeNameInserted"))
+			else if(command.equals(UICCommands.NodeNameInserted.getCommand()))
 			{
 				String nodeName = ((JTextField)e.getSource()).getText();
 				Node n = new Node(nodeName);
 				network.add(n);
 			}
-			else if(command.equals("FirstEdgeInserted"))
+			else if(command.equals(UICCommands.FirstEdgeInserted.getCommand()))
 			{
 				String nodeName = ((JTextField)e.getSource()).getText();
 				Node n = new Node(nodeName);
