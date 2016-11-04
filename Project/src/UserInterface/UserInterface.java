@@ -7,11 +7,12 @@ import java.util.Observable;
 import java.util.Observer;
 import javax.swing.*;
 import Network.Node;
-
+import UserInterface.UICommands;
 
 /**
  * 
  * @author Lina El Sadek
+ * Modified Toyin Odujebe
  * @date 10/23/2016
  *
  */
@@ -96,19 +97,19 @@ public class UserInterface extends JFrame implements Observer{
 		menu = new JMenu("File");
 		
 		reset = new JMenuItem("Reset Topology");
-		reset.setActionCommand("Reset");
+		reset.setActionCommand(UICommands.Reset.getCommand());
 		
 		restore = new JMenuItem("Upload Topology");
-		restore.setActionCommand("fromXML");
+		restore.setActionCommand(UICommands.fromXML.getCommand());
 		
 		undo = new JMenuItem("Undo");
-		undo.setActionCommand("Undo");
+		undo.setActionCommand(UICommands.Undo.getCommand());
 		
 		save = new JMenuItem("Save XML");
-		save.setActionCommand("toXML");
+		save.setActionCommand(UICommands.toXML.getCommand());
 		
 		help = new JMenuItem("User Manual");
-		help.setActionCommand("Help");
+		help.setActionCommand(UICommands.Help.getCommand());
 		
 		//Add Menu Items to Menu
 		menu.add(reset);
@@ -134,7 +135,7 @@ public class UserInterface extends JFrame implements Observer{
 		nodeNum = new JTextField();
 		nodeNum.setEditable(true);
 		nodeNum.setText("Number of Nodes");
-		nodeNum.setActionCommand("GetNumberOfNodes");
+		nodeNum.setActionCommand(UICommands.GetNumberOfNodes.getCommand());
 		nodeNum.addActionListener(UIC);
 
 		
@@ -153,11 +154,11 @@ public class UserInterface extends JFrame implements Observer{
 		
 		algorithmGroup = new ButtonGroup();
 		randomAlgo = new JRadioButton("Random Algorithm");
-		randomAlgo.setActionCommand("RandomAlgorithm");
+		randomAlgo.setActionCommand(UICommands.RandomAlgorithm.getCommand());
 		randomAlgo.addActionListener(UIC);
 		
 		floodingAlgo = new JRadioButton("Flooding Algorithm");
-		floodingAlgo.setActionCommand("FloodingAlgorithm");
+		floodingAlgo.setActionCommand(UICommands.FloodingAlgorithm.getCommand());
 		floodingAlgo.addActionListener(UIC);
 		
 		algorithmGroup.add(randomAlgo);
@@ -180,7 +181,7 @@ public class UserInterface extends JFrame implements Observer{
 		
 		rateNum = new JTextField();
 		rateNum.setEditable(true);
-		rateNum.setActionCommand("GetRateNumber");
+		rateNum.setActionCommand(UICommands.GetRateNumber.getCommand());
 		rateNum.addActionListener(UIC);
 		
 		PnlRate.add(lblRate);
@@ -204,7 +205,7 @@ public class UserInterface extends JFrame implements Observer{
 		for(int i=0; i<NumberOfNodes; i++)
 		{
 			nodeNameTextField = new JTextField();
-			nodeNameTextField.setActionCommand("NodeNameInserted");
+			nodeNameTextField.setActionCommand(UICommands.NodeNameInserted.getCommand());
 			nodeNameTextField.addActionListener(UIC);
 			nodeTextFields.add(nodeNameTextField);
 		}
@@ -234,7 +235,7 @@ public class UserInterface extends JFrame implements Observer{
 		{
 			
 			edgeTextField = new JTextField();
-			edgeTextField.setActionCommand("FirstEdgeInserted");
+			edgeTextField.setActionCommand(UICommands.FirstEdgeInserted.getCommand());
 			edgeTextField.addActionListener(UIC);
 			if(i == 0)
 				edgeTextField.setEditable(true);
@@ -245,7 +246,7 @@ public class UserInterface extends JFrame implements Observer{
 			allEdgetextFields.add(edgeTextField);
 			
 			edgeTextField = new JTextField();
-			edgeTextField.setActionCommand("SecondEdgeInserted");
+			edgeTextField.setActionCommand(UICommands.SecondEdgeInserted.getCommand());
 			edgeTextField.addActionListener(UIC);
 			edgeTextField.setEditable(false);
 			allEdgetextFields.add(edgeTextField);
