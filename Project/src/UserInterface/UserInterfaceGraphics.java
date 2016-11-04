@@ -18,13 +18,16 @@ public class UserInterfaceGraphics extends JPanel {
 	private Network network;
 	private int xCoordinate,yCoordinate,boxDimension1,boxDimension2;
 	private int nodesNum;
+	private List<Node> list;
+	private int count=0;
 	public UserInterfaceGraphics(Network network){
 
 		this.network=network;
 		this.nodesNum=network.getNetworkNodesNumber();
 
+	     list = new ArrayList<Node>(network.getNodes());
 
-		xCoordinate=1;
+		xCoordinate=100;
 		yCoordinate=250;
 		boxDimension1=30;
 		boxDimension2=30;
@@ -36,7 +39,7 @@ public class UserInterfaceGraphics extends JPanel {
 		this.setBackground(Color.WHITE);
 		g.setColor(Color.BLUE);
 		// Creating a List of HashSet elements
-	     List<Node> list = new ArrayList<Node>(network.getNodes());
+
 		for (Node n : list){
 			
 			g.drawRect(xCoordinate, yCoordinate, boxDimension1, boxDimension2);
@@ -47,21 +50,35 @@ public class UserInterfaceGraphics extends JPanel {
 		
 		
 		/*
-		for (int i=0;i<nodesNum;i++){
+		for (int i=0;i<list.size();i++){
 			
 			
 			g.setColor(Color.BLUE);
-			g.drawRect(x1, x2, y1, y1);
+			//g.drawLine(xCoordinate, yCoordinate,boxDimension1,boxDimension1);
 			
-			setCoordinates(40);
+			//setCoordinates(40);
 		}
-		*/
 		
+		*/
 	}
 	
 	public void setCoordinates(int x){
-		xCoordinate+=x;
-		//yCoordinate+=x;
+	
+			xCoordinate+=x*count;
+			
+	 if(count>=2){
+			yCoordinate+=x;
+			count=0;
+		}
+	 count++;
+		
+		
+		
+	}
+	
+	//make a hashset of each node and the value be the x-axis and y-axis ??
+	//use the hasNeighbor method to check then draw line 
+	public void setNodeCoordinates(){
 		
 	}
 
