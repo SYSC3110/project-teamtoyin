@@ -274,6 +274,13 @@ public class Network extends Observable{
 		notifyObservers(this.command);
 	}
 	
+	//this method return the number of the nodes in the network 
+	public int getNetworkNodesNumber(){
+		return nodes.size();
+	}
+	
+	
+	
 	
 	/**
 	 * Testing
