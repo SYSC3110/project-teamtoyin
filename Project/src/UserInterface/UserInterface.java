@@ -8,6 +8,7 @@ import java.util.Observer;
 import javax.swing.*;
 import Network.Node;
 import UserInterface.UICommands;
+import Network.NetworkCommands;
 
 /**
  * 
@@ -302,23 +303,24 @@ public class UserInterface extends JFrame implements Observer{
 					System.out.println("Number of Nodes was not provided");
 				}	
 			}
-			else if(command.equals("InvalidNodeName"))
+			
+			else if(command.equals(NetworkCommands.InvalidNodeName.getCommand()))
 			{
 				createJOptionPane("Error", "You have entered an invalid name to the node.", "Error");
 			}
-			else if(command.equals("NodeExists"))
+			else if(command.equals(NetworkCommands.NodeExists.getCommand()))
 			{
 				createJOptionPane("Warning!", "The node name you entered already exists.", "Warning");
 			}
-			else if(command.equals("NodeEmpty"))
+			else if(command.equals(NetworkCommands.NodeEmpty.getCommand()))
 			{
 				createJOptionPane("Warning!", "You have left one of the edges empty.", "Warning");
 			}
-			else if(command.equals("NodeDoesNotExist"))
+			else if(command.equals(NetworkCommands.NodeDoesNotExist.getCommand()))
 			{
 				createJOptionPane("Error", "The node you entered does not exist.", "Error");
 			}
-			else if(command.equals("SetEditableNextNode"))
+			else if(command.equals(NetworkCommands.SetEditableNextNode.getCommand()))
 			{
 				
 				for(int i=0; i<allEdgetextFields.size(); i++)
