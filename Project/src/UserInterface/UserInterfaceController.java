@@ -74,7 +74,7 @@ public class UserInterfaceController implements ActionListener{
 				Node n = new Node(nodeName);
 				network.contains(n);
 			}
-			else if(command.contentEquals("SecondEdgeInserted"))
+			else if(command.contentEquals(UICCommands.SecondEdgeInserted.getCommand()))
 			{
 				String nodeName = ((JTextField)e.getSource()).getText();
 				Node n = new Node(nodeName);
@@ -84,11 +84,11 @@ public class UserInterfaceController implements ActionListener{
 		else if (e.getSource() instanceof JRadioButton)
 		{
 			command = e.getActionCommand();
-			if(command.equals("RandomAlgorithm"))
+			if(command.equals(UICCommands.RandomAlgorithm.getCommand()))
 			{
 				algorithm = new RandomAlgorithm(network);
 			}
-			else if(command.equals("FloodingAlgorithm"))
+			else if(command.equals(UICCommands.FloodingAlgorithm.getCommand()))
 			{
 				algorithm = new FloodingAlgorithm(network);
 			}
