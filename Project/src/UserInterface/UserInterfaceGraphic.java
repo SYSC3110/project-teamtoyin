@@ -8,73 +8,55 @@ import java.util.List;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-import Algorithm.Algorithm;
 import Network.Network;
 import Network.Node;
 
-public class UserInterfaceGraphics extends JPanel {
+public class UserInterfaceGraphic extends JPanel {
 	
 	//private Algorithm algorithm;
 	private Network network;
-	private int xCoordinate,yCoordinate,boxDimension1,boxDimension2;
-	private int nodesNum;
+	
 	private List<Node> list;
-	private int count=0;
-	public UserInterfaceGraphics(Network network){
+	private List<NodeGraphic> nodeGraphiclist;
+	public UserInterfaceGraphic(Network network){
 
 		this.network=network;
-		this.nodesNum=network.getNetworkNodesNumber();
+		
 
 	     list = new ArrayList<Node>(network.getNodes());
-
-		xCoordinate=100;
-		yCoordinate=250;
-		boxDimension1=30;
-		boxDimension2=30;
+	     nodeGraphiclist = new ArrayList<NodeGraphic>();
+		
 	}
 	
 	public void paintComponent(Graphics g){
 		super.paintComponent(g);
 		
 		this.setBackground(Color.WHITE);
-		g.setColor(Color.BLUE);
-		// Creating a List of HashSet elements
 
-		for (Node n : list){
-			
-			g.drawRect(xCoordinate, yCoordinate, boxDimension1, boxDimension2);
-			g.drawString(n.getName(), xCoordinate+10, yCoordinate+20 );
-			setCoordinates(60);	
-		}
-		
-		
-		
-		/*
+	
+			int xPos=50;
+			int yPos=50;
 		for (int i=0;i<list.size();i++){
 			
-			
-			g.setColor(Color.BLUE);
-			//g.drawLine(xCoordinate, yCoordinate,boxDimension1,boxDimension1);
-			
-			//setCoordinates(40);
+			NodeGraphic ng = new NodeGraphic(list.get(i).getName(),xPos,yPos);
+			nodeGraphiclist.add(ng);
+
+			xPos+=150;
+		    yPos+=33;
 		}
 		
-		*/
-	}
-	
-	public void setCoordinates(int x){
-	
-			xCoordinate+=x*count;
+		for (int i=0;i<nodeGraphiclist.size();i++){
 			
-	 if(count>=2){
-			yCoordinate+=x;
-			count=0;
-		}
-	 count++;
 		
+			nodeGraphiclist.get(i).paintNode(g);
+
+
+		}
 		
 		
 	}
+	
+	
 	
 	//make a hashset of each node and the value be the x-axis and y-axis ??
 	//use the hasNeighbor method to check then draw line 
@@ -85,11 +67,11 @@ public class UserInterfaceGraphics extends JPanel {
 	public static void main(String[] args) {
 		Network n = new Network();
 		
-		Node n1 = new Node("A");
-		Node n2 = new Node("B");
-		Node n3 = new Node("C");
-		Node n4 = new Node("D");
-		Node n5 = new Node("E");
+		Node n1 = new Node("T");
+		Node n2 = new Node("O");
+		Node n3 = new Node("Y");
+		Node n4 = new Node("I");
+		Node n5 = new Node("N");
 		
 		n.add(n1);
 		n.add(n2);
@@ -104,7 +86,7 @@ public class UserInterfaceGraphics extends JPanel {
 		//n.link(n2, n3);
 		//n.link(n3, n4);
 		//n.link(n5, n2);
-		UserInterfaceGraphics graph = new UserInterfaceGraphics(n);
+		UserInterfaceGraphic graph = new UserInterfaceGraphic(n);
 		
 		JFrame f = new JFrame("nodes");
 		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
