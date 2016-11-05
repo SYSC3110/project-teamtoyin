@@ -14,6 +14,7 @@ import Network.Node;
  * @author Lina El Sadek
  * @date 11/1/2016
  *
+ *Modified by Osama Buhamad
  */
 public class NodeTest {
 

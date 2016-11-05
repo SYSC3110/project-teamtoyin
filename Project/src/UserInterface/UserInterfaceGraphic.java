@@ -11,11 +11,18 @@ import javax.swing.JPanel;
 import Network.Network;
 import Network.Node;
 
+/**
+ * 
+ * @author Osama Buhamad
+ *
+ * @date 11/04/2016
+ *
+ */
+
 public class UserInterfaceGraphic extends JPanel {
 	
-	//private Algorithm algorithm;
-	private Network network;
 	
+	private Network network;
 	private List<Node> list;
 	private List<NodeGraphic> nodeGraphiclist;
 	public UserInterfaceGraphic(Network network){
@@ -34,23 +41,9 @@ public class UserInterfaceGraphic extends JPanel {
 		this.setBackground(Color.WHITE);
 
 	
-			int xPos=50;
-			int yPos=50;
-		for (int i=0;i<list.size();i++){
-			
-			NodeGraphic ng = new NodeGraphic(list.get(i).getName(),xPos,yPos);
-			nodeGraphiclist.add(ng);
-
-			xPos+=150;
-		    yPos+=33;
-		}
-		
+		setNodeCoordinates();
 		for (int i=0;i<nodeGraphiclist.size();i++){
-			
-		
 			nodeGraphiclist.get(i).paintNode(g);
-
-
 		}
 		
 		
@@ -58,20 +51,32 @@ public class UserInterfaceGraphic extends JPanel {
 	
 	
 	
-	//make a hashset of each node and the value be the x-axis and y-axis ??
-	//use the hasNeighbor method to check then draw line 
+	/*
+	 * This method 
+	 */
 	public void setNodeCoordinates(){
-		
+
+		int xPos=50;
+		int yPos=50;
+		for (int i=0;i<list.size();i++){
+
+			NodeGraphic ng = new NodeGraphic(list.get(i).getName(),xPos,yPos);
+			nodeGraphiclist.add(ng);
+
+			xPos+=150;
+			yPos+=33;
+		}
+
 	}
 
 	public static void main(String[] args) {
 		Network n = new Network();
 		
-		Node n1 = new Node("T");
-		Node n2 = new Node("O");
-		Node n3 = new Node("Y");
-		Node n4 = new Node("I");
-		Node n5 = new Node("N");
+		Node n1 = new Node("A");
+		Node n2 = new Node("B");
+		Node n3 = new Node("C");
+		Node n4 = new Node("D");
+		Node n5 = new Node("E");
 		
 		n.add(n1);
 		n.add(n2);
