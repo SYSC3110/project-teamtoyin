@@ -166,7 +166,7 @@ public class NetworkTest {
 		assertFalse(network.unlink(null, null));
 		//assertFalse(network.unlink("", null)); //not valid testcase
 		
-		//Attempt to link inexistent nodes
+		//Attempt to link nonexistent nodes
 		assertFalse(network.unlink(n1, n2));
 		
 		//Link existent nodes

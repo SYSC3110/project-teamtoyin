@@ -10,6 +10,6 @@ import org.junit.runners.Suite.SuiteClasses;
  *
  */
 @RunWith(Suite.class)
-@SuiteClasses({MessageTest.class, NetworkTest.class, RandomAlgorithmTest.class, NodeTest.class})
+@SuiteClasses({MessageTest.class, NetworkTest.class, RandomAlgorithmTest.class, NodeTest.class, NodeGraphicTest.class})
 public class AllTests {
 }
