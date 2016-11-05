@@ -16,6 +16,7 @@ public class NodeGraphic {
 	private int xPosition;
 	private int yPosition;
 	
+
 	//these two variables are used to set the dimensions of the box that represents the node 
 	private int width=30;
 	private int height=30;
@@ -26,6 +27,7 @@ public class NodeGraphic {
 	
 	
 	private String nodeName;
+
 	
 	/*
 	 * the constructor takes a node name and the x and y coordinates 
@@ -107,8 +109,12 @@ public class NodeGraphic {
 	 */
 	public void paintNode(Graphics g){
 		g.setColor(Color.BLUE);
-		g.drawRect(xPosition, yPosition, width, height);
+		
+		g.drawRect(xPosition,yPosition, width, height);
+	
+		
 		g.drawString(nodeName, xPosition+width-xTextOffset, yPosition+height-yTextOffset );
+		
 	}
 	
 	public void paintLink(Graphics g, int x, int y){
@@ -116,6 +122,8 @@ public class NodeGraphic {
 		g.drawLine(this.getxPosition()+width,this.getyPosition()+width ,x+10,y+10);
 		
 	}
+	
+	
 	
 
 }

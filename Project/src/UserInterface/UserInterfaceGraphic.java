@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -25,77 +26,105 @@ public class UserInterfaceGraphic extends JPanel {
 	private Network network;
 	private List<Node> list;
 	private List<NodeGraphic> nodeGraphiclist;
+	int count;
+
+	boolean goahead=true;
 	public UserInterfaceGraphic(Network network){
 
 		this.network=network;
-		
-
 	     list = new ArrayList<Node>(network.getNodes());
 	     nodeGraphiclist = new ArrayList<NodeGraphic>();
+	     this.count=0;
 		
 	}
 	
 	public void paintComponent(Graphics g){
-		super.paintComponent(g);
-		
-		this.setBackground(Color.WHITE);
+			
 
-		//calling this method to set the coordinates of the nodes before painting them 
-		setNodeCoordinates();
-		
-		for (int i=0;i<nodeGraphiclist.size();i++){
-			nodeGraphiclist.get(i).paintNode(g);
-		}	
-		
-//		int count=0;
-//		for(int i=0;i<list.size()-1;i++){
-//			if(isLinked(list.get(i),list.get(i+1))){
-//				System.out.println("node: "+list.get(i).getName()+" is linked with: "+list.get(i+1).getName());
-//				int x =nodeGraphiclist.get(i+1).getxPosition();
-//				int y =nodeGraphiclist.get(i+1).getyPosition();
-//				nodeGraphiclist.get(i).paintLink(g,x,y);
-//				count++;
-//			}	
-//		}
-//		System.out.println("count is :"+count);
-		
-		int count=0;
-		for(int i=0;i<list.size()-1;i++){
-			for(int j=i;j<list.size();j++)
-			{
-				if(isLinked(list.get(i),list.get(j))){
-					System.out.println("node: "+list.get(i).getName()+" is linked with: "+list.get(j).getName());
-					int x =nodeGraphiclist.get(j).getxPosition();
-					int y =nodeGraphiclist.get(j).getyPosition();
-					nodeGraphiclist.get(i).paintLink(g,x,y);
-					count++;
-				}
-			}
+			super.paintComponent(g);
+
+			this.setBackground(Color.WHITE);
+
+			//calling this method to set the coordinates of the nodes before painting them 
+			
+				setNodeCoordinates();
+
+				for (int i=0;i<nodeGraphiclist.size();i++){
+					nodeGraphiclist.get(i).paintNode(g);
+				}	
 				
+			
+				for(int i=0;i<list.size()-1;i++){
+					for(int j=i;j<list.size();j++)
+					{
+						if(isLinked(list.get(i),list.get(j))){
+							System.out.println("node: "+list.get(i).getName()+" is linked with: "+list.get(j).getName());
+							int x =nodeGraphiclist.get(j).getxPosition();
+							int y =nodeGraphiclist.get(j).getyPosition();
+							nodeGraphiclist.get(i).paintLink(g,x,y);
+					
+						}
+					}		
+				}
+				System.out.println("again!");
+
+			
 		}
-		System.out.println("count is :"+count);
-	}
-	
-	
+					
+		
 	/*
 	 * This method sets the coordinates of each node in the network
 	 */
-	public void setNodeCoordinates(){
-
-		int xPos=50;
-		int yPos=50;
+	public void setNodeCoordinates(){	
+		int xPos=200;
+		int yPos=200;
 		for (int i=0;i<list.size();i++){
 
 			NodeGraphic ng = new NodeGraphic(list.get(i).getName(),xPos,yPos);
 			nodeGraphiclist.add(ng);
 
 			//these values are random for now 
-			xPos+=190;
-			yPos+=99;
+			//nextCoord();
+//			Random rand = new Random();
+//			int  n = rand.nextInt(90) + 40;
+//			xPos+=50;
+//			yPos+=50;
+			if(count<2){
+				xPos+=150;
+				yPos+=0;
+			}else if (count>=2&&count<=network.getNetworkNodesNumber()){
+				yPos+=50;
+				xPos+=0;
+			}
+			count++;
 		}
+			
+			}
+		
+//			xPos=xPos+50+90;
+//			yPos+=57;
+		
+	
+
+
+	public void nextCoord(){
+
+		int xPos=0;
+		int yPos=0;
+		if(count<2){
+			xPos+=50;
+			yPos+=0;
+		}else if (count>=2){
+			yPos+=50;
+			xPos+=0;
+		}else if(count==network.getNetworkNodesNumber()){
+			System.out.println("IM DONE");
+			goahead=false;
+		}
+		count++;
+		System.out.println("count is : "+count);
+	
 	}
-
-
 	public boolean isLinked(Node n1, Node n2){
 		
 			if(n1.hasNeighbor(n2)){
