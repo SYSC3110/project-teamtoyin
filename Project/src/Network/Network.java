@@ -154,7 +154,7 @@ public class Network extends Observable{
 		if (n2 == null) { return false; } 			
 		
 		//verify n1 and n2 are in the network
-		if(!(nodes.contains(n1) && nodes.contains(n2))){
+		if((!nodes.contains(n1) && !nodes.contains(n2))){
 			return false;
 		}
 		

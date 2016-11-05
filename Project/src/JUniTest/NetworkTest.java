@@ -174,7 +174,7 @@ public class NetworkTest {
 		network.add(n2);
 		
 		//Attempt to unlink nodes are not linked
-		assertTrue(network.unlink(n1, n2));
+		assertFalse(network.unlink(n1, n2));
 		
 		network.link(n1, n2);
 		assertTrue(network.unlink(n1, n2));
