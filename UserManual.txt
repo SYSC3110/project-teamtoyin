@@ -16,4 +16,11 @@ This document contains two sections:
   - Enter the rate in which you want a new message to be generated in the network. You can enter no if you dont want to enter a rate.
   - A sequence of messages will be printed to show you the path the message is taking.
   - Once the algorithm is done running and the message has reached its destination, the overall statistics will be printed. This contains     number of packets generated, and number of hops taken.
-  
+ ==================================================
+ Section B:
+  - Run UserInterface.java (Which can be found in UserInterface package) in Eclipse.
+  - Enter the number of nodes you wish to have in your network in the text field and press enter. Make sure it is a positive integer.
+  - Select the algorithm you want by clicking on one of the radio buttons.
+  - Enter the rate in which you want a new message to be generated in the network. If the rate was left blank, then no new message will be     generated in the network.
+  - Enter the name you wish to give your nodes in the generated text fields. Press enter after each enter so the name is recorded.
+  - Enter the edge name which will connect your nodes. Each row will have two text fields. The left text field will represent the start       node. Once you enter the name press enter, and the right text field will be enabled for you to enter the end node.
