@@ -61,7 +61,7 @@ public class UserInterfaceGraphic extends JPanel {
 		
 		int count=0;
 		for(int i=0;i<list.size()-1;i++){
-			for(int j=0;j<list.size();j++)
+			for(int j=i;j<list.size();j++)
 			{
 				if(isLinked(list.get(i),list.get(j))){
 					System.out.println("node: "+list.get(i).getName()+" is linked with: "+list.get(j).getName());
@@ -90,8 +90,8 @@ public class UserInterfaceGraphic extends JPanel {
 			nodeGraphiclist.add(ng);
 
 			//these values are random for now 
-			xPos+=150;
-			yPos+=33;
+			xPos+=190;
+			yPos+=99;
 		}
 	}
 
