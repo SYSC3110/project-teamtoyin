@@ -47,15 +47,33 @@ public class UserInterfaceGraphic extends JPanel {
 			nodeGraphiclist.get(i).paintNode(g);
 		}	
 		
-		for(int i=0;i<list.size();i++){
-			if(isLinked(list.get(i),list.get(i+1))){
-				int x =nodeGraphiclist.get(i+1).getxPosition();
-				int y =nodeGraphiclist.get(i+1).getyPosition();
-				nodeGraphiclist.get(i).paintLink(g,x,y);
+//		int count=0;
+//		for(int i=0;i<list.size()-1;i++){
+//			if(isLinked(list.get(i),list.get(i+1))){
+//				System.out.println("node: "+list.get(i).getName()+" is linked with: "+list.get(i+1).getName());
+//				int x =nodeGraphiclist.get(i+1).getxPosition();
+//				int y =nodeGraphiclist.get(i+1).getyPosition();
+//				nodeGraphiclist.get(i).paintLink(g,x,y);
+//				count++;
+//			}	
+//		}
+//		System.out.println("count is :"+count);
+		
+		int count=0;
+		for(int i=0;i<list.size()-1;i++){
+			for(int j=0;j<list.size();j++)
+			{
+				if(isLinked(list.get(i),list.get(j))){
+					System.out.println("node: "+list.get(i).getName()+" is linked with: "+list.get(j).getName());
+					int x =nodeGraphiclist.get(j).getxPosition();
+					int y =nodeGraphiclist.get(j).getyPosition();
+					nodeGraphiclist.get(i).paintLink(g,x,y);
+					count++;
+				}
 			}
-			
+				
 		}
-
+		System.out.println("count is :"+count);
 	}
 	
 	
