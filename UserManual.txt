@@ -1,0 +1,19 @@
+This document contains two sections:
+  A. User manual for the Console-based application
+  B. User manual for the user interface application
+ ==================================================
+ Section A:
+  - Run Run.java in Eclipse.
+  - Enter the number of nodes you wish to have in your network. Make sure it is a positive integer, otherwise you will be prompted to
+    re-enter a valid input. 
+  - Enter the name you wish to give your nodes one at a time.
+  - Enter the edge name which will connect your nodes. A sample input would be source_node<space>destination_node.
+  - Once you're done with entering edges, enter done.
+  - Enter the content of the message.
+  - Enter the source node. Make sure the node you enter has already been created in the network.
+  - Enter the destination node. Make sure the node you enter has already been created in the network.
+  - The algorithm menu will be printed. Each algorithm will be preceded with a number. Enter the number of the algorithm you want to be       used in the network.
+  - Enter the rate in which you want a new message to be generated in the network. You can enter no if you dont want to enter a rate.
+  - A sequence of messages will be printed to show you the path the message is taking.
+  - Once the algorithm is done running and the message has reached its destination, the overall statistics will be printed. This contains     number of packets generated, and number of hops taken.
+  
