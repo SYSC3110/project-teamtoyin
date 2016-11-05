@@ -45,6 +45,10 @@ public class NodeGraphic {
 		return xPosition;
 	}
 
+	/**
+	 * setting the x-axis Position
+	 * @param xPosition
+	 */
 	public void setxPosition(int xPosition) {
 		this.xPosition = xPosition;
 	}
@@ -73,6 +77,10 @@ public class NodeGraphic {
 		return width;
 	}
 
+	/**
+	 * setting the size of node's box width
+	 * @param width
+	 */
 	public void setWidth(int width) {
 		this.width = width;
 	}
@@ -85,14 +93,28 @@ public class NodeGraphic {
 		return height;
 	}
 
+	/**
+	 * setting the height of the node's box
+	 * @param height
+	 */
 	public void setHeight(int height) {
 		this.height = height;
 	}
 
+	/**
+	 * this method draws a node based on its coordinates 
+	 * @param g
+	 */
 	public void paintNode(Graphics g){
 		g.setColor(Color.BLUE);
 		g.drawRect(xPosition, yPosition, width, height);
 		g.drawString(nodeName, xPosition+width-xTextOffset, yPosition+height-yTextOffset );
+	}
+	
+	public void paintLink(Graphics g, int x, int y){
+		g.setColor(Color.BLACK);
+		
+		
 	}
 	
 

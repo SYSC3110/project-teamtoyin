@@ -40,19 +40,27 @@ public class UserInterfaceGraphic extends JPanel {
 		
 		this.setBackground(Color.WHITE);
 
-	
+		//calling this method to set the coordinates of the nodes before painting them 
 		setNodeCoordinates();
+		
 		for (int i=0;i<nodeGraphiclist.size();i++){
 			nodeGraphiclist.get(i).paintNode(g);
+		}	
+		
+		for(int i=0;i<list.size();i++){
+			if(isLinked(list.get(i),list.get(i+1))){
+				int x =nodeGraphiclist.get(i+1).getxPosition();
+				int y =nodeGraphiclist.get(i+1).getyPosition();
+				nodeGraphiclist.get(i).paintLink(g,x,y);
+			}
+			
 		}
-		
-		
+
 	}
 	
 	
-	
 	/*
-	 * This method 
+	 * This method sets the coordinates of each node in the network
 	 */
 	public void setNodeCoordinates(){
 
@@ -63,12 +71,22 @@ public class UserInterfaceGraphic extends JPanel {
 			NodeGraphic ng = new NodeGraphic(list.get(i).getName(),xPos,yPos);
 			nodeGraphiclist.add(ng);
 
+			//these values are random for now 
 			xPos+=150;
 			yPos+=33;
 		}
-
 	}
 
+
+	public boolean isLinked(Node n1, Node n2){
+		
+			if(n1.hasNeighbor(n2)){
+				return true;
+			}
+		return false;
+	}
+	
+	
 	public static void main(String[] args) {
 		Network n = new Network();
 		
@@ -87,10 +105,10 @@ public class UserInterfaceGraphic extends JPanel {
 		
 		
 
-		//n.link(n1, n2);
-		//n.link(n2, n3);
-		//n.link(n3, n4);
-		//n.link(n5, n2);
+		n.link(n1, n2);
+		n.link(n2, n3);
+		n.link(n3, n4);
+		n.link(n5, n2);
 		UserInterfaceGraphic graph = new UserInterfaceGraphic(n);
 		
 		JFrame f = new JFrame("nodes");
