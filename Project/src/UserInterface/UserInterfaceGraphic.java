@@ -27,6 +27,7 @@ public class UserInterfaceGraphic extends JPanel {
 	private List<Node> list;
 	private List<NodeGraphic> nodeGraphiclist;
 	int count;
+	private int setNodeCoordinatesCounter;
 
 	boolean goahead=true;
 	public UserInterfaceGraphic(Network network){
@@ -35,6 +36,7 @@ public class UserInterfaceGraphic extends JPanel {
 	     list = new ArrayList<Node>(network.getNodes());
 	     nodeGraphiclist = new ArrayList<NodeGraphic>();
 	     this.count=0;
+	     setNodeCoordinatesCounter = 0;
 		
 	}
 	
@@ -47,7 +49,8 @@ public class UserInterfaceGraphic extends JPanel {
 
 			//calling this method to set the coordinates of the nodes before painting them 
 			
-				setNodeCoordinates();
+				if(setNodeCoordinatesCounter == 0)
+					setNodeCoordinates();
 
 				for (int i=0;i<nodeGraphiclist.size();i++){
 					nodeGraphiclist.get(i).paintNode(g);
@@ -98,7 +101,7 @@ public class UserInterfaceGraphic extends JPanel {
 			}
 			count++;
 		}
-			
+			setNodeCoordinatesCounter++;
 			}
 		
 //			xPos=xPos+50+90;
