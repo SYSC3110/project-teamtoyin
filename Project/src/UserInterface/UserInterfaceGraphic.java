@@ -24,7 +24,7 @@ import Network.Node;
  *
  */
 
-public class UserInterfaceGraphic extends JPanel implements ActionListener {
+public class UserInterfaceGraphic extends JPanel  {
 	
 	
 	private Network network;
@@ -32,15 +32,6 @@ public class UserInterfaceGraphic extends JPanel implements ActionListener {
 	private List<NodeGraphic> nodeGraphiclist;
 	private int count;
 	private int setNodeCoordinatesCounter;
-	
-	/*
-	 * the variables for the animation part
-	 */
-	int velocity =1;
-	Timer timer = new Timer(5,this);
-	int xball=9,yball;
-	int xcounter=0,ycounter=0;
-	
 	private MessageGraphic mg;
 
 	public UserInterfaceGraphic(Network network){
@@ -85,28 +76,23 @@ public class UserInterfaceGraphic extends JPanel implements ActionListener {
 				
 				//trying to draw a moving circle from one node to another
 				//for(int i=0;i<list.size()-1;i++){
-					//g.setColor(Color.RED);					
+					g.setColor(Color.RED);					
 					//g.fillOval(nodeGraphiclist.get(0).getxPosition()+xball,nodeGraphiclist.get(0).getxPosition()+yball, 15, 15);
 				//}
-				//timer.start();
-				
-				
+					
+					/**
+					 * TODO
+					 * ISSUE: a ball is drawn at every node and we want only one ball that is moving 
+					 */
 				for (int i=0;i<nodeGraphiclist.size();i++){
-					mg.paintMessage(g, nodeGraphiclist.get(i).getX()+xball,nodeGraphiclist.get(i).getY()+xball);
+					mg.paintMessage(g, nodeGraphiclist.get(i).getxPosition(),nodeGraphiclist.get(i).getyPosition());
+					repaint();
+					
 				}
 				
 		}
 	
-	public void actionPerformed(ActionEvent e){
-		if(xcounter<=150 && ycounter<=150){
-		xball+=velocity;
-		//yball+=velocity;
-		repaint();
-		xcounter++;
-		//ycounter++;
-		}
-		
-	}
+
 					
 		
 	/*
