@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
 import javax.swing.*;
-import Network.Node;
 import UserInterface.UICommands;
 import Network.NetworkCommands;
 
@@ -19,6 +18,10 @@ import Network.NetworkCommands;
  */
 public class UserInterface extends JFrame implements Observer{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private JMenuBar menuBar;
 	private JMenu menu;
 	private JMenuItem reset;
@@ -57,11 +60,14 @@ public class UserInterface extends JFrame implements Observer{
 	
 	private UserInterfaceController UIC;
 	
-	private JOptionPane errorDialog;
 	private ArrayList<JTextField> allEdgetextFields;
 	private JTextField messageContent, startNode, endNode;
 	private boolean createMessageFlag = true;
 
+	/**
+	 * Constructor for the user interface
+	 * @param UIC
+	 */
 	public UserInterface(UserInterfaceController UIC)
 	{
 		super("Team Toyin's Build-A-Network");
@@ -77,6 +83,9 @@ public class UserInterface extends JFrame implements Observer{
 		setVisible(true);
 	}
 	
+	/**
+	 * Creates all base panels used in the user interface
+	 */
 	private void CreatePanels()
 	{
 		top = new JPanel();
@@ -97,6 +106,9 @@ public class UserInterface extends JFrame implements Observer{
 		add(bottom);
 	}
 	
+	/**
+	 * Creates the menu in the user interface
+	 */
 	private void createJMenu()
 	{
 
@@ -133,6 +145,9 @@ public class UserInterface extends JFrame implements Observer{
 		setJMenuBar(menuBar);	
 	}
 	
+	/**
+	 * Creates the top panel that has the node number, algorithm, and rate 
+	 */
 	private void createNodeNum()
 	{
 		PnlNodeNum = new JPanel();
@@ -152,6 +167,9 @@ public class UserInterface extends JFrame implements Observer{
 		top.add(PnlNodeNum);
 	}
 	
+	/**
+	 * Creates the radio buttons for the algorithms
+	 */
 	private void ChooseAlgorithm()
 	{
 		algorithmPanel = new JPanel();
@@ -164,6 +182,7 @@ public class UserInterface extends JFrame implements Observer{
 		randomAlgo = new JRadioButton("Random Algorithm");
 		randomAlgo.setActionCommand(UICommands.RandomAlgorithm.getCommand());
 		randomAlgo.addActionListener(UIC);
+		randomAlgo.doClick();//This will be the default algorithm
 		
 		floodingAlgo = new JRadioButton("Flooding Algorithm");
 		floodingAlgo.setActionCommand(UICommands.FloodingAlgorithm.getCommand());
@@ -180,6 +199,9 @@ public class UserInterface extends JFrame implements Observer{
 		
 	}
 	
+	/**
+	 * creates the rate JTextField in the top panel
+	 */
 	private void createRate()
 	{
 		PnlRate = new JPanel();
@@ -198,6 +220,10 @@ public class UserInterface extends JFrame implements Observer{
 		top.add(PnlRate);
 	}
 	
+	/**
+	 * creates the JTextfields that enables the user to enter the
+	 * node names
+	 */
 	private void createNodeNameFields()
 	{
 		JPanel nodeTextFields = new JPanel();
@@ -225,6 +251,9 @@ public class UserInterface extends JFrame implements Observer{
 		
 	}
 	
+	/**
+	 * Creates the JTextfields that enables the user to enter the edges
+	 */
 	private void createNodeEdgeFields()
 	{
 		JPanel nodeEdgeFields = new JPanel();
@@ -268,6 +297,9 @@ public class UserInterface extends JFrame implements Observer{
 		middle.revalidate();		
 	}
 	
+	/**
+	 * Creates the JTextFields for the message
+	 */
 	private void createMessageFields()
 	{
 		messageContent = new JTextField("Message Content");
@@ -292,10 +324,14 @@ public class UserInterface extends JFrame implements Observer{
 		middle2.revalidate();
 	}
 
-	
+	/**
+	 * An Option pane that warns the user of possible erronous inputs
+	 * @param header
+	 * @param errorMsg
+	 * @param dialogType
+	 */
 	private void createJOptionPane(String header, String errorMsg, String dialogType)
 	{
-		errorDialog = new JOptionPane();
 		if(dialogType.equals("Warning"))
 		{
 			JOptionPane.showMessageDialog(this,errorMsg,
@@ -308,6 +344,9 @@ public class UserInterface extends JFrame implements Observer{
 		}
 	}
 	
+	/**
+	 * Update method that listens to observable (i.e. Network)
+	 */
 	public void update(Observable o, Object arg) {
 		String command = "";
 		String n1;
@@ -398,6 +437,10 @@ public class UserInterface extends JFrame implements Observer{
 		}	
 	}
 	
+	/**
+	 * 
+	 * @param args
+	 */
 	public static void main(String[] args)
 	{
 		UserInterfaceController controller = new UserInterfaceController();
