@@ -11,6 +11,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
+import Graphics.MessageGraphic;
 import Graphics.NodeGraphic;
 import Network.Network;
 import Network.Node;
@@ -39,6 +40,8 @@ public class UserInterfaceGraphic extends JPanel implements ActionListener {
 	Timer timer = new Timer(5,this);
 	int xball=9,yball;
 	int xcounter=0,ycounter=0;
+	
+	private MessageGraphic mg;
 
 	public UserInterfaceGraphic(Network network){
 		JFrame f = new JFrame("nodes");
@@ -49,6 +52,8 @@ public class UserInterfaceGraphic extends JPanel implements ActionListener {
 	    nodeGraphiclist = new ArrayList<NodeGraphic>();
 	    this.count=0;
 	    setNodeCoordinatesCounter = 0;
+	    
+	    mg= new MessageGraphic(getName(), 0, 0);
 	     
 		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		f.setSize(900,900);
@@ -80,11 +85,15 @@ public class UserInterfaceGraphic extends JPanel implements ActionListener {
 				
 				//trying to draw a moving circle from one node to another
 				//for(int i=0;i<list.size()-1;i++){
-					g.setColor(Color.RED);					
-					g.fillOval(nodeGraphiclist.get(0).getxPosition()+xball,nodeGraphiclist.get(0).getxPosition()+yball, 15, 15);
+					//g.setColor(Color.RED);					
+					//g.fillOval(nodeGraphiclist.get(0).getxPosition()+xball,nodeGraphiclist.get(0).getxPosition()+yball, 15, 15);
 				//}
-				timer.start();
+				//timer.start();
 				
+				
+				for (int i=0;i<nodeGraphiclist.size();i++){
+					mg.paintMessage(g, nodeGraphiclist.get(i).getX()+xball,nodeGraphiclist.get(i).getY()+xball);
+				}
 				
 		}
 	
@@ -153,6 +162,7 @@ public class UserInterfaceGraphic extends JPanel implements ActionListener {
 		n.link(n5, n2);
 		n.link(n6, n4);
 		n.link(n5, n6);
+		n.link(n1,n6);
 		UserInterfaceGraphic graph = new UserInterfaceGraphic(n);
 	}
 

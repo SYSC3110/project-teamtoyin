@@ -1,6 +1,16 @@
 package Graphics;
 
-public abstract class Graphic {
+import javax.swing.JPanel;
+
+/**
+ * 
+ * @author Osama Buhamad
+ *
+ * @date 11/06/2016
+ *
+ */
+
+public abstract class Graphic extends JPanel {
 	//these variables are used to define the x-axis and y-axis position of a node 
 		private int xPosition;
 		private int yPosition;
