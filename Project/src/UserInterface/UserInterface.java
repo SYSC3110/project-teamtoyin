@@ -288,7 +288,7 @@ public class UserInterface extends JFrame implements Observer{
 		middle2.add(startNode);
 		middle2.add(endNode);
 		
-		add(middle2);
+		middle2.revalidate();
 	}
 	
 	private void createJOptionPane(String header, String errorMsg, String dialogType)
