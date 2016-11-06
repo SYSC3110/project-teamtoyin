@@ -2,8 +2,6 @@ package UserInterface;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
-import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 
@@ -27,11 +25,18 @@ public class UserInterfaceController implements ActionListener{
 	private String msgContent, sourceNode, destNode;
 	private Node source, dest;
 	
+	/**
+	 * Constructor for UserInterfaceController class
+	 */
 	public UserInterfaceController(){
 		network = new Network();
 		UI = new UserInterface(this);
 		network.addObserver(UI);
 	}
+	
+	/**
+	 * Listens to events from UserInterface.java
+	 */
 	public void actionPerformed(ActionEvent e) {
 		String command = "";
 		
@@ -142,6 +147,11 @@ public class UserInterfaceController implements ActionListener{
 		}		
 	}
 	
+	/**
+	 * Adapter for userInterface.java and Network.java 
+	 * @param n1
+	 * @param n2
+	 */
 	public void connectEdges(String n1, String n2)
 	{
 		Node n1_node, n2_node;
@@ -150,6 +160,10 @@ public class UserInterfaceController implements ActionListener{
 		network.link(n1_node, n2_node);
 	}
 	
+	/**
+	 * Checks all fields of a message ready before creating a message object
+	 * @return
+	 */
 	private boolean isMessageReady()
 	{
 		if(!msgContent.equals("") && source != null && dest != null)
@@ -158,6 +172,9 @@ public class UserInterfaceController implements ActionListener{
 			return false;
 	}
 	
+	/**
+	 * Creates the graphical representation of the network topology
+	 */
 	private void createNetworkTopology()
 	{
 		UserInterfaceGraphic topology = new UserInterfaceGraphic(network);
