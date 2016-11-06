@@ -59,16 +59,13 @@ public class UserInterfaceGraphic extends JPanel implements ActionListener {
 					nodeGraphiclist.get(i).paintNode(g);
 				}	
 				
-			
 				for(int i=0;i<list.size()-1;i++){
 					for(int j=i;j<list.size();j++)
 					{
-						if(isLinked(list.get(i),list.get(j))){
-							//System.out.println("node: "+list.get(i).getName()+" is linked with: "+list.get(j).getName());
+							if(list.get(i).hasNeighbor(list.get(j))){
 							int x =nodeGraphiclist.get(j).getxPosition();
 							int y =nodeGraphiclist.get(j).getyPosition();
-							nodeGraphiclist.get(i).paintLink(g,x,y);
-							
+							nodeGraphiclist.get(i).paintLink(g,x,y);	
 						}
 					}		
 				}
@@ -100,11 +97,8 @@ public class UserInterfaceGraphic extends JPanel implements ActionListener {
 			NodeGraphic ng = new NodeGraphic(list.get(i).getName(),xPos,yPos);
 			nodeGraphiclist.add(ng);
 
-			//these values are random for now 
-//			Random rand = new Random();
-//			int  n = rand.nextInt(90) + 40;
-//			xPos+=50;
-//			yPos+=50;
+
+			//placing the nodes bases on the count value 
 			if(count%3==0){
 				xPos+=150;
 				yPos+=0;
@@ -117,13 +111,6 @@ public class UserInterfaceGraphic extends JPanel implements ActionListener {
 			setNodeCoordinatesCounter++;
 			}
 
-	public boolean isLinked(Node n1, Node n2){
-		
-			if(n1.hasNeighbor(n2)){
-				return true;
-			}
-		return false;
-	}
 	
 	
 	public static void main(String[] args) {
