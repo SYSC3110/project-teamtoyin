@@ -11,6 +11,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
+import Graphics.NodeGraphic;
 import Network.Network;
 import Network.Node;
 
@@ -36,8 +37,8 @@ public class UserInterfaceGraphic extends JPanel implements ActionListener {
 	 */
 	int velocity =1;
 	Timer timer = new Timer(5,this);
-	int ball=9;
-	int counter=0;
+	int xball=9,yball;
+	int xcounter=0,ycounter=0;
 
 	public UserInterfaceGraphic(Network network){
 		this.network=network;
@@ -62,7 +63,7 @@ public class UserInterfaceGraphic extends JPanel implements ActionListener {
 				for(int i=0;i<list.size()-1;i++){
 					for(int j=i;j<list.size();j++)
 					{
-							if(list.get(i).hasNeighbor(list.get(j))){
+						if(list.get(i).hasNeighbor(list.get(j))){
 							int x =nodeGraphiclist.get(j).getxPosition();
 							int y =nodeGraphiclist.get(j).getyPosition();
 							nodeGraphiclist.get(i).paintLink(g,x,y);	
@@ -70,19 +71,25 @@ public class UserInterfaceGraphic extends JPanel implements ActionListener {
 					}		
 				}
 				
-				//trying to draw a moving circle from one node to another 
-				g.setColor(Color.RED);
-				g.fillOval(nodeGraphiclist.get(0).getxPosition()+ball,nodeGraphiclist.get(0).getxPosition()-20, 15, 15);
-				g.setColor(Color.RED);
+				//trying to draw a moving circle from one node to another
+				//for(int i=0;i<list.size()-1;i++){
+					g.setColor(Color.RED);					
+					g.fillOval(nodeGraphiclist.get(0).getxPosition()+xball,nodeGraphiclist.get(0).getxPosition()+yball, 15, 15);
+				//}
 				timer.start();
+				
+				
 		}
 	
 	public void actionPerformed(ActionEvent e){
-		if(counter<=150){
-		ball+=velocity;
+		if(xcounter<=150 && ycounter<=150){
+		xball+=velocity;
+		//yball+=velocity;
 		repaint();
-		counter++;
+		xcounter++;
+		//ycounter++;
 		}
+		
 	}
 					
 		
@@ -106,10 +113,13 @@ public class UserInterfaceGraphic extends JPanel implements ActionListener {
 				yPos+=150;
 				xPos+=0;
 			}
-			count++;
+				count++;
 		}
 			setNodeCoordinatesCounter++;
-			}
+	}
+	
+	
+	
 
 	
 	

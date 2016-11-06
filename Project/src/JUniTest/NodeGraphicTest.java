@@ -1,10 +1,10 @@
 package JUniTest;
-import UserInterface.NodeGraphic;
 import static org.junit.Assert.*;
 
 import org.junit.Before;
 import org.junit.Test;
 
+import Graphics.NodeGraphic;
 import Network.Node;
 
 
