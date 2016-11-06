@@ -136,6 +136,7 @@ public class Network extends Observable{
 		
 		//Add node 2 as neighbor to node 1 and vice-versa
 		if (n1.addNeighbor(n2) && n2.addNeighbor(n1)) {
+			setCommandAndNotify(NetworkCommands.CreateMessageFields);
 			return true;
 		} else {
 			return false;
@@ -154,7 +155,7 @@ public class Network extends Observable{
 		if (n2 == null) { return false; } 			
 		
 		//verify n1 and n2 are in the network
-		if((!nodes.contains(n1) && !nodes.contains(n2))){
+		if(!(nodes.contains(n1) && nodes.contains(n2))){
 			return false;
 		}
 		
@@ -295,9 +296,30 @@ public class Network extends Observable{
 			if(n.getName().equals(nodeName.toUpperCase()))
 				return n;
 		}
-		
+		//setCommandAndNotify(NetworkCommands.NodeDoesNotExist);
 		return null;
-	}	
+	}
+	
+	public boolean checkNodeName(String str)
+	{
+		Node n;
+		if(str.equals("") || str == null)
+		{
+			setCommandAndNotify(NetworkCommands.NodeEmpty);
+			return false;
+		}
+		else
+		{
+			n = getNode(str);
+			if(n == null){
+				setCommandAndNotify(NetworkCommands.NodeDoesNotExist);
+				return false;
+			}
+			else
+				return true;
+		}
+		
+	}
 	
 	
 	

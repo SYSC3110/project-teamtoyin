@@ -7,6 +7,7 @@ import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 
 import Algorithm.*;
+import Network.Message;
 import Network.Network;
 import Network.Node;
 
@@ -21,6 +22,9 @@ public class UserInterfaceController implements ActionListener{
 	private Algorithm algorithm;
 	private Network network;
 	private UserInterface UI;
+	private Message msg;
+	private String msgContent, sourceNode, destNode;
+	private Node source, dest;
 	
 	public UserInterfaceController(){
 		network = new Network();
@@ -65,20 +69,56 @@ public class UserInterfaceController implements ActionListener{
 			else if(command.equals(UICCommands.NodeNameInserted.getCommand()))
 			{
 				String nodeName = ((JTextField)e.getSource()).getText();
-				Node n = new Node(nodeName);
-				network.add(n);
+				if(nodeName.equals(""))
+					((JTextField)e.getSource()).setText("Must enter a name");
+				else{
+					Node n = new Node(nodeName);
+					network.add(n);
+				}
 			}
 			else if(command.equals(UICCommands.FirstEdgeInserted.getCommand()))
 			{
 				String nodeName = ((JTextField)e.getSource()).getText();
-				Node n = new Node(nodeName);
-				network.contains(n);
+				if(network.checkNodeName(nodeName)){
+					Node n = network.getNode(nodeName);
+					network.contains(n);
+				}
+				
 			}
 			else if(command.contentEquals(UICCommands.SecondEdgeInserted.getCommand()))
 			{
 				String nodeName = ((JTextField)e.getSource()).getText();
-				Node n = new Node(nodeName);
-				network.contains(n);
+				if(network.checkNodeName(nodeName)){
+					Node n = network.getNode(nodeName);
+					network.contains(n);
+				}
+			}
+			else if(command.contentEquals(UICommands.MessageContent.getCommand()))
+			{
+				msgContent = ((JTextField)e.getSource()).getText();
+				if(msgContent.equals(""))
+					((JTextField)e.getSource()).setText("Please enter a message");
+				if(isMessageReady())
+					msg = new Message(msgContent, source, dest);
+			}
+			else if(command.contentEquals(UICommands.StartNodeEntered.getCommand()))
+			{
+				sourceNode = ((JTextField)e.getSource()).getText();
+				if(network.checkNodeName(sourceNode)){
+					source = network.getNode(sourceNode);
+					if(isMessageReady())
+						msg = new Message(msgContent, source, dest);
+				}
+				
+			}
+			else if(command.contentEquals(UICommands.EndNodeEntered.getCommand()))
+			{
+				destNode = ((JTextField)e.getSource()).getText();
+				if(network.checkNodeName(destNode)){
+				dest = network.getNode(destNode);
+				if(isMessageReady())
+					msg = new Message(msgContent, source, dest);
+				}
 			}
 		}
 		else if (e.getSource() instanceof JRadioButton)
@@ -92,12 +132,19 @@ public class UserInterfaceController implements ActionListener{
 			{
 				algorithm = new FloodingAlgorithm(network);
 			}
-		}
-		
+		}		
 	}
 	
 	public void connectEdges(Node n1, Node n2)
 	{
 		network.link(n1, n2);
+	}
+	
+	private boolean isMessageReady()
+	{
+		if(!msgContent.equals("") && source != null && dest != null)
+			return true;
+		else
+			return false;
 	}
 }

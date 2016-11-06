@@ -29,6 +29,7 @@ public class UserInterface extends JFrame implements Observer{
 	
 	private JPanel top;
 	private JPanel middle;
+	private JPanel middle2;
 	private JPanel bottom;
 	private JPanel algorithmPanel;
 	
@@ -58,12 +59,13 @@ public class UserInterface extends JFrame implements Observer{
 	
 	private JOptionPane errorDialog;
 	private ArrayList<JTextField> allEdgetextFields;
+	private JTextField messageContent, startNode, endNode;
 
 	public UserInterface(UserInterfaceController UIC)
 	{
 		super("Team Toyin's Build-A-Network");
 		this.UIC = UIC;
-		setLayout(new GridLayout(3, 1));
+		setLayout(new GridLayout(4, 1));
 		CreatePanels();
 		createNodeNum();
 		ChooseAlgorithm();
@@ -82,11 +84,15 @@ public class UserInterface extends JFrame implements Observer{
 		middle = new JPanel();
 		middle.setLayout(new GridLayout(1, 2));
 		
+		middle2 = new JPanel();
+		middle2.setLayout(new GridLayout(1, 3));
+		
 		bottom = new JPanel();
 		bottom.setLayout(new BorderLayout());
 				
 		add(top);
 		add(middle);
+		add(middle2);
 		add(bottom);
 	}
 	
@@ -261,6 +267,30 @@ public class UserInterface extends JFrame implements Observer{
 		middle.revalidate();		
 	}
 	
+	private void createMessageFields()
+	{
+		messageContent = new JTextField("Message Content");
+		messageContent.setEditable(true);
+		messageContent.setActionCommand(UICommands.MessageContent.getCommand());
+		messageContent.addActionListener(UIC);
+		
+		startNode = new JTextField("Start Node");
+		startNode.setEditable(true);
+		startNode.setActionCommand(UICommands.StartNodeEntered.getCommand());
+		startNode.addActionListener(UIC);;
+		
+		endNode = new JTextField("End Node");
+		endNode.setEditable(true);
+		endNode.setActionCommand(UICommands.EndNodeEntered.getCommand());
+		endNode.addActionListener(UIC);
+		
+		middle2.add(messageContent);
+		middle2.add(startNode);
+		middle2.add(endNode);
+		
+		add(middle2);
+	}
+	
 	private void createJOptionPane(String header, String errorMsg, String dialogType)
 	{
 		errorDialog = new JOptionPane();
@@ -303,8 +333,11 @@ public class UserInterface extends JFrame implements Observer{
 					System.out.println("Number of Nodes was not provided");
 				}	
 			}
-			
-			else if(command.equals(NetworkCommands.InvalidNodeName.getCommand()))
+		}
+		else if(arg instanceof NetworkCommands)
+		{
+			command = ((NetworkCommands)arg).getCommand();
+			if(command.equals(NetworkCommands.InvalidNodeName.getCommand()))
 			{
 				createJOptionPane("Error", "You have entered an invalid name to the node.", "Error");
 			}
@@ -337,14 +370,16 @@ public class UserInterface extends JFrame implements Observer{
 					
 					if(!allEdgetextFields.get(i).isEditable())
 					{
-						allEdgetextFields.get(i).setEditable(true);
-						
+						allEdgetextFields.get(i).setEditable(true);						
 						break;
 					}
 				}
-			}		
-		}
-		
+			}
+			else if(command.equals(NetworkCommands.CreateMessageFields.getCommand()))
+			{
+				createMessageFields();
+			}
+		}	
 	}
 	
 	public static void main(String[] args)
