@@ -117,9 +117,9 @@ public class NodeGraphic {
 		
 	}
 	
-	public void paintLink(Graphics g, int x, int y){
+	public void paintLink(Graphics g, int xDestentation, int yDestenation){
 		g.setColor(Color.BLACK);
-		g.drawLine(this.getxPosition()+width,this.getyPosition()+width ,x,y);
+		g.drawLine(this.getxPosition()+width,this.getyPosition()+width ,xDestentation ,yDestenation);
 		
 	}
 	
