@@ -60,6 +60,7 @@ public class UserInterface extends JFrame implements Observer{
 	private JOptionPane errorDialog;
 	private ArrayList<JTextField> allEdgetextFields;
 	private JTextField messageContent, startNode, endNode;
+	private boolean createMessageFlag = true;
 
 	public UserInterface(UserInterfaceController UIC)
 	{
@@ -290,6 +291,7 @@ public class UserInterface extends JFrame implements Observer{
 		
 		middle2.revalidate();
 	}
+
 	
 	private void createJOptionPane(String header, String errorMsg, String dialogType)
 	{
@@ -308,8 +310,8 @@ public class UserInterface extends JFrame implements Observer{
 	
 	public void update(Observable o, Object arg) {
 		String command = "";
-		Node n1;
-		Node n2;
+		String n1;
+		String n2;
 		
 		if(arg instanceof String)
 		{
@@ -361,8 +363,8 @@ public class UserInterface extends JFrame implements Observer{
 					if(i%2==0 && i>=2)//if it's an odd and greater than 2, get the last two nodes
 					{
 						if(allEdgetextFields.get(i-2).isEditable() && allEdgetextFields.get(i-1).isEditable()) {
-							n1 = new Node(allEdgetextFields.get(i-2).getText());
-							n2 = new Node(allEdgetextFields.get(i-1).getText());
+							n1 = allEdgetextFields.get(i-2).getText();
+							n2 = allEdgetextFields.get(i-1).getText();
 							
 							UIC.connectEdges(n1, n2);
 						}
@@ -373,6 +375,20 @@ public class UserInterface extends JFrame implements Observer{
 						allEdgetextFields.get(i).setEditable(true);						
 						break;
 					}
+					
+					//Special case when it's the last one
+					if(i == allEdgetextFields.size()-1)
+					{
+						n1 = allEdgetextFields.get(i-1).getText();
+						n2 = allEdgetextFields.get(i).getText();
+						
+						UIC.connectEdges(n1, n2);
+					}
+				}
+				if(createMessageFlag)
+				{
+					createMessageFields();
+					createMessageFlag = false;
 				}
 			}
 			else if(command.equals(NetworkCommands.CreateMessageFields.getCommand()))

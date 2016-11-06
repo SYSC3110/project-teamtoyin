@@ -3,6 +3,7 @@ package UserInterface;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 
@@ -98,16 +99,20 @@ public class UserInterfaceController implements ActionListener{
 				msgContent = ((JTextField)e.getSource()).getText();
 				if(msgContent.equals(""))
 					((JTextField)e.getSource()).setText("Please enter a message");
-				if(isMessageReady())
+				if(isMessageReady()){
 					msg = new Message(msgContent, source, dest);
+					createNetworkTopology();
+				}
 			}
 			else if(command.contentEquals(UICommands.StartNodeEntered.getCommand()))
 			{
 				sourceNode = ((JTextField)e.getSource()).getText();
 				if(network.checkNodeName(sourceNode)){
 					source = network.getNode(sourceNode);
-					if(isMessageReady())
+					if(isMessageReady()){
 						msg = new Message(msgContent, source, dest);
+						createNetworkTopology();
+					}
 				}
 				
 			}
@@ -116,8 +121,10 @@ public class UserInterfaceController implements ActionListener{
 				destNode = ((JTextField)e.getSource()).getText();
 				if(network.checkNodeName(destNode)){
 				dest = network.getNode(destNode);
-				if(isMessageReady())
+				if(isMessageReady()){
 					msg = new Message(msgContent, source, dest);
+					createNetworkTopology();
+					}
 				}
 			}
 		}
@@ -135,9 +142,12 @@ public class UserInterfaceController implements ActionListener{
 		}		
 	}
 	
-	public void connectEdges(Node n1, Node n2)
+	public void connectEdges(String n1, String n2)
 	{
-		network.link(n1, n2);
+		Node n1_node, n2_node;
+		n1_node = network.getNode(n1);
+		n2_node = network.getNode(n2);
+		network.link(n1_node, n2_node);
 	}
 	
 	private boolean isMessageReady()
@@ -146,5 +156,11 @@ public class UserInterfaceController implements ActionListener{
 			return true;
 		else
 			return false;
+	}
+	
+	private void createNetworkTopology()
+	{
+		UserInterfaceGraphic topology = new UserInterfaceGraphic(network);
+		
 	}
 }

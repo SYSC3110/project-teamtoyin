@@ -136,7 +136,6 @@ public class Network extends Observable{
 		
 		//Add node 2 as neighbor to node 1 and vice-versa
 		if (n1.addNeighbor(n2) && n2.addNeighbor(n1)) {
-			setCommandAndNotify(NetworkCommands.CreateMessageFields);
 			return true;
 		} else {
 			return false;
@@ -289,14 +288,13 @@ public class Network extends Observable{
 	 * Returns a node based on a string
 	 */
 	public Node getNode(String nodeName) {
-		
-		
+			
 		for(Node n : nodes)
 		{
 			if(n.getName().equals(nodeName.toUpperCase()))
 				return n;
 		}
-		//setCommandAndNotify(NetworkCommands.NodeDoesNotExist);
+		
 		return null;
 	}
 	

@@ -40,11 +40,18 @@ public class UserInterfaceGraphic extends JPanel implements ActionListener {
 	int counter=0;
 
 	public UserInterfaceGraphic(Network network){
+		JFrame f = new JFrame("nodes");
+		f.add(this);
+		
 		this.network=network;
-	     list = new ArrayList<Node>(network.getNodes());
-	     nodeGraphiclist = new ArrayList<NodeGraphic>();
-	     this.count=0;
-	     setNodeCoordinatesCounter = 0;
+	    list = new ArrayList<Node>(network.getNodes());
+	    nodeGraphiclist = new ArrayList<NodeGraphic>();
+	    this.count=0;
+	    setNodeCoordinatesCounter = 0;
+	     
+		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		f.setSize(900,900);
+		f.setVisible(true);
 	}
 	
 	public void paintComponent(Graphics g){
@@ -130,7 +137,6 @@ public class UserInterfaceGraphic extends JPanel implements ActionListener {
 		n.add(n5);
 		n.add(n6);
 		
-
 		n.link(n1, n2);
 		n.link(n2, n3);
 		n.link(n3, n4);
@@ -138,13 +144,6 @@ public class UserInterfaceGraphic extends JPanel implements ActionListener {
 		n.link(n6, n4);
 		n.link(n5, n6);
 		UserInterfaceGraphic graph = new UserInterfaceGraphic(n);
-		
-		JFrame f = new JFrame("nodes");
-		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		f.add(graph);
-		f.setSize(900,900);
-		f.setVisible(true);
-
 	}
 
 }
