@@ -29,26 +29,19 @@ public class UserInterfaceGraphic extends JPanel {
 	int count;
 	private int setNodeCoordinatesCounter;
 
-	boolean goahead=true;
 	public UserInterfaceGraphic(Network network){
-
 		this.network=network;
 	     list = new ArrayList<Node>(network.getNodes());
 	     nodeGraphiclist = new ArrayList<NodeGraphic>();
 	     this.count=0;
 	     setNodeCoordinatesCounter = 0;
-		
 	}
 	
 	public void paintComponent(Graphics g){
-			
-
 			super.paintComponent(g);
-
 			this.setBackground(Color.WHITE);
 
 			//calling this method to set the coordinates of the nodes before painting them 
-			
 				if(setNodeCoordinatesCounter == 0)
 					setNodeCoordinates();
 
@@ -61,17 +54,14 @@ public class UserInterfaceGraphic extends JPanel {
 					for(int j=i;j<list.size();j++)
 					{
 						if(isLinked(list.get(i),list.get(j))){
-							System.out.println("node: "+list.get(i).getName()+" is linked with: "+list.get(j).getName());
+							//System.out.println("node: "+list.get(i).getName()+" is linked with: "+list.get(j).getName());
 							int x =nodeGraphiclist.get(j).getxPosition();
 							int y =nodeGraphiclist.get(j).getyPosition();
 							nodeGraphiclist.get(i).paintLink(g,x,y);
 					
 						}
 					}		
-				}
-				System.out.println("again!");
-
-			
+				}	
 		}
 					
 		
@@ -80,54 +70,29 @@ public class UserInterfaceGraphic extends JPanel {
 	 */
 	public void setNodeCoordinates(){	
 		int xPos=200;
-		int yPos=200;
+		int yPos=150;
 		for (int i=0;i<list.size();i++){
 
 			NodeGraphic ng = new NodeGraphic(list.get(i).getName(),xPos,yPos);
 			nodeGraphiclist.add(ng);
 
 			//these values are random for now 
-			//nextCoord();
 //			Random rand = new Random();
 //			int  n = rand.nextInt(90) + 40;
 //			xPos+=50;
 //			yPos+=50;
-			if(count<2){
+			if(count%2==0){
 				xPos+=150;
 				yPos+=0;
-			}else if (count>=2&&count<=network.getNetworkNodesNumber()){
-				yPos+=50;
+			}else {
+				yPos+=150;
 				xPos+=0;
 			}
 			count++;
 		}
 			setNodeCoordinatesCounter++;
 			}
-		
-//			xPos=xPos+50+90;
-//			yPos+=57;
-		
-	
 
-
-	public void nextCoord(){
-
-		int xPos=0;
-		int yPos=0;
-		if(count<2){
-			xPos+=50;
-			yPos+=0;
-		}else if (count>=2){
-			yPos+=50;
-			xPos+=0;
-		}else if(count==network.getNetworkNodesNumber()){
-			System.out.println("IM DONE");
-			goahead=false;
-		}
-		count++;
-		System.out.println("count is : "+count);
-	
-	}
 	public boolean isLinked(Node n1, Node n2){
 		
 			if(n1.hasNeighbor(n2)){
@@ -145,20 +110,22 @@ public class UserInterfaceGraphic extends JPanel {
 		Node n3 = new Node("C");
 		Node n4 = new Node("D");
 		Node n5 = new Node("E");
+		Node n6 = new Node("F");
 		
 		n.add(n1);
 		n.add(n2);
 		n.add(n3);
 		n.add(n4);
 		n.add(n5);
-		
-		
+		n.add(n6);
 		
 
 		n.link(n1, n2);
 		n.link(n2, n3);
 		n.link(n3, n4);
 		n.link(n5, n2);
+		n.link(n6, n4);
+		n.link(n5, n6);
 		UserInterfaceGraphic graph = new UserInterfaceGraphic(n);
 		
 		JFrame f = new JFrame("nodes");
