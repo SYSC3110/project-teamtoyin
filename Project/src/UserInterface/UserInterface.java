@@ -63,6 +63,8 @@ public class UserInterface extends JFrame implements Observer{
 	private ArrayList<JTextField> allEdgetextFields;
 	private JTextField messageContent, startNode, endNode;
 	private boolean createMessageFlag = true;
+	
+	JButton showTopology, runAlgorithm;
 
 	/**
 	 * Constructor for the user interface
@@ -98,7 +100,7 @@ public class UserInterface extends JFrame implements Observer{
 		middle2.setLayout(new GridLayout(1, 3));
 		
 		bottom = new JPanel();
-		bottom.setLayout(new BorderLayout());
+		bottom.setLayout(new GridLayout(1, 4));
 				
 		add(top);
 		add(middle);
@@ -344,6 +346,20 @@ public class UserInterface extends JFrame implements Observer{
 		}
 	}
 	
+	
+	private void createButtons()
+	{	
+		showTopology = new JButton("Show Topology");
+		showTopology.setActionCommand(UICommands.ShowTopology.getCommand());
+		showTopology.addActionListener(UIC);
+		
+		runAlgorithm = new JButton("Run");
+		runAlgorithm.setEnabled(false);
+		
+		bottom.add(showTopology);
+		bottom.add(runAlgorithm);
+		bottom.revalidate();
+	}
 	/**
 	 * Update method that listens to observable (i.e. Network)
 	 */
@@ -427,12 +443,13 @@ public class UserInterface extends JFrame implements Observer{
 				if(createMessageFlag)
 				{
 					createMessageFields();
+					createButtons();
 					createMessageFlag = false;
 				}
 			}
 			else if(command.equals(NetworkCommands.CreateMessageFields.getCommand()))
 			{
-				createMessageFields();
+				
 			}
 		}	
 	}

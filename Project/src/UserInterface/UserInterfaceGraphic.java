@@ -32,6 +32,7 @@ public class UserInterfaceGraphic extends JPanel implements ActionListener {
 	private List<NodeGraphic> nodeGraphiclist;
 	private int count;
 	private int setNodeCoordinatesCounter;
+	private JFrame f;
 	
 	/*
 	 * the variables for the animation part
@@ -44,7 +45,7 @@ public class UserInterfaceGraphic extends JPanel implements ActionListener {
 	private MessageGraphic mg;
 
 	public UserInterfaceGraphic(Network network){
-		JFrame f = new JFrame("nodes");
+		f = new JFrame("nodes");
 		f.add(this);
 		
 		this.network=network;
@@ -78,7 +79,7 @@ public class UserInterfaceGraphic extends JPanel implements ActionListener {
 						if(list.get(i).hasNeighbor(list.get(j))){
 							int x =nodeGraphiclist.get(j).getxPosition();
 							int y =nodeGraphiclist.get(j).getyPosition();
-							nodeGraphiclist.get(i).paintLink(g,x,y);	
+							nodeGraphiclist.get(i).paintLink(g,x,y);
 						}
 					}		
 				}
@@ -132,6 +133,11 @@ public class UserInterfaceGraphic extends JPanel implements ActionListener {
 				count++;
 		}
 			setNodeCoordinatesCounter++;
+	}
+	
+	public JFrame getFrame()
+	{
+		return f;
 	}
 	
 	

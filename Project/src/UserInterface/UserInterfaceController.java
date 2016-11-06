@@ -1,7 +1,10 @@
 package UserInterface;
 
+import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
+import javax.swing.JButton;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 
@@ -24,6 +27,7 @@ public class UserInterfaceController implements ActionListener{
 	private Message msg;
 	private String msgContent, sourceNode, destNode;
 	private Node source, dest;
+	private UserInterfaceGraphic topology;
 	
 	/**
 	 * Constructor for UserInterfaceController class
@@ -106,7 +110,7 @@ public class UserInterfaceController implements ActionListener{
 					((JTextField)e.getSource()).setText("Please enter a message");
 				if(isMessageReady()){
 					msg = new Message(msgContent, source, dest);
-					createNetworkTopology();
+					//createNetworkTopology();
 				}
 			}
 			else if(command.contentEquals(UICommands.StartNodeEntered.getCommand()))
@@ -116,7 +120,7 @@ public class UserInterfaceController implements ActionListener{
 					source = network.getNode(sourceNode);
 					if(isMessageReady()){
 						msg = new Message(msgContent, source, dest);
-						createNetworkTopology();
+						//createNetworkTopology();
 					}
 				}
 				
@@ -128,7 +132,7 @@ public class UserInterfaceController implements ActionListener{
 				dest = network.getNode(destNode);
 				if(isMessageReady()){
 					msg = new Message(msgContent, source, dest);
-					createNetworkTopology();
+					//createNetworkTopology();
 					}
 				}
 			}
@@ -144,7 +148,22 @@ public class UserInterfaceController implements ActionListener{
 			{
 				algorithm = new FloodingAlgorithm(network);
 			}
-		}		
+		}
+		else if (e.getSource() instanceof JButton)
+		{
+			command = e.getActionCommand();
+			if(command.equals(UICommands.ShowTopology.getCommand()))
+			{
+				if(topology == null)
+					topology = new UserInterfaceGraphic(network);
+				else{
+
+					topology.getFrame().dispose();
+					topology = new UserInterfaceGraphic(network);
+				}
+			}
+			
+		}
 	}
 	
 	/**
@@ -177,7 +196,7 @@ public class UserInterfaceController implements ActionListener{
 	 */
 	private void createNetworkTopology()
 	{
-		UserInterfaceGraphic topology = new UserInterfaceGraphic(network);
+		topology = new UserInterfaceGraphic(network);
 		
 	}
 }
