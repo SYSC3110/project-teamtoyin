@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
 import javax.swing.Timer;
 
 
@@ -35,18 +36,36 @@ public class MessageGraphic extends Graphic implements ActionListener{
 		g.setColor(Color.RED);
 		//g.fillOval(this.getxPosition(),this.getyPosition(),getWidth() ,getHeight());
 		g.fillOval(xLocation+xball,yLocation+yball, 15, 15);
+		repaint();
+	
+		
+		/**
+		 * TODO
+		 * call reset the coordinates (make the method)  
+		 */
 		
 		
 	}
 	
 	public void actionPerformed(ActionEvent e){
-		if(xcounter<=400){
+		if(xcounter<=100){
 		xball+=velocity;
-		yball+=velocity;
+		//yball+=velocity;
 		repaint();
 		xcounter++;
 		//ycounter++;
+		}else{
+			try {
+				xcounter=0;
+				Thread.sleep(400);
+			} catch (InterruptedException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+				
+			}
 		}
+		
+
 	}
 	
 
