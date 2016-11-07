@@ -9,6 +9,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 
+
 import Algorithm.RandomAlgorithm;
 import Graphics.MessageGraphic;
 import Graphics.NodeGraphic;
@@ -28,7 +29,8 @@ public class UserInterfaceGraphic extends JPanel  {
 	
 	private Network network;
 	private List<Node> list;
-	public List<NodeGraphic> nodeGraphiclist;
+	private List<NodeGraphic> nodeGraphiclist;
+	private NodeGraphic destNodeGraphic;
 	private NodeGraphic ng;
 	int xPos=200;
 	int yPos=150;
@@ -94,18 +96,12 @@ public class UserInterfaceGraphic extends JPanel  {
 					g.setColor(Color.RED);					
 					//g.fillOval(nodeGraphiclist.get(0).getxPosition()+xball,nodeGraphiclist.get(0).getxPosition()+yball, 15, 15);
 				//}
-					
-					/**
-					 * TODO
-					 * ISSUE: a ball is drawn at every node and we want only one ball that is moving 
-					 */
-				//for (int i=0;i<nodeGraphiclist.size();i++){
-					//mg.paintMessage(g, nodeGraphiclist.get(0).getxPosition(),nodeGraphiclist.get(0).getyPosition());
-					mg.paintMessage(g, this.getMessagepath());
+
+				for (int i=0;i<messageGraphicList.size();i++){
+					mg.paintMessage(g, messageGraphicList.get(i).getxPosition(),messageGraphicList.get(i).getyPosition(),i);
+					//mg.paintMessage(g, this.getMessagepath());
 					repaint();
-					
-				//}
-				
+				}				
 		}
 	
 
@@ -120,8 +116,6 @@ public class UserInterfaceGraphic extends JPanel  {
 
 			 ng = new NodeGraphic(list.get(i).getName(),xPos,yPos);
 			this.nodeGraphiclist.add(ng);
-
-	
 
 			//placing the nodes bases on the count value 
 			if(count%3==0){
@@ -145,20 +139,28 @@ public class UserInterfaceGraphic extends JPanel  {
 	
 	public void messagePath(Message m){
 		messagePathList = m.getHistory(); 
-		
-		
 		setNodeCoordinates();
+		
+		for(int i=0;i<nodeGraphiclist.size();i++){
+			if(nodeGraphiclist.get(i).getName().equals(m.getDestination().getName())){
+				destNodeGraphic = new NodeGraphic(nodeGraphiclist.get(i).getName(), nodeGraphiclist.get(i).getxPosition(), nodeGraphiclist.get(i).getyPosition());
+				break;
+			}
+			}
 		for(int i=0;i<messagePathList.size();i++){
 			for(int j=0;j<nodeGraphiclist.size();j++){
 				
 				if(messagePathList.get(i).getName().equals(nodeGraphiclist.get(j).getName())){
-					System.out.print(""+nodeGraphiclist.get(j).getName()+" x:"+nodeGraphiclist.get(j).getxPosition()+" y:"+nodeGraphiclist.get(j).getyPosition()+" ");
+					//System.out.print(""+nodeGraphiclist.get(j).getName()+" x:"+nodeGraphiclist.get(j).getxPosition()+" y:"+nodeGraphiclist.get(j).getyPosition()+" ");
 					messageGraphicList.add(nodeGraphiclist.get(j));
 				}
 				
+				
 			}		
 		}
-		//messageGraphicList.add(m.getDestination());
+		 
+		//System.out.print(""+destNodeGraphic.getName()+" x:"+destNodeGraphic.getxPosition()+" y:"+destNodeGraphic.getyPosition()+" ");
+		messageGraphicList.add(destNodeGraphic);
 		
 		
 	}
@@ -198,7 +200,7 @@ public class UserInterfaceGraphic extends JPanel  {
 		
 		RandomAlgorithm algo = new RandomAlgorithm(n);
 
-		Message m = new Message("MSG1", n1, n4);
+		Message m = new Message("MSG1", n1, n6);
 		boolean value = algo.run(m, 0);
 
 		graph.messagePath(m);
