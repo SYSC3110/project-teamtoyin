@@ -7,7 +7,11 @@ import org.junit.Test;
 import Graphics.NodeGraphic;
 import Network.Node;
 
-
+/**
+ * 
+ * @author Toyin Odujebe
+ *
+ */
 public class NodeGraphicTest {
 	private NodeGraphic nodegraph;
 	private NodeGraphic nodegraph1 = null;

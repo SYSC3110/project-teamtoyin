@@ -1,5 +1,11 @@
 package UserInterface;
 
+/**
+ * 
+ * @author Toyin Odujebe
+ * Modified Lina El Sadek
+ *
+ */
 public enum UICommands {
 	Reset, fromXML, Undo, toXML, Help, RandomAlgorithm, FloodingAlgorithm, GetNumberOfNodes, GetRateNumber, NodeNameInserted, FirstEdgeInserted, SecondEdgeInserted, MessageContent,
 	StartNodeEntered, EndNodeEntered, ShowTopology, RunAlgorithm;

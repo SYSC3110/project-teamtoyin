@@ -1,9 +1,6 @@
 package JUniTest;
 
 import static org.junit.Assert.*;
-/*
- * Author Toyin Odujebe
- */
 import java.util.Random;
 
 import org.junit.After;
@@ -17,7 +14,7 @@ import Network.Node;
 
 /**
  * 
- * @author User
+ * @author Toyin Odujebe
  * Modified By: Lina El Sadek
  */
 public class RandomAlgorithmTest {
