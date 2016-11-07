@@ -355,10 +355,17 @@ public class UserInterface extends JFrame implements Observer{
 		
 		runAlgorithm = new JButton("Run");
 		runAlgorithm.setEnabled(false);
+		runAlgorithm.setActionCommand(UICommands.RunAlgorithm.getCommand());
+		runAlgorithm.addActionListener(UIC);
 		
 		bottom.add(showTopology);
 		bottom.add(runAlgorithm);
 		bottom.revalidate();
+	}
+	
+	public void enableRun()
+	{
+		runAlgorithm.setEnabled(true);
 	}
 	/**
 	 * Update method that listens to observable (i.e. Network)
@@ -446,10 +453,6 @@ public class UserInterface extends JFrame implements Observer{
 					createButtons();
 					createMessageFlag = false;
 				}
-			}
-			else if(command.equals(NetworkCommands.CreateMessageFields.getCommand()))
-			{
-				
 			}
 		}	
 	}

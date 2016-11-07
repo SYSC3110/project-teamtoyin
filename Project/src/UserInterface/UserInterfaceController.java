@@ -28,6 +28,7 @@ public class UserInterfaceController implements ActionListener{
 	private String msgContent, sourceNode, destNode;
 	private Node source, dest;
 	private UserInterfaceGraphic topology;
+	private int rateNumInt;
 	
 	/**
 	 * Constructor for UserInterfaceController class
@@ -36,6 +37,7 @@ public class UserInterfaceController implements ActionListener{
 		network = new Network();
 		UI = new UserInterface(this);
 		network.addObserver(UI);
+		rateNumInt = 0;
 	}
 	
 	/**
@@ -66,7 +68,7 @@ public class UserInterfaceController implements ActionListener{
 			{
 				String rateNumString = ((JTextField)e.getSource()).getText();
 				try{
-					int rateNumInt = Integer.parseInt(rateNumString);
+					rateNumInt = Integer.parseInt(rateNumString);
 					System.out.println(rateNumInt);
 					if(rateNumInt<0)
 					{
@@ -110,7 +112,7 @@ public class UserInterfaceController implements ActionListener{
 					((JTextField)e.getSource()).setText("Please enter a message");
 				if(isMessageReady()){
 					msg = new Message(msgContent, source, dest);
-					//createNetworkTopology();
+					UI.enableRun();
 				}
 			}
 			else if(command.contentEquals(UICommands.StartNodeEntered.getCommand()))
@@ -120,7 +122,7 @@ public class UserInterfaceController implements ActionListener{
 					source = network.getNode(sourceNode);
 					if(isMessageReady()){
 						msg = new Message(msgContent, source, dest);
-						//createNetworkTopology();
+						UI.enableRun();
 					}
 				}
 				
@@ -132,7 +134,7 @@ public class UserInterfaceController implements ActionListener{
 				dest = network.getNode(destNode);
 				if(isMessageReady()){
 					msg = new Message(msgContent, source, dest);
-					//createNetworkTopology();
+					UI.enableRun();
 					}
 				}
 			}
@@ -161,6 +163,13 @@ public class UserInterfaceController implements ActionListener{
 					topology.getFrame().dispose();
 					topology = new UserInterfaceGraphic(network);
 				}
+			}
+			else if(command.equals(UICommands.RunAlgorithm.getCommand()))
+			{
+				if(rateNumInt==0)
+					algorithm.run(msg, 0);
+				else
+					algorithm.run(msg, rateNumInt);
 			}
 			
 		}
