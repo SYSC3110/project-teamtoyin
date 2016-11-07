@@ -25,4 +25,5 @@ This document contains two sections:
   - Enter the name you wish to give your nodes in the generated text fields. Press enter after each enter so the name is recorded.
   - Enter the edge name which will connect your nodes. Each row will have two text fields. The left text field will represent the start       node. Once you enter the name press enter, and the right text field will be enabled for you to enter the end node.
   - Enter the Message content, the start node name, and the end node name in the textfields that will be generated. Make sure after every     input you press enter.
-  - Once, you enter the end node, the topology connection will be generated. 
+  - You can click on Show Topology button to see the graphical representation of the network
+  - You can also click run to run the algorithm. The default algorithm is the Random Algorithm.
