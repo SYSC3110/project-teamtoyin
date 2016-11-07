@@ -136,7 +136,7 @@ public class UserInterfaceGraphic extends JPanel  {
 		return f;
 	}
 	
-	public void messagePath(){
+	public void messagePath(Message m){
 		messagePathList = m.getHistory(); 
 		for (int i=0;i<nodeGraphiclist.size();i++){
 			
@@ -183,7 +183,7 @@ public class UserInterfaceGraphic extends JPanel  {
 		Message m = new Message("MSG1", n1, n4);
 		boolean value = algo.run(m, 0);
 
-	//	graph.messagePath();
+		graph.messagePath(m);
 	}
 
 }
