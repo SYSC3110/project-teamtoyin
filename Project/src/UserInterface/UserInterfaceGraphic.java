@@ -100,7 +100,8 @@ public class UserInterfaceGraphic extends JPanel  {
 					 * ISSUE: a ball is drawn at every node and we want only one ball that is moving 
 					 */
 				//for (int i=0;i<nodeGraphiclist.size();i++){
-					mg.paintMessage(g, nodeGraphiclist.get(0).getxPosition(),nodeGraphiclist.get(0).getyPosition());
+					//mg.paintMessage(g, nodeGraphiclist.get(0).getxPosition(),nodeGraphiclist.get(0).getyPosition());
+					mg.paintMessage(g, this.getMessagepath());
 					repaint();
 					
 				//}
@@ -151,7 +152,7 @@ public class UserInterfaceGraphic extends JPanel  {
 			for(int j=0;j<nodeGraphiclist.size();j++){
 				
 				if(messagePathList.get(i).getName().equals(nodeGraphiclist.get(j).getName())){
-					//System.out.print("name:"+nodeGraphiclist.get(j).getName()+":"+nodeGraphiclist.get(j).getxPosition()+"  ");
+					System.out.print(""+nodeGraphiclist.get(j).getName()+" x:"+nodeGraphiclist.get(j).getxPosition()+" y:"+nodeGraphiclist.get(j).getyPosition()+" ");
 					messageGraphicList.add(nodeGraphiclist.get(j));
 				}
 				
@@ -162,14 +163,10 @@ public class UserInterfaceGraphic extends JPanel  {
 		
 	}
 	
-	public void printpathlistinfo(){
-		for(int j=0;j<messageGraphicList.size();j++){
-			System.out.print(" name:"+nodeGraphiclist.get(j).getName()+"x: "+nodeGraphiclist.get(j).getxPosition()+"y "+nodeGraphiclist.get(j).getyPosition()+" ");
-		}
-		
+	
+	public ArrayList<NodeGraphic> getMessagepath(){
+		return messageGraphicList;
 	}
-	
-	
 
 	
 	
@@ -205,7 +202,7 @@ public class UserInterfaceGraphic extends JPanel  {
 		boolean value = algo.run(m, 0);
 
 		graph.messagePath(m);
-		graph.printpathlistinfo();
+
 	}
 
 }
