@@ -2,17 +2,17 @@ package UserInterface;
 
 import java.awt.Color;
 import java.awt.Graphics;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.Timer;
 
+
+import Algorithm.RandomAlgorithm;
 import Graphics.MessageGraphic;
 import Graphics.NodeGraphic;
+import Network.Message;
 import Network.Network;
 import Network.Node;
 
@@ -26,7 +26,6 @@ import Network.Node;
 
 public class UserInterfaceGraphic extends JPanel  {
 	
-	
 	private Network network;
 	private List<Node> list;
 	private List<NodeGraphic> nodeGraphiclist;
@@ -34,11 +33,13 @@ public class UserInterfaceGraphic extends JPanel  {
 	private int setNodeCoordinatesCounter;
 	private JFrame f;
 	
+	private Message m;
+	private ArrayList<Node> messagePathList;
+	private ArrayList<NodeGraphic> messageGraphicList;
 	/*
 	 * the variables for the animation part
 	 */
 	int velocity =1;
-	Timer timer = new Timer(5,this);
 	int xball=9,yball;
 	int xcounter=0,ycounter=0;
 	private MessageGraphic mg;
@@ -54,7 +55,8 @@ public class UserInterfaceGraphic extends JPanel  {
 	    setNodeCoordinatesCounter = 0;
 	    
 	    mg= new MessageGraphic(getName(), 0, 0);
-	     
+	    messagePathList= new ArrayList<Node>();
+	    messageGraphicList = new ArrayList<NodeGraphic>();
 		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		f.setSize(900,900);
 		f.setVisible(true);
@@ -93,11 +95,11 @@ public class UserInterfaceGraphic extends JPanel  {
 					 * TODO
 					 * ISSUE: a ball is drawn at every node and we want only one ball that is moving 
 					 */
-				for (int i=0;i<nodeGraphiclist.size();i++){
-					mg.paintMessage(g, nodeGraphiclist.get(i).getxPosition(),nodeGraphiclist.get(i).getyPosition());
+				//for (int i=0;i<nodeGraphiclist.size();i++){
+					mg.paintMessage(g, nodeGraphiclist.get(0).getxPosition(),nodeGraphiclist.get(0).getyPosition());
 					repaint();
 					
-				}
+				//}
 				
 		}
 	
@@ -134,6 +136,17 @@ public class UserInterfaceGraphic extends JPanel  {
 		return f;
 	}
 	
+	public void messagePath(){
+		messagePathList = m.getHistory(); 
+		for (int i=0;i<nodeGraphiclist.size();i++){
+			
+			if(nodeGraphiclist.get(i).getName().equals(messagePathList.get(i).getName()))
+				messageGraphicList.add(nodeGraphiclist.get(i));
+			
+			System.out.println("node: "+messageGraphicList.get(i).getName());
+		}
+		
+	}
 	
 	
 
@@ -164,6 +177,13 @@ public class UserInterfaceGraphic extends JPanel  {
 		n.link(n5, n6);
 		n.link(n1,n6);
 		UserInterfaceGraphic graph = new UserInterfaceGraphic(n);
+		
+		RandomAlgorithm algo = new RandomAlgorithm(n);
+
+		Message m = new Message("MSG1", n1, n4);
+		boolean value = algo.run(m, 0);
+
+	//	graph.messagePath();
 	}
 
 }
