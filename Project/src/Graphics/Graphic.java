@@ -100,7 +100,7 @@ public abstract class Graphic extends JPanel {
 		public String getNodeName(){
 			return this.nodeName;
 			}
-		public void setNodeName(){
+		public void setNodeName(String nodeName){
 			this.nodeName=nodeName;
 			}
 		
