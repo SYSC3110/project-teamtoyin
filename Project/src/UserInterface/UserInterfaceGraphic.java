@@ -28,7 +28,10 @@ public class UserInterfaceGraphic extends JPanel  {
 	
 	private Network network;
 	private List<Node> list;
-	private List<NodeGraphic> nodeGraphiclist;
+	public List<NodeGraphic> nodeGraphiclist;
+	private NodeGraphic ng;
+	int xPos=200;
+	int yPos=150;
 	private int count;
 	private int setNodeCoordinatesCounter;
 	private JFrame f;
@@ -36,6 +39,7 @@ public class UserInterfaceGraphic extends JPanel  {
 	private Message m;
 	private ArrayList<Node> messagePathList;
 	private ArrayList<NodeGraphic> messageGraphicList;
+
 	/*
 	 * the variables for the animation part
 	 */
@@ -69,7 +73,7 @@ public class UserInterfaceGraphic extends JPanel  {
 			//calling this method to set the coordinates of the nodes before painting them 
 				if(setNodeCoordinatesCounter == 0)
 					setNodeCoordinates();
-
+				
 				for (int i=0;i<nodeGraphiclist.size();i++){
 					nodeGraphiclist.get(i).paintNode(g);
 				}	
@@ -110,13 +114,13 @@ public class UserInterfaceGraphic extends JPanel  {
 	 * This method sets the coordinates of each node in the network
 	 */
 	public void setNodeCoordinates(){	
-		int xPos=200;
-		int yPos=150;
+
 		for (int i=0;i<list.size();i++){
 
-			NodeGraphic ng = new NodeGraphic(list.get(i).getName(),xPos,yPos);
-			nodeGraphiclist.add(ng);
+			 ng = new NodeGraphic(list.get(i).getName(),xPos,yPos);
+			this.nodeGraphiclist.add(ng);
 
+	
 
 			//placing the nodes bases on the count value 
 			if(count%3==0){
@@ -131,6 +135,8 @@ public class UserInterfaceGraphic extends JPanel  {
 			setNodeCoordinatesCounter++;
 	}
 	
+	
+
 	public JFrame getFrame()
 	{
 		return f;
@@ -138,12 +144,27 @@ public class UserInterfaceGraphic extends JPanel  {
 	
 	public void messagePath(Message m){
 		messagePathList = m.getHistory(); 
-		for (int i=0;i<nodeGraphiclist.size();i++){
-			
-			if(nodeGraphiclist.get(i).getName().equals(messagePathList.get(i).getName()))
-				messageGraphicList.add(nodeGraphiclist.get(i));
-			
-			System.out.println("node: "+messageGraphicList.get(i).getName());
+		
+		
+		setNodeCoordinates();
+		for(int i=0;i<messagePathList.size();i++){
+			for(int j=0;j<nodeGraphiclist.size();j++){
+				
+				if(messagePathList.get(i).getName().equals(nodeGraphiclist.get(j).getName())){
+					//System.out.print("name:"+nodeGraphiclist.get(j).getName()+":"+nodeGraphiclist.get(j).getxPosition()+"  ");
+					messageGraphicList.add(nodeGraphiclist.get(j));
+				}
+				
+			}		
+		}
+		//messageGraphicList.add(m.getDestination());
+		
+		
+	}
+	
+	public void printpathlistinfo(){
+		for(int j=0;j<messageGraphicList.size();j++){
+			System.out.print(" name:"+nodeGraphiclist.get(j).getName()+"x: "+nodeGraphiclist.get(j).getxPosition()+"y "+nodeGraphiclist.get(j).getyPosition()+" ");
 		}
 		
 	}
@@ -184,6 +205,7 @@ public class UserInterfaceGraphic extends JPanel  {
 		boolean value = algo.run(m, 0);
 
 		graph.messagePath(m);
+		graph.printpathlistinfo();
 	}
 
 }

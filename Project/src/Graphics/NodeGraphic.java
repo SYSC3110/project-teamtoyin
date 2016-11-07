@@ -19,6 +19,7 @@ public class NodeGraphic extends Graphic {
 	 */
 	public NodeGraphic(String nodeName, int xPosition, int yPosition){
 		super(nodeName, xPosition, yPosition);
+		this.setName(nodeName);
 		this.setHeight(30);
 		this.setWidth(30);
 		this.setxTextOffset(17);
@@ -26,7 +27,15 @@ public class NodeGraphic extends Graphic {
 	}
 
 	
-	
+	/*
+	 * returning NodeGraphic given a name 
+	 */
+	public NodeGraphic getNodeGraphicByName(String name){
+		if (name.equals(this.getName())){
+			return this;
+		}
+		return null;
+	}
 
 	/**
 	 * this method draws a node based on its coordinates 

@@ -100,6 +100,9 @@ public abstract class Graphic extends JPanel {
 		public String getNodeName(){
 			return this.nodeName;
 			}
+		public void setNodeName(){
+			this.nodeName=nodeName;
+			}
 		
 		public int getxTextOffset() {
 			return xTextOffset;
