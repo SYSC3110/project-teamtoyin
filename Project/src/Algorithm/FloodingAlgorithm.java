@@ -15,7 +15,7 @@ import Network.Node;
 
 public class FloodingAlgorithm implements Algorithm {
 	private Network network;			//Network of nodes the algorithm is running on
-	int packet_count;					// Number of packets transmitted during message sending
+	private int packet_count;					// Number of packets transmitted during message sending
 	private int max_injections = 20; 	//Maximum number of nodes to inject in the network	
 	
 	/**
