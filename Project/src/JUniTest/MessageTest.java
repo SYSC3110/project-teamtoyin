@@ -14,7 +14,7 @@ import Network.Node;
  */
 public class MessageTest {
 
-	private Message message1, message2,message3;
+	private Message message1, message2, message3;
 	@Before
 	public void setUp() throws Exception {
 		Node src = new Node("A");
