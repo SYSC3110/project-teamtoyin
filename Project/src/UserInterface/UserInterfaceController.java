@@ -49,7 +49,7 @@ public class UserInterfaceController implements ActionListener{
 		if(e.getSource() instanceof JTextField)
 		{
 			command = e.getActionCommand();
-			if(command.equals(UICCommands.GetNumberOfNodes.getCommand()))
+			if(command.equals(UICommands.GetNumberOfNodes.getCommand()))
 			{
 				String numOfNodesString = ((JTextField)e.getSource()).getText();
 				try{
@@ -64,7 +64,7 @@ public class UserInterfaceController implements ActionListener{
 					((JTextField)e.getSource()).setText("Must be positive integer");
 				}
 			}
-			else if(command.equals(UICCommands.GetRateNumber.getCommand()))
+			else if(command.equals(UICommands.GetRateNumber.getCommand()))
 			{
 				String rateNumString = ((JTextField)e.getSource()).getText();
 				try{
@@ -78,7 +78,7 @@ public class UserInterfaceController implements ActionListener{
 					((JTextField)e.getSource()).setText("Must be positive integer or zero");
 				}
 			}
-			else if(command.equals(UICCommands.NodeNameInserted.getCommand()))
+			else if(command.equals(UICommands.NodeNameInserted.getCommand()))
 			{
 				String nodeName = ((JTextField)e.getSource()).getText();
 				if(nodeName.equals(""))
@@ -88,7 +88,7 @@ public class UserInterfaceController implements ActionListener{
 					network.add(n);
 				}
 			}
-			else if(command.equals(UICCommands.FirstEdgeInserted.getCommand()))
+			else if(command.equals(UICommands.FirstEdgeInserted.getCommand()))
 			{
 				String nodeName = ((JTextField)e.getSource()).getText();
 				if(network.checkNodeName(nodeName)){
@@ -97,7 +97,7 @@ public class UserInterfaceController implements ActionListener{
 				}
 				
 			}
-			else if(command.contentEquals(UICCommands.SecondEdgeInserted.getCommand()))
+			else if(command.contentEquals(UICommands.SecondEdgeInserted.getCommand()))
 			{
 				String nodeName = ((JTextField)e.getSource()).getText();
 				if(network.checkNodeName(nodeName)){
@@ -142,11 +142,11 @@ public class UserInterfaceController implements ActionListener{
 		else if (e.getSource() instanceof JRadioButton)
 		{
 			command = e.getActionCommand();
-			if(command.equals(UICCommands.RandomAlgorithm.getCommand()))
+			if(command.equals(UICommands.RandomAlgorithm.getCommand()))
 			{
 				algorithm = new RandomAlgorithm(network);
 			}
-			else if(command.equals(UICCommands.FloodingAlgorithm.getCommand()))
+			else if(command.equals(UICommands.FloodingAlgorithm.getCommand()))
 			{
 				algorithm = new FloodingAlgorithm(network);
 			}
