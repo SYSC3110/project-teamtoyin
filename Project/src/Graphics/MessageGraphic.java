@@ -41,13 +41,13 @@ public class MessageGraphic extends Graphic {
 		Point p = new Point(xLocation,yLocation);
 		points.add(p);
 		if(!points.contains(p)){
-			g.drawOval(xLocation+getWidth()+getxTextOffset()/order,yLocation+getWidth()/order, getWidth(), getHeight());
-			g.drawString(String.valueOf(order), xLocation+getWidth()+getxTextOffset()+3/order, yLocation+getWidth()+getyTextOffset()+3/order);
+			g.drawOval(xLocation+getWidth()+getxTextOffset()*order,yLocation+getWidth()*order, getWidth(), getHeight());
+			g.drawString(String.valueOf(order), xLocation+getWidth()+getxTextOffset()+3*order, yLocation+getWidth()+getyTextOffset()+3*order);
 			repaint();
 		}else{
 			//System.out.println("here");
 			g .drawOval(xLocation+getWidth()+getxTextOffset()*order,yLocation+getWidth()*order, getWidth(), getHeight());
-			g.drawString(String.valueOf(order), xLocation+getWidth()+getxTextOffset()+3+currentOffset*order, yLocation+getWidth()+getyTextOffset()+3+currentOffset*order);
+			g.drawString(String.valueOf(order), xLocation+getWidth()+(currentOffset*order)-3, yLocation+getWidth()+(currentOffset*order)-5);
 			repaint();
 		}
 				
