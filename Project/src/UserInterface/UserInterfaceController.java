@@ -1,6 +1,5 @@
 package UserInterface;
 
-import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -44,134 +43,140 @@ public class UserInterfaceController implements ActionListener{
 	 * Listens to events from UserInterface.java
 	 */
 	public void actionPerformed(ActionEvent e) {
-		String command = "";
+		String command = e.getActionCommand();
 		
 		if(e.getSource() instanceof JTextField)
+			jTextFieldActions(e, command);
+		else if (e.getSource() instanceof JRadioButton)
+			jRadioButtonActions(command);
+		else if (e.getSource() instanceof JButton)
+			jButtonActions(command);
+	}
+
+	/**
+	 * Method responsible for JButton Action Events
+	 * @param command
+	 */
+	private void jButtonActions(String command) {
+		if(command.equals(UICommands.ShowTopology.getCommand()))
 		{
-			command = e.getActionCommand();
-			if(command.equals(UICommands.GetNumberOfNodes.getCommand()))
-			{
-				String numOfNodesString = ((JTextField)e.getSource()).getText();
-				try{
-					int numOfNodesInt = Integer.parseInt(numOfNodesString);
-					System.out.println(numOfNodesInt);
-					network.notifyNodeNumIsAvailable(numOfNodesInt);
-					if(numOfNodesInt<=0)
-					{
-						((JTextField)e.getSource()).setText("Must be positive integer");
-					}
-				}catch(NumberFormatException err){
-					((JTextField)e.getSource()).setText("Must be positive integer");
-				}
+			if(topology == null)
+				createNetworkTopology();
+			else{
+				topology.getFrame().dispose();
+				createNetworkTopology();
 			}
-			else if(command.equals(UICommands.GetRateNumber.getCommand()))
-			{
-				String rateNumString = ((JTextField)e.getSource()).getText();
-				try{
-					rateNumInt = Integer.parseInt(rateNumString);
-					System.out.println(rateNumInt);
-					if(rateNumInt<0)
-					{
-						((JTextField)e.getSource()).setText("Must be positive integer or zero");
-					}
-				}catch(NumberFormatException err){
-					((JTextField)e.getSource()).setText("Must be positive integer or zero");
-				}
+		}
+		else if(command.equals(UICommands.RunAlgorithm.getCommand()))
+		{
+			if(rateNumInt==0)
+				algorithm.run(msg, 0);
+			else
+				algorithm.run(msg, rateNumInt);
+		}
+	}
+
+	/**
+	 * Method responsible for JRadioButton Action Events
+	 * @param command
+	 */
+	private void jRadioButtonActions(String command) {
+		if(command.equals(UICommands.RandomAlgorithm.getCommand()))
+			algorithm = new RandomAlgorithm(network);
+		else if(command.equals(UICommands.FloodingAlgorithm.getCommand()))
+			algorithm = new FloodingAlgorithm(network);
+	}
+
+	/**
+	 * Method responsible for JTextField Action Events
+	 * @param e
+	 * @param command
+	 */
+	private void jTextFieldActions(ActionEvent e, String command) {
+		JTextField texFieldtObj = (JTextField)e.getSource();
+		if(command.equals(UICommands.GetNumberOfNodes.getCommand()))
+		{
+			String numOfNodesString = texFieldtObj.getText();
+			try{
+				int numOfNodesInt = Integer.parseInt(numOfNodesString);
+				System.out.println(numOfNodesInt);
+				network.notifyNodeNumIsAvailable(numOfNodesInt);
+				if(numOfNodesInt<=0)
+					texFieldtObj.setText("Must be positive integer");
+			}catch(NumberFormatException err){
+				texFieldtObj.setText("Must be positive integer");
 			}
-			else if(command.equals(UICommands.NodeNameInserted.getCommand()))
-			{
-				String nodeName = ((JTextField)e.getSource()).getText();
-				if(nodeName.equals(""))
-					((JTextField)e.getSource()).setText("Must enter a name");
-				else{
-					Node n = new Node(nodeName);
-					network.add(n);
-				}
+		}
+		else if(command.equals(UICommands.GetRateNumber.getCommand()))
+		{
+			String rateNumString = texFieldtObj.getText();
+			try{
+				rateNumInt = Integer.parseInt(rateNumString);
+				System.out.println(rateNumInt);
+				if(rateNumInt<0)
+					texFieldtObj.setText("Must be positive integer or zero");
+			}catch(NumberFormatException err){
+				texFieldtObj.setText("Must be positive integer or zero");
 			}
-			else if(command.equals(UICommands.FirstEdgeInserted.getCommand()))
-			{
-				String nodeName = ((JTextField)e.getSource()).getText();
-				if(network.checkNodeName(nodeName)){
-					Node n = network.getNode(nodeName);
-					network.contains(n);
-				}
-				
+		}
+		else if(command.equals(UICommands.NodeNameInserted.getCommand()))
+		{
+			String nodeName = texFieldtObj.getText();
+			if(nodeName.equals(""))
+				texFieldtObj.setText("Must enter a name");
+			else{
+				Node n = new Node(nodeName);
+				network.add(n);
 			}
-			else if(command.contentEquals(UICommands.SecondEdgeInserted.getCommand()))
-			{
-				String nodeName = ((JTextField)e.getSource()).getText();
-				if(network.checkNodeName(nodeName)){
-					Node n = network.getNode(nodeName);
-					network.contains(n);
-				}
+		}
+		else if(command.equals(UICommands.FirstEdgeInserted.getCommand()))
+		{
+			String nodeName = texFieldtObj.getText();
+			if(network.checkNodeName(nodeName)){
+				Node n = network.getNode(nodeName);
+				network.contains(n);
 			}
-			else if(command.contentEquals(UICommands.MessageContent.getCommand()))
-			{
-				msgContent = ((JTextField)e.getSource()).getText();
-				if(msgContent.equals(""))
-					((JTextField)e.getSource()).setText("Please enter a message");
+			
+		}
+		else if(command.contentEquals(UICommands.SecondEdgeInserted.getCommand()))
+		{
+			String nodeName = texFieldtObj.getText();
+			if(network.checkNodeName(nodeName)){
+				Node n = network.getNode(nodeName);
+				network.contains(n);
+			}
+		}
+		else if(command.contentEquals(UICommands.MessageContent.getCommand()))
+		{
+			msgContent = texFieldtObj.getText();
+			if(msgContent.equals(""))
+				texFieldtObj.setText("Please enter a message");
+			else if(isMessageReady()){
+				msg = new Message(msgContent, source, dest);
+				UI.enableRun();
+			}
+		}
+		else if(command.contentEquals(UICommands.StartNodeEntered.getCommand()))
+		{
+			sourceNode = texFieldtObj.getText();
+			if(network.checkNodeName(sourceNode)){
+				source = network.getNode(sourceNode);
 				if(isMessageReady()){
 					msg = new Message(msgContent, source, dest);
 					UI.enableRun();
 				}
 			}
-			else if(command.contentEquals(UICommands.StartNodeEntered.getCommand()))
-			{
-				sourceNode = ((JTextField)e.getSource()).getText();
-				if(network.checkNodeName(sourceNode)){
-					source = network.getNode(sourceNode);
-					if(isMessageReady()){
-						msg = new Message(msgContent, source, dest);
-						UI.enableRun();
-					}
-				}
-				
-			}
-			else if(command.contentEquals(UICommands.EndNodeEntered.getCommand()))
-			{
-				destNode = ((JTextField)e.getSource()).getText();
-				if(network.checkNodeName(destNode)){
+		}
+		else if(command.contentEquals(UICommands.EndNodeEntered.getCommand()))
+		{
+			destNode = texFieldtObj.getText();
+			if(network.checkNodeName(destNode)){
 				dest = network.getNode(destNode);
 				if(isMessageReady()){
 					msg = new Message(msgContent, source, dest);
 					UI.enableRun();
-					}
 				}
 			}
-		}
-		else if (e.getSource() instanceof JRadioButton)
-		{
-			command = e.getActionCommand();
-			if(command.equals(UICommands.RandomAlgorithm.getCommand()))
-			{
-				algorithm = new RandomAlgorithm(network);
-			}
-			else if(command.equals(UICommands.FloodingAlgorithm.getCommand()))
-			{
-				algorithm = new FloodingAlgorithm(network);
-			}
-		}
-		else if (e.getSource() instanceof JButton)
-		{
-			command = e.getActionCommand();
-			if(command.equals(UICommands.ShowTopology.getCommand()))
-			{
-				if(topology == null)
-					topology = new UserInterfaceGraphic(network);
-				else{
-
-					topology.getFrame().dispose();
-					topology = new UserInterfaceGraphic(network);
-				}
-			}
-			else if(command.equals(UICommands.RunAlgorithm.getCommand()))
-			{
-				if(rateNumInt==0)
-					algorithm.run(msg, 0);
-				else
-					algorithm.run(msg, rateNumInt);
-			}
-			
 		}
 	}
 	
@@ -207,5 +212,15 @@ public class UserInterfaceController implements ActionListener{
 	{
 		topology = new UserInterfaceGraphic(network);
 		
+	}
+	
+	/**
+	 * 
+	 * @param args
+	 */
+	public static void main(String[] args)
+	{
+		@SuppressWarnings("unused")
+		UserInterfaceController controller = new UserInterfaceController();
 	}
 }

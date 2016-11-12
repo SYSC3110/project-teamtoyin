@@ -1,6 +1,5 @@
 package UserInterface;
 
-import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import java.util.ArrayList;
 import java.util.Observable;
@@ -22,50 +21,39 @@ public class UserInterface extends JFrame implements Observer{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	
+	//Menu variables
 	private JMenuBar menuBar;
 	private JMenu menu;
-	private JMenuItem reset;
-	private JMenuItem restore;
-	private JMenuItem undo;
-	private JMenuItem save;
-	private JMenuItem help;
+	private JMenuItem reset,restore,undo,save,help;
 	
-	private JPanel top;
-	private JPanel middle;
-	private JPanel middle2;
-	private JPanel bottom;
-	private JPanel algorithmPanel;
+	//JPanel Variables
+	private JPanel top,middle,middle2,bottom,algorithmPanel, PnlRate, PnlNodeNum, pnlNode, pnlEdge;
 	
-	private JLabel algorithmlbl;
+	//JLabel Variables
+	private JLabel algorithmlbl, lblRate, lblNode,lblNodeName, lblNodeEdge;
+	
+	//JRadioButton Variables
+	private ButtonGroup algorithmGroup;
 	private JRadioButton randomAlgo;
 	private JRadioButton floodingAlgo;
-	private ButtonGroup algorithmGroup;
 	
-	private JLabel lblRate;
-	private JPanel PnlRate;
+	//JTextField Variables
+	private JTextField nodeNum,rateNum, messageContent, startNode, endNode;
 	
-	private JPanel PnlNodeNum;
-	private JLabel lblNode;
-	
-	private JTextField nodeNum;
-	private JTextField rateNum;
-	
-	private JPanel pnlNode;
-	private JLabel lblNodeName;
-	
-	private JPanel pnlEdge;
-	private JLabel lblNodeEdge;
+	//JButton Variables
+	private JButton showTopology, runAlgorithm;
 	
 	private int NumberOfNodes;
 	
-	private UserInterfaceController UIC;
-	
 	private ArrayList<JTextField> allEdgetextFields;
-	private JTextField messageContent, startNode, endNode;
+	
 	private boolean createMessageFlag = true;
 	
-	JButton showTopology, runAlgorithm;
-
+	//Controller
+	private UserInterfaceController UIC;
+	
+	
 	/**
 	 * Constructor for the user interface
 	 * @param UIC
@@ -75,9 +63,9 @@ public class UserInterface extends JFrame implements Observer{
 		super("Team Toyin's Build-A-Network");
 		this.UIC = UIC;
 		setLayout(new GridLayout(4, 1));
-		CreatePanels();
+		createPanels();
 		createNodeNum();
-		ChooseAlgorithm();
+		chooseAlgorithm();
 		createRate();
 		createJMenu();
 		setSize(500,500);
@@ -88,7 +76,7 @@ public class UserInterface extends JFrame implements Observer{
 	/**
 	 * Creates all base panels used in the user interface
 	 */
-	private void CreatePanels()
+	private void createPanels()
 	{
 		top = new JPanel();
 		top.setLayout(new GridLayout(1, 3));
@@ -172,7 +160,7 @@ public class UserInterface extends JFrame implements Observer{
 	/**
 	 * Creates the radio buttons for the algorithms
 	 */
-	private void ChooseAlgorithm()
+	private void chooseAlgorithm()
 	{
 		algorithmPanel = new JPanel();
 		algorithmPanel.setLayout(new GridLayout(3, 1));
@@ -367,6 +355,7 @@ public class UserInterface extends JFrame implements Observer{
 	{
 		runAlgorithm.setEnabled(true);
 	}
+	
 	/**
 	 * Update method that listens to observable (i.e. Network)
 	 */
@@ -455,14 +444,5 @@ public class UserInterface extends JFrame implements Observer{
 				}
 			}
 		}	
-	}
-	
-	/**
-	 * 
-	 * @param args
-	 */
-	public static void main(String[] args)
-	{
-		UserInterfaceController controller = new UserInterfaceController();
 	}
 }
