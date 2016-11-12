@@ -2,13 +2,8 @@ package Graphics;
 
 import java.awt.Color;
 import java.awt.Graphics;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.util.ArrayList;
-
-import javax.swing.Timer;
-
-
+import java.awt.Point;
+import java.util.HashSet;
 /**
  * 
  * @author Osama Buhamad
@@ -16,57 +11,47 @@ import javax.swing.Timer;
  * @date 11/06/2016
  *
  */
-public class MessageGraphic extends Graphic implements ActionListener{
+public class MessageGraphic extends Graphic {
 
 	/*
 	 * the variables for the animation part
 	 */
-	int velocity =1;
-	Timer timer = new Timer(10,this);
-	int xball=150,yball=250;
-	int xcounter=0,ycounter=0;
-
-	private int num;
-	private int num2;
-	private int moveText=0;
+	private HashSet<Point> points;
+	private int currentOffset;
+	/**
+	 * the instructor of the MessageGraphic 
+	 * @param nodeName
+	 * @param xPosition
+	 * @param yPosition
+	 */
 	public MessageGraphic(String nodeName, int xPosition, int yPosition) {
 		super(nodeName, xPosition, yPosition);
 		this.setHeight(25);
 		this.setWidth(25);
 		this.setxTextOffset(20);
 		this.setyTextOffset(15);
-		timer.start();
-		num=0;
-		num2=0;
+		
+		points = new HashSet<Point>();
+		currentOffset=getWidth();
 	}
 	
-	public void paintMessage(Graphics g, int xLocation, int yLocation,int order){
+	public void paintMessage(Graphics g, int xLocation, int yLocation,int order) {
+		
 		g.setColor(Color.RED);
-		num=xLocation;
-		num2=yLocation;
-		
-		g.drawOval(num+getWidth()+getxTextOffset(),num2+getWidth(), getWidth(), getHeight());
-		g.drawString(String.valueOf(order), num+getWidth()+getxTextOffset()+3, num2+getWidth()+getyTextOffset()+3);
-		repaint();
-		
-	}
-	
-
-	
-	public void actionPerformed(ActionEvent e){
-		
-		if(xcounter<=20){
-			moveText+=10;
-		}		
-			try {
+		Point p = new Point(xLocation,yLocation);
+		points.add(p);
+		if(!points.contains(p)){
+			g.drawOval(xLocation+getWidth()+getxTextOffset()/order,yLocation+getWidth()/order, getWidth(), getHeight());
+			g.drawString(String.valueOf(order), xLocation+getWidth()+getxTextOffset()+3/order, yLocation+getWidth()+getyTextOffset()+3/order);
+			repaint();
+		}else{
+			//System.out.println("here");
+			g .drawOval(xLocation+getWidth()+getxTextOffset()*order,yLocation+getWidth()*order, getWidth(), getHeight());
+			g.drawString(String.valueOf(order), xLocation+getWidth()+getxTextOffset()+3+currentOffset*order, yLocation+getWidth()+getyTextOffset()+3+currentOffset*order);
+			repaint();
+		}
 				
-				repaint();
-				Thread.sleep(100);
-			} catch (InterruptedException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();		
-			}
-
-	}
+	} //end of paintMessage
+	
 
 }

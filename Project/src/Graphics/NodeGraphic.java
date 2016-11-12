@@ -11,9 +11,6 @@ import java.awt.Graphics;
  *
  */
 public class NodeGraphic extends Graphic {
-	
-	
-	
 	/*
 	 * the constructor takes a node name and the x and y coordinates 
 	 */
