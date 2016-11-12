@@ -23,7 +23,7 @@ public class RandomAlgorithm implements Algorithm {
 	/**
 	 * Constructor to assign network to the algorithm.
 	 */
-	public RandomAlgorithm(Network n) {
+	public RandomAlgorithm(Network n) throws NullPointerException{
 
 		//If network is null throw exception
 		if (n == null)

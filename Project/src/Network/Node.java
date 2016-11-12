@@ -18,7 +18,7 @@ public class Node {
 	/**
 	 * Constructor to initialize a node
 	 */
-	public Node(String name) {
+	public Node(String name) throws NullPointerException, IllegalArgumentException{
 		
 		//Set nodes name
 		if (name == null)

@@ -14,8 +14,6 @@ import Network.NetworkCommands;
 public class Network extends Observable{
 	
 	private HashSet<Node> nodes;			//Stores all of the network nodes
-	private NetworkCommands command;
-	private String command2;
 	private ArrayList<Message> messages;	//List of messages present in the network
 	private boolean open;					//When true the network will stay open for accepting new messages
 	
@@ -29,9 +27,6 @@ public class Network extends Observable{
 		
 		//Initialize new arraylist for messages in network
 		messages = new ArrayList<Message>();
-		
-		//Initialize command to empty
-		//command = "";
 		
 		//Set the network to open for accepting messages 
 		this.open = true;
@@ -257,18 +252,17 @@ public class Network extends Observable{
 	}
 	
 	/**
-	 * Creates text fields for nodes on ui
+	 * Creates text fields for nodes on UI
 	 */
 	public void notifyNodeNumIsAvailable(int nodeNum) {
-		command2 = NetworkCommands.NodeNumAvailable.getCommand()+":"+nodeNum;
+		String command = NetworkCommands.NodeNumAvailable.getCommand()+":"+nodeNum;
 		setChanged();
-		notifyObservers(command2);
+		notifyObservers(command);
 	}
 	
 	private void setCommandAndNotify(NetworkCommands command) {
-		this.command = command;
 		setChanged();
-		notifyObservers(this.command);
+		notifyObservers(command);
 	}
 	
 	//this method return the number of the nodes in the network 

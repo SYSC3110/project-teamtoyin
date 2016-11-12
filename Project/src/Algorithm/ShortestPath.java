@@ -23,7 +23,7 @@ public class ShortestPath implements Algorithm {
 	/**
 	 * Constructor to assign network to the algorithm.
 	 */
-	public ShortestPath(Network n) {
+	public ShortestPath(Network n) throws NullPointerException{
 
 		//If network is null throw exception
 		if (n == null)
