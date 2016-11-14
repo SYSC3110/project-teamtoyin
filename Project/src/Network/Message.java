@@ -131,9 +131,7 @@ public class Message {
 			
 			//Save current node in history
 			this.history.add(this.position);
-			
-			System.out.println("Added " + this.position.getName() + " to my history because moving forward");
-			
+						
 			//Set messages position in the network
 			this.position = n;
 			

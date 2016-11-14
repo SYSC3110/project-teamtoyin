@@ -2,6 +2,8 @@ package Algorithm;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Random;
@@ -14,7 +16,7 @@ import Network.Node;
  * @author Scott Hanton
  * 
  */
-public class ShortestPath implements Algorithm {
+public class ShortestPathAlgorithm implements Algorithm {
 	private Network network;			// Network of nodes the algorithm is running on
 	private int packet_count; 		 	// Number of packets transmitted during message sending
 	private int max_injections = 20; 	//Maximum number of nodes to inject in the network
@@ -23,7 +25,7 @@ public class ShortestPath implements Algorithm {
 	/**
 	 * Constructor to assign network to the algorithm.
 	 */
-	public ShortestPath(Network network) throws NullPointerException{
+	public ShortestPathAlgorithm(Network network) throws NullPointerException{
 		HashMap<Node, Node> routing_entry;	//Routing table entry 
 		
 		//If network is null throw exception
@@ -143,8 +145,53 @@ public class ShortestPath implements Algorithm {
 	public boolean run(Message m, int rate) {
 
 		
-		// TODO Auto-generated method stub
-		return false;
+		int count = 0;		//Counter for step while loop
+		int injected = 0;	//Counter for new message injections
+		Message new_m;		//New message to inject into the network
+		
+		//Inject message into network
+		network.injectMessage(m);
+		
+		//If the rate is 0, the network is closed for new messages
+		if (rate == 0) {
+			
+			//Set network to closed
+			network.setOpen(false);
+			
+		}
+		
+		//While the network is good to go
+		while (step()) {
+			
+			//If we should inject a new message 
+			if ( ( rate != 0 ) && ( (count % rate) == 0 ) && ( injected < this.max_injections ) ) {
+
+				//Create a new message
+				new_m = new Message(m.getContents() + " - " + count, m.getSource(), m.getDestination());
+				
+				//Inject message into network
+				network.injectMessage(new_m);
+				
+				//Increment injected counter
+				injected ++;
+				
+			} else if (rate > 0 && injected >= this.max_injections) {
+				
+				//Network not open for new messages
+				network.setOpen(false);
+				
+			}
+			
+			//Step again until no more stepping required
+			System.out.println("Stepping again...");
+			
+			//Increment counter
+			count++;
+			
+		}
+		
+		//Algorithm successfully ran if we reach here
+		return true;
 		
 	}
 
@@ -155,8 +202,63 @@ public class ShortestPath implements Algorithm {
 	 */
 	public boolean step() {
 		
-		// TODO Auto-generated method stub
-		return false;
+		int index = 0; 	// Index in arraylist of messages
+		Node new_n; 	// New node to move message to
+
+		//If no more messages travelling in network and the network is not receiving new messages
+		if (!network.messagesMoving() && !network.isOpen()) {
+			System.out.println("No messages moving and network closed for new messages.");
+			return false;
+		}
+
+		//Iterator for messages in network
+		Iterator<Message> i = network.getMessages().iterator();
+		
+		//For each message in network
+		while (i.hasNext()) {
+			
+			//Get message
+			Message m = i.next();
+
+			// If the message is already at its destination, skip
+			if (m.getNode() == m.getDestination()) {
+				
+				//Debug
+				System.out.println(m.getContents() + " is at the destination node " + m.getNode().getName());
+				
+				//Node is at destination so remove it
+				i.remove();
+								
+				//Continue to next message
+				continue;
+				
+			} else {
+				
+				//Debug
+				System.out.println(m.getContents() + " is at node " + m.getNode().getName() + " and is going to node " + m.getDestination().getName());
+			
+			}
+
+			// Get node to move message to
+			new_n = this.next(m);
+			
+			//Update the messages position in the network
+			network.getMessages().get(index).setNode(new_n);
+			
+			//Increment packets sent
+			this.countPacket();
+			
+			//Count message hops
+			network.getMessages().get(index).countHop();
+			
+			//Increment index counter for messages arraylist
+			index ++;
+			
+		}
+		
+
+		//Step successfully completed
+		return true;
 		
 	}
 	
@@ -164,9 +266,27 @@ public class ShortestPath implements Algorithm {
 	 * Selects the next node to travel to and returns it.
 	 */
 	public Node next(Message m) {
+		HashMap<Node, Node> hm;	//Mashmap of routing table for given node 
+		Node next_node;			//Next node to go to
+		Node n;					//Current node that the message is at
 		
-		// TODO Auto-generated method stub
-		return null;
+		//Get messages current node
+		n = m.getNode();
+		
+		// If the node isn't present in the network return
+		if (!network.contains(n)) {
+			System.out.println("Does not contain node " + n.getName());
+			return null;
+		}
+
+		//Get routing table for current node
+		hm = routing_table.get(n);
+		
+		//Get next node based on destination
+		next_node = hm.get(m.getDestination());
+		
+		//Return the next node
+		return next_node;
 		
 	}
 
@@ -212,8 +332,11 @@ public class ShortestPath implements Algorithm {
 		n.link(n3, n4);		
 		n.link(n4, n5);
 
-		ShortestPath algo = new ShortestPath(n);
-
+		ShortestPathAlgorithm algo = new ShortestPathAlgorithm(n);
+		Message m = new Message("MSG1", n1, n5);
+		boolean value = algo.run(m, 0);
+		System.out.println("Packets sent during transmission: " + algo.getPacketCount());
+		System.out.println("true or false " + value);
 		
 	}
 	
