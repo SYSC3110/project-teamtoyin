@@ -19,20 +19,35 @@ public class ShortestPath implements Algorithm {
 	private int packet_count; 		 	// Number of packets transmitted during message sending
 	private int max_injections = 20; 	//Maximum number of nodes to inject in the network
 	private HashMap<Node, HashMap<Node, Node>> routing_table; //Shortest path routing table (Current node, destination node, next node)
-	
+
 	/**
 	 * Constructor to assign network to the algorithm.
 	 */
-	public ShortestPath(Network n) throws NullPointerException{
-
+	public ShortestPath(Network network) throws NullPointerException{
+		HashMap<Node, Node> routing_entry;	//Routing table entry 
+		
 		//If network is null throw exception
-		if (n == null)
+		if (network == null)
 			throw new NullPointerException();
 		else
-			this.network = n;
+			this.network = network;
 
 		// Initialize packet_count
 		this.packet_count = 0;
+		
+		//Initialize routing table
+		routing_table = new HashMap<Node, HashMap<Node, Node>>();
+		
+		//For each node in network initialize their routing entry
+		for (Node n: network.getNodes()) {
+			
+			//Initialize new hashmap
+			routing_entry = new HashMap<Node, Node>();
+			
+			//Add hashmap to routing table
+			routing_table.put(n, routing_entry);
+			
+		}
 		
 		//Load the routing table
 		this.loadRoutingTable();
@@ -45,18 +60,80 @@ public class ShortestPath implements Algorithm {
 	 * algorithm.
 	 */
 	public void loadRoutingTable() {
-		Queue<Node> q = new LinkedList<Node>();				//Queue of nodes to visit 
-		ArrayList<Node> visited = new ArrayList<Node>();	//ArrayList of nodes visited
-		Node prev_n; 										//Previous node visited 
+		Queue<Node> q; 										//Queue of nodes to visit 
 		Node curr_n;										//Node we are currently at
+		Node prev_n;										//Node we visited a node from
+		HashMap<Node, Node> visited;						//Hashmap of nodes visited and the node we visited from
+		HashMap<Node, Node> routing_entry;					//Entry in our routing table (destination node, next node)
 		
-		//Get an element  from network to start at
-		q.add( (this.network.getNodes().toArray(new Node[1]) [0]) );
+		//Populate routing table for each node in network
+		for (Node start_n : this.network.getNodes()) {
 		
-		//While more nodes to visit
-		while (!q.isEmpty()) {
+			//Initialize hashmap
+			visited = new HashMap<Node, Node>();
+			
+			//Initialize queue
+			q = new LinkedList<Node>();
+			
+			//Get an element from network to start at
+			q.add( start_n );
+			
+			//Add this node to visited
+			visited.put(start_n, null);
+			
+			//While more nodes to visit
+			while (!q.isEmpty()) {
+				
+				//Get node from queue
+				curr_n = q.poll();
+							
+				//For each of the nodes neighbors
+				for (Node n : curr_n.getNeighbors()) {
+					
+					//If we have not yet visited this now
+					if (!visited.containsKey(n)) {
 						
+						//Mark visited
+						visited.put(n, curr_n);
+						
+						//Add to queue
+						q.add(n);
+						
+					}
+					
+				}
+			}
+			
+			//Loop each node visited
+			for (Node n : visited.keySet()) {
+				
+				//If it is our start node continue
+				if (n == start_n) { continue; } 
+				
+				//Starting point to move backwards towards start node
+				prev_n = n;
+								
+				//Loop until we reach a neighbor of our start node
+				while (!start_n.getNeighbors().contains(prev_n)) {
+					
+					//Go to node we visited this node from
+					prev_n = visited.get(prev_n);				
+					
+				}
+				
+				//Routing entry for start node
+				routing_entry = routing_table.get(start_n);
+				
+				//Add values to routing entry
+				routing_entry.put(n, prev_n);
+				
+				//Add entry to routing entry 
+				routing_table.put(start_n, routing_entry);
+				
+			}
+		
 		}
+		
 	}
 	
 	/**
@@ -113,5 +190,32 @@ public class ShortestPath implements Algorithm {
 		return this.packet_count;
 
 	}
+	
+	public static void main(String[] args) {
+		
+		Network n = new Network();
+		Node n1 = new Node("1");
+		Node n2 = new Node("2");
+		Node n3 = new Node("3");		
+		Node n4 = new Node("4");
+		Node n5 = new Node("5");
+
+		n.add(n1);
+		n.add(n2);
+		n.add(n3);
+		n.add(n4);
+		n.add(n5);
+
+		n.link(n1, n2);
+		n.link(n2, n3);
+		n.link(n2, n4);	
+		n.link(n3, n4);		
+		n.link(n4, n5);
+
+		ShortestPath algo = new ShortestPath(n);
+
+		
+	}
+	
 
 }
