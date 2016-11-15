@@ -7,7 +7,7 @@ import java.util.Random;
 import Network.*;
 
 /**
- * @author Scott Hanton
+ * @author Richard Hanton
  * 
  * Modified By: Lina El Sadek The random algorithm selects the next node to
  * traverse to randomly.
