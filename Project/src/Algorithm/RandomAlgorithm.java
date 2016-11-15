@@ -9,10 +9,11 @@ import Network.*;
 /**
  * @author Richard Hanton
  * 
- * Modified By: Lina El Sadek The random algorithm selects the next node to
- * traverse to randomly.
- * 
+ * Modified By: Lina El Sadek 
  * Modified By Osama Buahamd: did the initial rate implementation
+ * 
+ * The random algorithm selects the next node to
+ * traverse to randomly.
  */
 public class RandomAlgorithm implements Algorithm {
 	private Network network;			// Network of nodes the algorithm is running on
