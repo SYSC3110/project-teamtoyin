@@ -13,8 +13,10 @@ import Network.Network;
 import Network.Node;
 
 /**
- * @author Scott Hanton
- * 
+ * @author Richard Hanton
+ *
+ * Pre-populates a routing table using the breadth first search algorithm.
+ *
  */
 public class ShortestPathAlgorithm implements Algorithm {
 	private Network network;			// Network of nodes the algorithm is running on
