@@ -10,7 +10,7 @@ import Network.Node;
 
 /*
  * Author Toyin Odujebe
- * Modified Scott Hanton
+ * Modified Richard Hanton
  */
 
 public class FloodingAlgorithm implements Algorithm {
