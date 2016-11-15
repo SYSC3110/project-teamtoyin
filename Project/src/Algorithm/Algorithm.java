@@ -7,7 +7,7 @@ import Network.Node;
 /**
  * 
  * Interface for each routing algorithm
- * Author Scott Hanton
+ * Author Richard Hanton
  */
 public interface Algorithm {
 	
