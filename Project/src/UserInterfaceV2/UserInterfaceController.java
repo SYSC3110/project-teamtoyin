@@ -107,13 +107,8 @@ public class UserInterfaceController implements ActionListener {
 				//Run the simulation in the model
 				uim.runSimulation(algorithm, messageInjections);			
 				
-			} else {
-				
-				System.out.println("didnt set msg");
-				
 			}
 
-			
 		}
 
 	}

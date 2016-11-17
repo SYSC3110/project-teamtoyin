@@ -289,6 +289,9 @@ public class UserInterfaceModel extends Observable {
 		    	//Algorithm successfully executed
 		    	e.setSuccess(true);
 		    	
+		    	//Set a success message
+		    	e.setMessage("Algorithm ran successfully");
+		    	
 		    } else {
 		    	
 		    	//Algorithm did not execute successfully
