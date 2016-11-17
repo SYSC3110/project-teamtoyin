@@ -58,7 +58,7 @@ public class UserInterfaceGraphic extends JPanel  {
 	    mg= new MessageGraphic(getName(), 0, 0);
 	    messagePathList= new ArrayList<Node>();
 	    messageGraphicList = new ArrayList<NodeGraphic>();
-		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		f.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		f.setSize(900,900);
 		f.setVisible(true);
 	}
