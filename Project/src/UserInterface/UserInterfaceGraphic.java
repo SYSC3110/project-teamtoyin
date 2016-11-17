@@ -140,13 +140,10 @@ public class UserInterfaceGraphic extends JPanel  {
 			}
 		for(int i=0;i<messagePathList.size();i++){
 			for(int j=0;j<nodeGraphiclist.size();j++){
-				
 				if(messagePathList.get(i).getName().equals(nodeGraphiclist.get(j).getName())){
 					//System.out.print(""+nodeGraphiclist.get(j).getName()+" x:"+nodeGraphiclist.get(j).getxPosition()+" y:"+nodeGraphiclist.get(j).getyPosition()+" ");
 					messageGraphicList.add(nodeGraphiclist.get(j));
 				}
-				
-				
 			}		
 		}
 		 

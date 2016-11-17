@@ -32,7 +32,7 @@ public class MessageGraphic extends Graphic {
 		this.setyTextOffset(15);
 		
 		points = new HashSet<Point>();
-		currentOffset=getWidth();
+		currentOffset=2;
 	}
 	
 	public void paintMessage(Graphics g, int xLocation, int yLocation,int order) {
@@ -40,17 +40,20 @@ public class MessageGraphic extends Graphic {
 		g.setColor(Color.RED);
 		Point p = new Point(xLocation,yLocation);
 		points.add(p);
+		
+		g.drawOval(xLocation+getWidth()+getxTextOffset(),yLocation+getWidth(), getWidth(), getHeight());
 		if(!points.contains(p)){
-			g.drawOval(xLocation+getWidth()+getxTextOffset()*order,yLocation+getWidth()*order, getWidth(), getHeight());
-			g.drawString(String.valueOf(order), xLocation+getWidth()+getxTextOffset()+3*order, yLocation+getWidth()+getyTextOffset()+3*order);
+			
+			g.drawString(String.valueOf(order)+", ", xLocation+getWidth()+getxTextOffset(), yLocation+getWidth()+getyTextOffset()+(currentOffset+(order+order+order))+33);
 			repaint();
 		}else{
 			//System.out.println("here");
-			g .drawOval(xLocation+getWidth()+getxTextOffset()*order,yLocation+getWidth()*order, getWidth(), getHeight());
-			g.drawString(String.valueOf(order), xLocation+getWidth()+(currentOffset*order)-3, yLocation+getWidth()+(currentOffset*order)-5);
+			//g .drawOval(xLocation+getWidth()+getxTextOffset()*order,yLocation+getWidth()*order, getWidth(), getHeight());
+			g.drawString(String.valueOf(order)+", ", xLocation+getWidth(), yLocation+getWidth()+(currentOffset*(order+order+order))+33);
 			repaint();
 		}
-				
+	
+		
 	} //end of paintMessage
 	
 
