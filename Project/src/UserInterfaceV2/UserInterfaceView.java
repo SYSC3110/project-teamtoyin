@@ -715,6 +715,9 @@ public class UserInterfaceView extends JFrame implements Observer {
 			//If simulation ran successfully
 			if (e.getSuccess()) {
 				
+				//Show success message
+				JOptionPane.showMessageDialog(null, e.getMessage());
+
 			//Simulation failed for some reason
 			} else {
 				
