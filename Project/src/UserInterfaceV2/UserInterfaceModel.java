@@ -5,6 +5,7 @@ import java.util.Observable;
 
 import Algorithm.*;
 import Network.*;
+import UserInterface.UserInterfaceGraphic;
 
 public class UserInterfaceModel extends Observable {
 
@@ -282,6 +283,9 @@ public class UserInterfaceModel extends Observable {
 		    
 		    //Initialize the algorithm
 		    algorithm = (Algorithm) con.newInstance(network);
+		    
+		    //Show network topology
+		    new UserInterfaceGraphic(network);
 		    
 		    //Run the algorithm
 		    if (algorithm.run(message, messageInjections)) {
