@@ -114,13 +114,16 @@ public class Network extends Observable{
 	 * Links two nodes in the network together
 	 */
 	public boolean link(Node n1, Node n2) {
-		
+
 		//Validate n1 has a value
 		if (n1 == null) { return false; } 
 		
 		//Validate n2 has a value
 		if (n2 == null) { return false; } 		
 
+		//Verify nodes arn't the same
+		if (n1 == n2) { return false; } 
+		
 		//verify n1 and n2 are in the network
 		if(!(nodes.contains(n1) && nodes.contains(n2))){
 			return false;
@@ -144,6 +147,9 @@ public class Network extends Observable{
 		
 		//Validate n has a value
 		if (n2 == null) { return false; } 			
+		
+		//Verify nodes arn't the same
+		if (n1 == n2) { return false; } 
 		
 		//verify n1 and n2 are in the network
 		if(!(nodes.contains(n1) && nodes.contains(n2))){
