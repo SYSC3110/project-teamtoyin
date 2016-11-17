@@ -165,14 +165,21 @@ public class Node {
 	 * Override equals method
 	 */
 	public boolean equals(Object o) {
-		return (o instanceof Node) && (((Node) o).getName()).equals(this.getName());
+		return (o instanceof Node) && (((Node) o).getName()).equals(this.name);
 	}
 	
 	/**
 	 * Override hashcode method
 	 */
 	public int hashCode() {
-		return name.hashCode();
+		return this.name.hashCode();
+	}
+	
+	/**
+	 * Converting node to string
+	 */
+	public String toString() {
+		return this.name;
 	}
 	
 }
