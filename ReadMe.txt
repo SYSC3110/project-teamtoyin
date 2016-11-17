@@ -36,7 +36,7 @@ Created Enums which are set as action commands for the various components in the
 Contributions:
 Lina El Sadek: 
 •	Continued work on Run.java to make it more user friendly and fixed bugs.
-•	Implemented RandomAlgorithm
+•	Modified RandomAlgorithm.java
 •	Test: Wrote AllTest.java, NetworkTest.java, NodeTest.java and RandomAlgorithmTest.java
 •	Implemented UserInterfaceController.java and UserInterface.java
 •	Implemented Message.java class
@@ -48,9 +48,8 @@ Toyin Odujebe:
 •	Worked on making commands Enums: NetworkCommands.java, UICommands.java and UICCommands.java
 •	Modified the UserInterfaceController.java and UserInterface.java classes to use the command enums.
 Richard Hanton: 
-•	Implemented the Node.java class, Algorithm.java, Network.java
-•	Modified FloodingAlgorithm.java and RandomAlgorithm.java. Fixed the rate issues in the algorithms
-•	Completed the RandomAlgorithm.java
+•	Implemented the Node.java class, Algorithm.java, Network.java, RandomAlgorithm.java
+•	Modified FloodingAlgorithm.java. Fixed the rate issues in the algorithms
 •	Modified Message.java added hops a message goes through
 •	
 Osama Buhamad:
