@@ -82,7 +82,7 @@ public class UserInterfaceView extends JFrame implements Observer {
 		JPanel frameNodeManager = new JPanel(new GridBagLayout());
 		
 		//Set size of this panel
-		frameNodeManager.setPreferredSize(new Dimension(240, 800));
+		frameNodeManager.setPreferredSize(new Dimension(240, 860));
 		
 		//Constraints for grid bag layout
 		GridBagConstraints c = new GridBagConstraints();
@@ -127,7 +127,7 @@ public class UserInterfaceView extends JFrame implements Observer {
 		 * Add Separator
 		 */
 		//Create seperator for sections 
-		JSeparator seperator = new JSeparator(SwingConstants.HORIZONTAL);
+		JSeparator separator1 = new JSeparator(SwingConstants.HORIZONTAL);
 		
 		//Separator position
 		c.gridx = 0;
@@ -137,8 +137,8 @@ public class UserInterfaceView extends JFrame implements Observer {
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.gridwidth = GridBagConstraints.REMAINDER;
 		
-		//Add seperator for this section and next 
-		frameNodeManager.add(seperator, c);
+		//Add separator for this section and next 
+		frameNodeManager.add(separator1, c);
 		
 		
 		/** 
@@ -238,7 +238,7 @@ public class UserInterfaceView extends JFrame implements Observer {
 		 * Add Separator
 		 */
 		//Create seperator for sections 
-		seperator = new JSeparator(SwingConstants.HORIZONTAL);
+		JSeparator separator2 = new JSeparator(SwingConstants.HORIZONTAL);
 		
 		//Separator position
 		c.gridx = 0;
@@ -249,7 +249,7 @@ public class UserInterfaceView extends JFrame implements Observer {
 		c.gridwidth = GridBagConstraints.REMAINDER;
 		
 		//Add seperator for this section and next 
-		frameNodeManager.add(seperator, c);
+		frameNodeManager.add(separator2, c);
 		
 		
 		/** 
@@ -376,19 +376,21 @@ public class UserInterfaceView extends JFrame implements Observer {
 		/**
 		 * Add Separator
 		 */
-		//Create seperator for sections 
-		seperator = new JSeparator(SwingConstants.HORIZONTAL);
+		//Create separator for sections 
+		JSeparator separator3 = new JSeparator(SwingConstants.HORIZONTAL);
 		
 		//Separator position
 		c.gridx = 0;
 		c.gridy = 11;
 		c.weighty = 0;
-		c.insets = new Insets(5, 5, 5, 5);
+		c.insets = new Insets(25, 15, 25, 15);
+	    c.weightx = 0;
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.gridwidth = GridBagConstraints.REMAINDER;
 		
 		//Add seperator for this section and next 
-		frameNodeManager.add(seperator, c);
+		frameNodeManager.add(separator3, c);
+		
 		
 		
 		/** 
@@ -471,6 +473,7 @@ public class UserInterfaceView extends JFrame implements Observer {
 		c.gridx = 0;
 		c.gridy = 14;
 		c.weighty = 0;
+		c.fill = GridBagConstraints.HORIZONTAL;
 		c.insets = new Insets(3, 5, 3, 5);
 		c.gridwidth = 1;
 		
@@ -505,6 +508,7 @@ public class UserInterfaceView extends JFrame implements Observer {
 		c.gridx = 0;
 		c.gridy = 15;
 		c.weighty = 0;
+		c.fill = GridBagConstraints.HORIZONTAL;
 		c.insets = new Insets(3, 5, 3, 5);
 		c.gridwidth = 1;
 		
@@ -531,7 +535,9 @@ public class UserInterfaceView extends JFrame implements Observer {
 		/**
 		 * Add separator
 		 */
-		//Separator position
+		//Create separator for sections 
+		JSeparator separator4 = new JSeparator(SwingConstants.HORIZONTAL);
+		
 		c.gridx = 0;
 		c.gridy = 16;
 		c.weighty = 0;
@@ -540,7 +546,7 @@ public class UserInterfaceView extends JFrame implements Observer {
 		c.gridwidth = GridBagConstraints.REMAINDER;
 		
 		//Add seperator for this section and next 
-		frameNodeManager.add(seperator, c);
+		frameNodeManager.add(separator4, c);
 		
 		
 		/**
