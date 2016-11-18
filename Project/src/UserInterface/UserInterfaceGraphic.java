@@ -3,12 +3,17 @@ package UserInterface;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 
+
+import javax.swing.table.DefaultTableModel;
 
 import Algorithm.RandomAlgorithm;
 import Graphics.MessageGraphic;
@@ -41,7 +46,8 @@ public class UserInterfaceGraphic extends JPanel  {
 	private Message m;
 	private ArrayList<Node> messagePathList;
 	private ArrayList<NodeGraphic> messageGraphicList;
-
+	private HashMap<String, List<Integer>> historyMap;
+	List<Integer> orders = new ArrayList<Integer>();
 
 	private MessageGraphic mg;
 
@@ -58,6 +64,7 @@ public class UserInterfaceGraphic extends JPanel  {
 	    mg= new MessageGraphic(getName(), 0, 0);
 	    messagePathList= new ArrayList<Node>();
 	    messageGraphicList = new ArrayList<NodeGraphic>();
+	    historyMap = new HashMap<String,List<Integer>>();
 		f.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		f.setSize(900,900);
 		f.setVisible(true);
@@ -137,7 +144,7 @@ public class UserInterfaceGraphic extends JPanel  {
 				destNodeGraphic = new NodeGraphic(nodeGraphiclist.get(i).getName(), nodeGraphiclist.get(i).getxPosition(), nodeGraphiclist.get(i).getyPosition());
 				break;
 			}
-			}
+			} 
 		for(int i=0;i<messagePathList.size();i++){
 			for(int j=0;j<nodeGraphiclist.size();j++){
 				if(messagePathList.get(i).getName().equals(nodeGraphiclist.get(j).getName())){
@@ -156,6 +163,26 @@ public class UserInterfaceGraphic extends JPanel  {
 	
 	public ArrayList<NodeGraphic> getMessagepath(){
 		return messageGraphicList;
+	}
+	
+	public void setHistoryhMap(){
+		for(int x=0; x<nodeGraphiclist.size();x++){
+			for(int i=0; i<getMessagepath().size();i++){
+				if(getMessagepath().get(i).getName().equals(nodeGraphiclist.get(x).getName()))
+				{
+				orders.add(i);
+				historyMap.put(getMessagepath().get(i).getName(),orders );
+				}
+			}
+			orders = new ArrayList<Integer>();
+		}	
+		
+	}
+	
+	public void printhistoryMap(){
+		for (Entry<String, List<Integer>> entry : historyMap.entrySet()) {
+		    System.out.println(entry.getKey()+" : "+entry.getValue());
+		}
 	}
 
 	
@@ -190,9 +217,10 @@ public class UserInterfaceGraphic extends JPanel  {
 
 		Message m = new Message("MSG1", n1, n6);
 		boolean value = algo.run(m, 0);
-
+		
 		graph.messagePath(m);
-
+		graph.setHistoryhMap();
+		graph.printhistoryMap();
 	}
 
 }
