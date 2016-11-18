@@ -285,7 +285,7 @@ public class UserInterfaceModel extends Observable {
 		    algorithm = (Algorithm) con.newInstance(network);
 		    
 		    //Show network topology
-		    new UserInterfaceGraphic(network);
+		    new UserInterfaceGraphic(network,message);
 		    
 		    //Run the algorithm
 		    if (algorithm.run(message, messageInjections)) {

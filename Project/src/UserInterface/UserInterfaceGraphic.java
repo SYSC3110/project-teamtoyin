@@ -1,9 +1,11 @@
 package UserInterface;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -13,7 +15,9 @@ import javax.swing.JPanel;
 
 
 
+import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
 
 import Algorithm.RandomAlgorithm;
 import Graphics.MessageGraphic;
@@ -42,18 +46,21 @@ public class UserInterfaceGraphic extends JPanel  {
 	private int count;
 	private int setNodeCoordinatesCounter;
 	private JFrame f;
-	
+	private JTable table;
 	private Message m;
 	private ArrayList<Node> messagePathList;
 	private ArrayList<NodeGraphic> messageGraphicList;
-	private HashMap<String, List<Integer>> historyMap;
+	private static HashMap<String, List<Integer>> historyMap;
 	List<Integer> orders = new ArrayList<Integer>();
 
 	private MessageGraphic mg;
 
-	public UserInterfaceGraphic(Network network){
+	public UserInterfaceGraphic(Network network,Message m){
+		
 		f = new JFrame("nodes");
-		f.add(this);
+		 f.setLayout(new BorderLayout());
+		
+		 f.getContentPane().add(this, BorderLayout.SOUTH);
 		
 		this.network=network;
 	    list = new ArrayList<Node>(network.getNodes());
@@ -65,6 +72,18 @@ public class UserInterfaceGraphic extends JPanel  {
 	    messagePathList= new ArrayList<Node>();
 	    messageGraphicList = new ArrayList<NodeGraphic>();
 	    historyMap = new HashMap<String,List<Integer>>();
+	    
+	    this.messagePath(m);
+	    setHistoryhMap();
+		//printhistoryMap();
+	    
+		table = new JTable(this.toTableModel(historyMap));
+		table.setSize(900,150);
+		table.setGridColor(Color.RED);
+		table.setEnabled(false);
+		//this.add(table);
+		f.add(this);
+		f.getContentPane().add(table, BorderLayout.NORTH);
 		f.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		f.setSize(900,900);
 		f.setVisible(true);
@@ -96,10 +115,12 @@ public class UserInterfaceGraphic extends JPanel  {
 			
 					//g.setColor(Color.RED);					
 				for (int i=0;i<messageGraphicList.size();i++){
-					mg.paintMessage(g, messageGraphicList.get(i).getxPosition(),messageGraphicList.get(i).getyPosition(),i);
+					//mg.paintMessage(g, messageGraphicList.get(i).getxPosition(),messageGraphicList.get(i).getyPosition(),i);
 					//mg.paintMessage(g, this.getMessagepath());
 					repaint();
-				}				
+				}	
+				g.setColor(Color.BLACK);
+				g.drawString("Path taken: ", 0, 10);
 		}
 	
 
@@ -185,6 +206,16 @@ public class UserInterfaceGraphic extends JPanel  {
 		}
 	}
 
+	public static TableModel toTableModel(Map map) {
+	     DefaultTableModel model = new DefaultTableModel (
+	   new Object[] { "Key", "Value" }, 0
+	  );
+	  for (Iterator it = map.entrySet().iterator(); it.hasNext();) {
+	   Map.Entry entry = (Map.Entry)it.next();
+	   model.addRow(new Object[] { entry.getKey(), entry.getValue() });
+	  }
+	  return model;
+	 }
 	
 	
 	public static void main(String[] args) {
@@ -211,16 +242,17 @@ public class UserInterfaceGraphic extends JPanel  {
 		n.link(n6, n4);
 		n.link(n5, n6);
 		//n.link(n1,n6);
-		UserInterfaceGraphic graph = new UserInterfaceGraphic(n);
-		
-		RandomAlgorithm algo = new RandomAlgorithm(n);
-
 		Message m = new Message("MSG1", n1, n6);
+		RandomAlgorithm algo = new RandomAlgorithm(n);
 		boolean value = algo.run(m, 0);
+		UserInterfaceGraphic graph = new UserInterfaceGraphic(n,m);
 		
-		graph.messagePath(m);
-		graph.setHistoryhMap();
-		graph.printhistoryMap();
+		
+
+		
+		
+	
+	
 	}
 
 }

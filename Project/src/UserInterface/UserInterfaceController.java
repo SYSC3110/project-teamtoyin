@@ -210,7 +210,7 @@ public class UserInterfaceController implements ActionListener{
 	 */
 	private void createNetworkTopology()
 	{
-		topology = new UserInterfaceGraphic(network);
+		topology = new UserInterfaceGraphic(network,msg);
 		
 	}
 	
