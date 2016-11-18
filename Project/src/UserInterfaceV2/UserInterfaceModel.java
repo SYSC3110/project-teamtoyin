@@ -284,8 +284,7 @@ public class UserInterfaceModel extends Observable {
 		    //Initialize the algorithm
 		    algorithm = (Algorithm) con.newInstance(network);
 		    
-		    //Show network topology
-		    new UserInterfaceGraphic(network,message);
+		   
 		    
 		    //Run the algorithm
 		    if (algorithm.run(message, messageInjections)) {
@@ -295,6 +294,9 @@ public class UserInterfaceModel extends Observable {
 		    	
 		    	//Set a success message
 		    	e.setMessage("Algorithm ran successfully");
+		    	
+		    	//Show network topology
+			    new UserInterfaceGraphic(network,message);
 		    	
 		    } else {
 		    	
