@@ -48,7 +48,8 @@ Toyin Odujebe:
 •	Worked on making commands Enums: NetworkCommands.java, UICommands.java and UICCommands.java
 •	Modified the UserInterfaceController.java and UserInterface.java classes to use the command enums.
 Richard Hanton: 
-•	Implemented the Node.java class, Algorithm.java, Network.java, RandomAlgorithm.java
+•	Implemented the Node.java class, Algorithm.java, Network.java, RandomAlgorithm.java, ShortestPathAlgorithm.java
+•	Worked on refactoring the GUI
 •	Modified FloodingAlgorithm.java. Fixed the rate issues in the algorithms
 •	Modified Message.java added hops a message goes through
 •	
