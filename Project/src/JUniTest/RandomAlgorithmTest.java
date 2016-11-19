@@ -50,16 +50,6 @@ public class RandomAlgorithmTest {
 		
 	}
 	
-	@Test 
-	public void testnext(){
-		n1.add(src);
-		n1.add(dest);
-		n1.link(src, dest);
-		assertNotNull(ra.next(message1));
-		assertEquals(dest, ra.next(message1));
-		
-	}
-	
 	@Test
 	public void testrun(){
 		Network n = new Network();
