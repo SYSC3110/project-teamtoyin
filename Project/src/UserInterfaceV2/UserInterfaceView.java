@@ -32,7 +32,7 @@ public class UserInterfaceView extends JFrame implements Observer {
 	private JTextField messageContents;				//Message contents
 	private JComboBox<Node> sourceNode;				//Combo box for listing nodes
 	private JComboBox<Node> destinationNode;		//Combo box for listing nodes
-	private JTextField messageInjections;			//Message injections for the network
+	private JTextField messageInjectionRate;		//Message injection rate for the network
 	DefaultListModel<Node> nodeListModel;			//Actual list storing the network nodes
 	private JList<Node> nodeList;					//Jlist of node list for network nodes
 	DefaultListModel<String> linkedNodeListModel;	//Actual list storing the network nodes linked
@@ -519,7 +519,7 @@ public class UserInterfaceView extends JFrame implements Observer {
 		 * Add Message Injection TextField
 		 */
 		//Input area for node name
-		messageInjections = new JTextField("", 10);
+		messageInjectionRate = new JTextField("", 10);
 				
 		//TextField position
 		c.gridx = 1;
@@ -529,7 +529,7 @@ public class UserInterfaceView extends JFrame implements Observer {
 		c.gridwidth = GridBagConstraints.REMAINDER;
 		
 		//Add textfield frame to window
-		frameNodeManager.add(messageInjections, c);	
+		frameNodeManager.add(messageInjectionRate, c);	
 		
 		
 		/**
@@ -644,13 +644,13 @@ public class UserInterfaceView extends JFrame implements Observer {
 	/**
 	 * Returns the number of injections to do during simulation
 	 */
-	public int getMessageInjections() {
+	public int getMessageInjectionRate() {
 		
 		//Start of Try/Catch
 		try {
 			
 			//Return value
-			return Integer.parseInt(this.messageInjections.getText());
+			return Integer.parseInt(this.messageInjectionRate.getText());
 			
 		} catch (Exception ex) {
 			

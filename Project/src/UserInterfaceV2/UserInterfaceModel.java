@@ -261,7 +261,7 @@ public class UserInterfaceModel extends Observable {
 	 * Run a simulation given the algorithm name and number 
 	 * of message injections
 	 */
-	public void runSimulation(String algo, int messageInjections) {
+	public void runSimulation(String algo, int rate) {
 		
 		//Check message not null
 		if (this.message == null) { return; } 
@@ -287,7 +287,7 @@ public class UserInterfaceModel extends Observable {
 		   
 		    
 		    //Run the algorithm
-		    if (algorithm.run(message, messageInjections)) {
+		    if (algorithm.run(message, rate)) {
 		    	
 		    	//Algorithm successfully executed
 		    	e.setSuccess(true);

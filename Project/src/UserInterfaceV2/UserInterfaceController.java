@@ -84,8 +84,8 @@ public class UserInterfaceController implements ActionListener {
 		//If start simulation is clicked
 		} else if (command == "Start Simulation") {
 			
-			//Get number of injections from view
-			int messageInjections = uiv.getMessageInjections();
+			//Get injection rate from view
+			int messageInjectionRate = uiv.getMessageInjectionRate();
 			
 			//Get selected algorithm
 			String algorithm = uiv.getSelectedAlgorithm();
@@ -105,7 +105,7 @@ public class UserInterfaceController implements ActionListener {
 				System.out.println("set msg");
 				
 				//Run the simulation in the model
-				uim.runSimulation(algorithm, messageInjections);			
+				uim.runSimulation(algorithm, messageInjectionRate);			
 				
 			}
 
