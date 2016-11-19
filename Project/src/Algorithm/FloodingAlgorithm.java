@@ -13,7 +13,7 @@ import Network.Node;
  * Modified Richard Hanton
  */
 
-public class FloodingAlgorithm implements Algorithm {
+public class FloodingAlgorithm extends Algorithm {
 	private Network network;			//Network of nodes the algorithm is running on
 	private int packet_count;					// Number of packets transmitted during message sending
 	private int max_injections = 20; 	//Maximum number of nodes to inject in the network	
@@ -97,7 +97,7 @@ public class FloodingAlgorithm implements Algorithm {
 	 * injecting new messages as required. Returns false when there is no
 	 * further step to take.
 	 */
-	public boolean step() {
+	protected boolean step() {
 		Node new_n; 				//New node to move message to
 		Message new_m;				//New message created to flood out
 		ArrayList<Message> messages;//New list of messages for the network
@@ -189,7 +189,7 @@ public class FloodingAlgorithm implements Algorithm {
 	/**
 	 * Selects the next node to travel to and returns it.
 	 */
-	public Node next(Message m) {
+	protected Node next(Message m) {
 		
 		//Get messages current node
 		Node n = m.getNode();

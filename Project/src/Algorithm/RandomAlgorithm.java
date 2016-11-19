@@ -15,7 +15,7 @@ import Network.*;
  * The random algorithm selects the next node to
  * traverse to randomly.
  */
-public class RandomAlgorithm implements Algorithm {
+public class RandomAlgorithm extends Algorithm {
 	private Network network;			// Network of nodes the algorithm is running on
 	private Random random; 				// Random instance for selecting next node
 	private int packet_count; 		 	// Number of packets transmitted during message sending
@@ -102,7 +102,7 @@ public class RandomAlgorithm implements Algorithm {
 	 * injecting new messages as required. Returns false when there is no
 	 * further step to take.
 	 */
-	public boolean step() {
+	protected boolean step() {
 
 		int index = 0; 	// Index in arraylist of messages
 		Node new_n; 	// New node to move message to
@@ -167,7 +167,7 @@ public class RandomAlgorithm implements Algorithm {
 	/**
 	 * Selects the next node to travel to and returns it.
 	 */
-	public Node next(Message m) {
+	protected Node next(Message m) {
 		
 		//Get messages current node
 		Node n = m.getNode();

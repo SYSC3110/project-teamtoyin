@@ -7,7 +7,7 @@ import Network.Message;
 import Network.Network;
 import Network.Node;
 
-public class DepthFirst implements Algorithm {
+public class DepthFirst extends Algorithm {
 	private Network network;			//Network of nodes the algorithm is running on
 	private int packet_count;					// Number of packets transmitted during message sending
 	private int max_injections = 20; 	//Maximum number of nodes to inject in the network	
@@ -111,12 +111,12 @@ public class DepthFirst implements Algorithm {
 		return true;
 	}
 
-	public boolean step() {
+	protected boolean step() {
 		// TODO Auto-generated method stub
 		return false;
 	}
 
-	public Node next(Message m) {
+	protected Node next(Message m) {
 		// TODO Auto-generated method stub
 		return null;
 	}

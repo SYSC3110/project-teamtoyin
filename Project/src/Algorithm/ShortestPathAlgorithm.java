@@ -18,7 +18,7 @@ import Network.Node;
  * Pre-populates a routing table using the breadth first search algorithm.
  *
  */
-public class ShortestPathAlgorithm implements Algorithm {
+public class ShortestPathAlgorithm extends Algorithm {
 	private Network network;			// Network of nodes the algorithm is running on
 	private int packet_count; 		 	// Number of packets transmitted during message sending
 	private int max_injections = 20; 	//Maximum number of nodes to inject in the network
@@ -202,7 +202,7 @@ public class ShortestPathAlgorithm implements Algorithm {
 	 * injecting new messages as required. Returns false when there is no
 	 * further step to take.
 	 */
-	public boolean step() {
+	protected boolean step() {
 		
 		int index = 0; 	// Index in arraylist of messages
 		Node new_n; 	// New node to move message to
@@ -267,7 +267,7 @@ public class ShortestPathAlgorithm implements Algorithm {
 	/**
 	 * Selects the next node to travel to and returns it.
 	 */
-	public Node next(Message m) {
+	protected Node next(Message m) {
 		HashMap<Node, Node> hm;	//Mashmap of routing table for given node 
 		Node next_node;			//Next node to go to
 		Node n;					//Current node that the message is at
