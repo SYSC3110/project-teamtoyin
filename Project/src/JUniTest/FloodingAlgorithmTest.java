@@ -65,5 +65,12 @@ public class FloodingAlgorithmTest {
 		assertTrue(fa.run(msg, 1));
 	}
 	
+	@Test
+	public void testPacketCount()
+	{
+		//It should be n-1 packets, if rate is 0
+		fa.run(msg, 0);
+		assertEquals(fa.getPacketCount(), 3);
+	}
 
 }
