@@ -222,7 +222,7 @@ public class FloodingAlgorithm extends Algorithm {
 	 * Increment the counter for number of packets transmitted during message
 	 * sending.
 	 */
-	public void countPacket() {
+	protected void countPacket() {
 
 		// Increment packets counter
 		this.packet_count++;

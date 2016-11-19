@@ -34,7 +34,7 @@ public abstract class Algorithm {
 	 * Counts a packet transfer in the network when moving a message
 	 * from its source to its destination.
 	 */
-	public abstract void countPacket();
+	protected abstract void countPacket();
 	
 	/**
 	 * Returns the total number of packets transmitted at a given 

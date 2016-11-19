@@ -121,7 +121,7 @@ public class DepthFirst extends Algorithm {
 		return null;
 	}
 
-	public void countPacket() {
+	protected void countPacket() {
 		// TODO Auto-generated method stub
 		this.packet_count++;
 		
