@@ -9,6 +9,7 @@ import Network.Node;
  * 
  * Interface for each routing algorithm
  * Author Richard Hanton
+ * Modified by:Lina El Sadek
  */
 public abstract class Algorithm {
 	
