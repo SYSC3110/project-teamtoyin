@@ -63,7 +63,7 @@ public class ShortestPathAlgorithm extends Algorithm {
 	 * depending on the destination node. Uses the Breadth-first search
 	 * algorithm.
 	 */
-	public void loadRoutingTable() {
+	private void loadRoutingTable() {
 		Queue<Node> q; 										//Queue of nodes to visit 
 		Node curr_n;										//Node we are currently at
 		Node prev_n;										//Node we visited a node from
