@@ -15,7 +15,7 @@ public abstract class Algorithm {
 	
 	protected int packet_count;
 	protected Network network;
-	int max_injections = 20;
+	private int max_injections = 20;
 
 	/**
 	 * Run method which moves the specified message from the source

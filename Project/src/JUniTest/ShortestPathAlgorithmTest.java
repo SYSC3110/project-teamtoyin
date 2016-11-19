@@ -36,7 +36,7 @@ public class ShortestPathAlgorithmTest {
 	}
 	
 	@Test(expected = NullPointerException.class)
-	public void testFloodingAlgorithm()
+	public void testShortestPathAlgorithm()
 	{
 		//Ensure it throws a null pointer exception
 		Network n = null;
