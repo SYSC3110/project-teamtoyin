@@ -48,7 +48,7 @@ public class FloodingAlgorithm implements Algorithm {
 		network.injectMessage(m);
 		
 		//If the rate is 0, the network is closed for new messages
-		if (rate == 0) {
+		if (rate <= 0) {
 			
 			//Set network to closed
 			network.setOpen(false);
