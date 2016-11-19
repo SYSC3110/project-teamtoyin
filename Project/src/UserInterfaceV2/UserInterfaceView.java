@@ -502,7 +502,7 @@ public class UserInterfaceView extends JFrame implements Observer {
 		 * Add Injections Label 
 		 */
 		//Label for add node
-		JLabel addInjection = new JLabel("Injections");
+		JLabel addInjection = new JLabel("Injection Rate");
 		
 		//Label position
 		c.gridx = 0;
