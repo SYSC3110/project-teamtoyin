@@ -55,9 +55,60 @@ public class DepthFirst implements Algorithm {
 		HashMap<Node, Node> routing_entry;					//Entry in our routing table (destination node, next node)
 		
 	}
+	
+	/**
+	 * Traverses the network of nodes beginning at the start node and ending at
+	 * the end node specified in the constructor.
+	 */	
 	public boolean run(Message m, int rate) {
 		// TODO Auto-generated method stub
-		return false;
+		int count = 0;		//Counter for step while loop
+		int injected = 0;	//Counter for new message injections
+		Message new_m;		//New message to inject into the network
+		
+		//Inject message into network
+		network.injectMessage(m);
+		
+		//If the rate is 0, the network is closed for new messages
+		if (rate == 0) {
+			
+			//Set network to closed
+			network.setOpen(false);
+			
+		}
+		
+		//While the network is good to go
+		while (step()) {
+			
+			//If we should inject a new message 
+			if ( ( rate != 0 ) && ( (count % rate) == 0 ) && ( injected < this.max_injections ) ) {
+
+				//Create a new message
+				new_m = new Message(m.getContents() + " - " + count, m.getSource(), m.getDestination());
+				
+				//Inject message into network
+				network.injectMessage(new_m);
+				
+				//Increment injected counter
+				injected ++;
+				
+			} else if (rate > 0 && injected >= this.max_injections) {
+				
+				//Network not open for new messages
+				network.setOpen(false);
+				
+			}
+			
+			//Step again until no more stepping required
+			System.out.println("Stepping again...");
+			
+			//Increment counter
+			count++;
+			
+		}
+		
+		//Algorithm successfully ran if we reach here
+		return true;
 	}
 
 	public boolean step() {
