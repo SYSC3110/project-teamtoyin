@@ -10,8 +10,7 @@ import java.util.Observable;
  *	Modified By: Lina El Sadek on 10/25/2016
  */
 
-import Network.NetworkCommands;
-public class Network extends Observable{
+public class Network{
 	
 	private HashSet<Node> nodes;			//Stores all of the network nodes
 	private ArrayList<Message> messages;	//List of messages present in the network
@@ -41,14 +40,12 @@ public class Network extends Observable{
 		//Validate n is not null
 		if (n == null) { 
 			System.out.println("Enter a valid node");
-			setCommandAndNotify(NetworkCommands.InvalidNodeName);
 			return false; 
 		} 
 		
 		//If the node is present in the network return
 		if (nodes.contains(n)) {
 			System.out.println("Node name already exists");
-			setCommandAndNotify(NetworkCommands.NodeExists);
 			return false;
 		}
 		
@@ -95,16 +92,13 @@ public class Network extends Observable{
 		
 		//Validate n has a value
 		if (n == null) { 
-			setCommandAndNotify(NetworkCommands.NodeEmpty);
 			return false; 
 		} 
 		
 		//Node not present in hashmap
 		if (!nodes.contains(n)) {
-			setCommandAndNotify(NetworkCommands.NodeDoesNotExist);
 			return false; 
 		} else {
-			setCommandAndNotify(NetworkCommands.SetEditableNextNode);
 			return true;
 		}
 	}	
@@ -257,20 +251,6 @@ public class Network extends Observable{
 		}
 	}
 	
-	/**
-	 * Creates text fields for nodes on UI
-	 */
-	public void notifyNodeNumIsAvailable(int nodeNum) {
-		String command = NetworkCommands.NodeNumAvailable.getCommand()+":"+nodeNum;
-		setChanged();
-		notifyObservers(command);
-	}
-	
-	private void setCommandAndNotify(NetworkCommands command) {
-		setChanged();
-		notifyObservers(command);
-	}
-	
 	//this method return the number of the nodes in the network 
 	public int getNetworkNodesNumber(){
 		return nodes.size();
@@ -293,31 +273,7 @@ public class Network extends Observable{
 		}
 		
 		return null;
-	}
-	
-	public boolean checkNodeName(String str)
-	{
-		Node n;
-		if(str.equals("") || str == null)
-		{
-			setCommandAndNotify(NetworkCommands.NodeEmpty);
-			return false;
-		}
-		else
-		{
-			n = getNode(str);
-			if(n == null){
-				setCommandAndNotify(NetworkCommands.NodeDoesNotExist);
-				return false;
-			}
-			else
-				return true;
-		}
-		
-	}
-	
-	
-	
+	}	
 	
 	/**
 	 * Testing

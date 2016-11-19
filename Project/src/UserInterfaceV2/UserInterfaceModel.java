@@ -5,7 +5,6 @@ import java.util.Observable;
 
 import Algorithm.*;
 import Network.*;
-import UserInterface.UserInterfaceGraphic;
 
 public class UserInterfaceModel extends Observable {
 

@@ -1,4 +1,4 @@
-package UserInterface;
+package UserInterfaceV2;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -19,6 +19,7 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 
+import Algorithm.Algorithm;
 import Algorithm.RandomAlgorithm;
 import Graphics.MessageGraphic;
 import Graphics.NodeGraphic;
@@ -243,7 +244,7 @@ public class UserInterfaceGraphic extends JPanel  {
 		n.link(n5, n6);
 		//n.link(n1,n6);
 		Message m = new Message("MSG1", n1, n6);
-		RandomAlgorithm algo = new RandomAlgorithm(n);
+		Algorithm algo = new RandomAlgorithm(n);
 		boolean value = algo.run(m, 0);
 		UserInterfaceGraphic graph = new UserInterfaceGraphic(n,m);
 		
