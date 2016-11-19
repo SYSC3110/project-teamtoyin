@@ -16,7 +16,6 @@ public class Network extends Observable{
 	private HashSet<Node> nodes;			//Stores all of the network nodes
 	private ArrayList<Message> messages;	//List of messages present in the network
 	private boolean open;					//When true the network will stay open for accepting new messages
-	private boolean moving_switch;			//For messages moving determination
 	
 	/**
 	 * Constructor to initialize our network of nodes
@@ -196,16 +195,6 @@ public class Network extends Observable{
 				return true;
 		}
 		
-		//Moving switch used so algorithms step once more after messages reach their destinations
-		if (this.moving_switch) {
-			
-			//Switch to false so next time returns no messages moving
-			this.moving_switch = false;
-			
-			return true;
-			
-		}
-		
 		//All messages are at the destination
 		return false;
 		
@@ -246,9 +235,6 @@ public class Network extends Observable{
 		
 		//Set network open status
 		this.open = open;
-		
-		//Set messages moving switch on
-		this.moving_switch = true;
 		
 	}
 	
