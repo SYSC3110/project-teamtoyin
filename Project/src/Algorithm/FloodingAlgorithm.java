@@ -14,10 +14,6 @@ import Network.Node;
  */
 
 public class FloodingAlgorithm extends Algorithm {
-	private Network network;			//Network of nodes the algorithm is running on
-	private int packet_count;					// Number of packets transmitted during message sending
-	private int max_injections = 20; 	//Maximum number of nodes to inject in the network	
-	
 	/**
 	 * Constructor to assign network to the algorithm.
 	 */
@@ -35,68 +31,11 @@ public class FloodingAlgorithm extends Algorithm {
 	}
 	
 	/**
-	 * Traverses the network of nodes beginning at the start node and ending at
-	 * the end node specified in the constructor.
-	 */	
-	public boolean run(Message m, int rate) {
-		
-		int count = 0;		//Counter for step while loop
-		int injected = 0;	//Counter for new message injections		
-		Message new_m; //New message to inject into the network
-		
-		//Inject message into the network
-		network.injectMessage(m);
-		
-		//If the rate is 0, the network is closed for new messages
-		if (rate <= 0) {
-			
-			//Set network to closed
-			network.setOpen(false);
-			
-		}
-		
-		//While the network is good to go
-		while (step()) {
-			
-			//If we should inject a new message 
-			if ( ( rate != 0 ) && ( (count % rate) == 0 ) && ( injected < this.max_injections ) ) {
-				
-				//Create a new message
-				new_m = new Message(m.getContents() + " - " + count, m.getSource(), m.getDestination());
-				
-				//Inject message into network
-				network.injectMessage(new_m);
-				
-				//Increment injected counter
-				injected ++;
-				
-			} else if (rate > 0 && injected >= this.max_injections) {
-				
-				//Network not open for new messages
-				network.setOpen(false);
-				
-			}
-			
-			//Step again until no more stepping required
-			System.out.println("");
-			System.out.println(" ------ Stepping again...   ------ ");
-			System.out.println("");
-			
-			//Increment counter
-			count++;			
-			
-		}
-		
-		//Algorithm successfully ran if we reach here	
-		return true;
-		
-	}
-	
-	/**
 	 * Performs a simulation step, moving messages to the next node and
 	 * injecting new messages as required. Returns false when there is no
 	 * further step to take.
 	 */
+	@Override
 	protected boolean step() {
 		Node new_n; 				//New node to move message to
 		Message new_m;				//New message created to flood out
@@ -189,6 +128,7 @@ public class FloodingAlgorithm extends Algorithm {
 	/**
 	 * Selects the next node to travel to and returns it.
 	 */
+	@Override
 	protected Node next(Message m) {
 		
 		//Get messages current node
@@ -217,28 +157,6 @@ public class FloodingAlgorithm extends Algorithm {
 		return null;
 		
 	}
-
-	/**
-	 * Increment the counter for number of packets transmitted during message
-	 * sending.
-	 */
-	protected void countPacket() {
-
-		// Increment packets counter
-		this.packet_count++;
-
-	}
-
-	/**
-	 * Returns number of packets transmitted during message sending.
-	 */
-	public int getPacketCount() {
-
-		// Increment packets counter
-		return this.packet_count;
-
-	}
-
 	
 	public static void main(String[] args) {
 		

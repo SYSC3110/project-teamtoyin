@@ -1,7 +1,8 @@
 package Algorithm;
 
 
-import Network.Message; 
+import Network.Message;
+import Network.Network;
 import Network.Node; 
 
 /**
@@ -11,6 +12,10 @@ import Network.Node;
  */
 public abstract class Algorithm {
 	
+	protected int packet_count;
+	protected Network network;
+	int max_injections = 20;
+
 	/**
 	 * Run method which moves the specified message from the source
 	 * to its destination using the algorithms method for selecting 
@@ -18,7 +23,58 @@ public abstract class Algorithm {
 	 * @param m
 	 * @param rate
 	 */
-	public abstract boolean run(Message m, int rate);
+	public boolean run(Message m, int rate) {
+		
+		int count = 0;		//Counter for step while loop
+		int injected = 0;	//Counter for new message injections
+		Message new_m;		//New message to inject into the network
+		
+		//Inject message into network
+		network.injectMessage(m);
+		
+		//If the rate is 0, the network is closed for new messages
+		if (rate <= 0) {
+			
+			//Set network to closed
+			network.setOpen(false);
+			
+		}
+		
+		//While the network is good to go
+		while (step()) {
+			
+			//If we should inject a new message 
+			if ( ( rate != 0 ) && ( (count % rate) == 0 ) && ( injected < this.max_injections ) ) {
+	
+				//Create a new message
+				new_m = new Message(m.getContents() + " - " + count, m.getSource(), m.getDestination());
+				
+				//Inject message into network
+				network.injectMessage(new_m);
+				
+				//Increment injected counter
+				injected ++;
+				
+			} else if (rate > 0 && injected >= this.max_injections) {
+				
+				//Network not open for new messages
+				network.setOpen(false);
+				
+			}
+			
+			//Step again until no more stepping required
+			System.out.println("Stepping again...");
+			
+			//Increment counter
+			count++;
+			
+		}
+		
+		//Algorithm successfully ran if we reach here
+		return true;
+		
+	}
+
 	
 	/**
 	 * Performs a simulation step on the messages within the network
@@ -34,12 +90,21 @@ public abstract class Algorithm {
 	 * Counts a packet transfer in the network when moving a message
 	 * from its source to its destination.
 	 */
-	protected abstract void countPacket();
+	protected void countPacket() {
+	
+		// Increment packets counter
+		this.packet_count++;
+	
+	}
 	
 	/**
 	 * Returns the total number of packets transmitted at a given 
 	 * time for a message going from its source to destination.
 	 */
-	public abstract int getPacketCount();
+	public int getPacketCount() {
 	
+		// Increment packets counter
+		return this.packet_count;
+	
+	}	
 }
