@@ -38,7 +38,7 @@ public class LastAlgorithm extends Algorithm {
 		
 		//Add present node to the list of nodes that are been traversed
 		this.getTraverseList().add(node);
-		
+		visited.add(node);
 		//Get each node in the neighbors list
 		for (Node n : neighbors) {
 			//System.out.println(n.data);
@@ -47,7 +47,7 @@ public class LastAlgorithm extends Algorithm {
 				//call the dfs method on that node for recursion 
 				dfs(n.getNeighbors(),n);
 				//add the node to the visited list
-				visited.add(n);
+				//visited.add(n);
 			}
 		}
 	}
