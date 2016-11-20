@@ -4,6 +4,17 @@ Lina Elsadek
 Osama Buhamad
 Toyin Odujebe
 
+=====================================================================================
+			Milestone 3
+=====================================================================================
+Changes to Milestone 2:
+New additions and Design Decisions:
+The whole UserInterface was updated for better, more navigatable User Interface. 
+-When closing the topology UI, the entire program closes, the issue was fixed by setting the window to DISPOSE_ON_CLOSE
+-The information about the run was displayed on the console, now it is displayed on the GUI since it is a GUI driven application.
+-Milestone 2's UI only allowed same number of edges as the number of nodes. Now we allow for as many edges as possible (n*n n = number of nodes)
+
+New Algorithms: 
 
 
 =====================================================================================
