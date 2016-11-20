@@ -5,7 +5,11 @@ import java.util.Observable;
 
 import Algorithm.*;
 import Network.*;
-
+/**
+ * Author: Richard Hanton
+ * Modified: Osama Buhamad
+ *
+ */
 public class UserInterfaceModel extends Observable {
 
 	private Network network;
@@ -291,16 +295,9 @@ public class UserInterfaceModel extends Observable {
 		    	//Algorithm successfully executed
 		    	e.setSuccess(true);
 		    	
-		    	//passing the information to the view 
-		    	String inf="";
-		    	for(String s :algorithm.getInfo()){
-		    		inf=inf+s+"$";
-		    	}
-		    	//e.setMessage(algorithm.getInfo());
 		    	
-		    	//Set a success message
-		    	e.setMessage(algorithm.getInfo()+": Algorithm ran successfully");
-		    	//e.setMessage(algorithm.getInfoStr()+": Algorithm ran successfully");
+		    	//Set a success message and pass the information to be displayed 
+		    	e.setMessage(algorithm.getInfoStr()+": Algorithm ran successfully");
 		    	
 		    	//Show network topology
 			    new UserInterfaceGraphic(network,message);

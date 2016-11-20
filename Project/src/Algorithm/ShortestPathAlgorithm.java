@@ -14,7 +14,7 @@ import Network.Node;
 
 /**
  * @author Richard Hanton
- *
+ * Modified by: Osama Buhamad
  * Pre-populates a routing table using the breadth first search algorithm.
  *
  */

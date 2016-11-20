@@ -12,6 +12,7 @@ import Network.Node;
  * Interface for each routing algorithm
  * Author Richard Hanton
  * Modified by:Lina El Sadek
+ * Modified: Osama Buhamad
  */
 public abstract class Algorithm {
 	
@@ -123,9 +124,13 @@ public abstract class Algorithm {
 		return info;
 	}
 	
+	/**
+	 * get a string of the list of info 
+	 * @return
+	 */
 	public String getInfoStr(){
 		for(String s: info){
-			infoStr+=s;
+			infoStr=infoStr+s+" ";
 		}
 		return infoStr;
 	}

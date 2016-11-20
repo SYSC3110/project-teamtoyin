@@ -11,6 +11,7 @@ import Network.Node;
 /*
  * Author Toyin Odujebe
  * Modified Richard Hanton
+ * Modified Osama Buhamad
  */
 
 public class FloodingAlgorithm extends Algorithm {

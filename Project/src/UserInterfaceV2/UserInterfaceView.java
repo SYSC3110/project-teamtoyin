@@ -25,7 +25,11 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
 import Network.Node;
-
+/**
+ * Author: Richard Hanton
+ * Modified: Osama Buhamad
+ *
+ */
 public class UserInterfaceView extends JFrame implements Observer {
 
 	private UserInterfaceModel uim;					//User interface model
@@ -757,12 +761,14 @@ public class UserInterfaceView extends JFrame implements Observer {
 				//create array to split the passed string 
 				String[] str = e.getMessage().split(":");
 				String[] str1 = str[0].split("$");
+				//Show the information on the text area
 				for(String s: str1){
 					outputDescriptionTextArea.setText(s);
 				}
 				
-				JOptionPane.showMessageDialog(null, str[1]);
 				//Show success message
+				JOptionPane.showMessageDialog(null, str[1]);
+				
 				//JOptionPane.showMessageDialog(null, e.getMessage());
 
 			//Simulation failed for some reason

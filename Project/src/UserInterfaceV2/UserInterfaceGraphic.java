@@ -58,7 +58,7 @@ public class UserInterfaceGraphic extends JPanel  {
 
 	public UserInterfaceGraphic(Network network,Message m){
 		
-		f = new JFrame("nodes");
+		f = new JFrame("Network Topology");
 		 f.setLayout(new BorderLayout());
 		
 		 f.getContentPane().add(this, BorderLayout.SOUTH);

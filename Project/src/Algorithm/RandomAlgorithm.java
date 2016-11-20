@@ -10,7 +10,7 @@ import Network.*;
  * @author Richard Hanton
  * 
  * Modified By: Lina El Sadek 
- * Modified By Osama Buahamd: did the initial rate implementation
+ * Modified By Osama Buahamd
  * 
  * The random algorithm selects the next node to
  * traverse to randomly.
