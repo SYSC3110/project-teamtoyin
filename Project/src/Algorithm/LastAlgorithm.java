@@ -32,7 +32,7 @@ public class LastAlgorithm extends Algorithm {
 		//this.dfs(neighbors, node);
 	}
 	
-	public  void dfs(HashSet<Node> neighbors, Node node){
+	private  void dfs(HashSet<Node> neighbors, Node node){
 		//Node dest = node2;
 		System.out.print(node.getName() + "\t");
 		
