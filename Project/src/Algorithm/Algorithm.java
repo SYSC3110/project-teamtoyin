@@ -20,6 +20,7 @@ public abstract class Algorithm {
 	private int max_injections = 20;
 	
 	private ArrayList<String> info = new ArrayList<String>();
+	private String infoStr="";
 	/**
 	 * Run method which moves the specified message from the source
 	 * to its destination using the algorithms method for selecting 
@@ -67,6 +68,7 @@ public abstract class Algorithm {
 			}
 			
 			//Step again until no more stepping required
+			getInfo().add("Stepping again...\n");
 			System.out.println("Stepping again...");
 			
 			//Increment counter
@@ -119,6 +121,13 @@ public abstract class Algorithm {
 	 */
 	public ArrayList<String> getInfo(){
 		return info;
+	}
+	
+	public String getInfoStr(){
+		for(String s: info){
+			infoStr+=s;
+		}
+		return infoStr;
 	}
 	
 	

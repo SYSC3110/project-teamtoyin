@@ -294,12 +294,13 @@ public class UserInterfaceModel extends Observable {
 		    	//passing the information to the view 
 		    	String inf="";
 		    	for(String s :algorithm.getInfo()){
-		    		inf=inf+s+" $";
+		    		inf=inf+s+"$";
 		    	}
 		    	//e.setMessage(algorithm.getInfo());
 		    	
 		    	//Set a success message
-		    	e.setMessage(inf+": Algorithm ran successfully");
+		    	e.setMessage(algorithm.getInfo()+": Algorithm ran successfully");
+		    	//e.setMessage(algorithm.getInfoStr()+": Algorithm ran successfully");
 		    	
 		    	//Show network topology
 			    new UserInterfaceGraphic(network,message);

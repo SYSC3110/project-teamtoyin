@@ -46,8 +46,9 @@ public class FloodingAlgorithm extends Algorithm {
 		
 		//If no more messages travelling in network and the network is not receiving new messages
 		if (!network.messagesMoving() && !network.isOpen()) {
-			System.out.println("No messages moving and network closed for new messages.");
 			getInfo().add(" No messages moving and network closed for new messages.\n");
+			System.out.println("No messages moving and network closed for new messages.");
+			
 			return false;
 		}
 
@@ -56,7 +57,7 @@ public class FloodingAlgorithm extends Algorithm {
 		
 		//For each message in network
 		while (i.hasNext()) {
-			
+			getInfo().add("Message under considering...\n");
 			System.out.println("Message under considering...");
 			
 			//Get message
@@ -140,6 +141,7 @@ public class FloodingAlgorithm extends Algorithm {
 		
 		// If the node isn't present in the network return
 		if (!network.contains(n)) {
+			getInfo().add("Does not contain node " + n.getName()+"\n");
 			System.out.println("Does not contain node " + n.getName());
 			return null;
 		}
@@ -153,10 +155,12 @@ public class FloodingAlgorithm extends Algorithm {
 			if (!m.getHistory().contains(neighbor_n))
 				return neighbor_n;
 			else
+				getInfo().add("Message history contains " + neighbor_n.getName()+"\n");
 				System.out.println("Message history contains " + neighbor_n.getName());
 		}
 
 		// We should not get to this point
+		getInfo().add("No new neighbor nodes to send this message to \n");
 		System.out.println("No new neighbor nodes to send this message to");
 		return null;
 		
