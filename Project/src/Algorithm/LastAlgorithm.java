@@ -7,7 +7,9 @@ import java.util.Iterator;
 import Network.Message;
 import Network.Network;
 import Network.Node;
-
+/*
+ * Author: Toyin Odujebe
+ */
 public class LastAlgorithm extends Algorithm {
 	private ArrayList<Node> visited;
 	private ArrayList<Node> traverseList;
