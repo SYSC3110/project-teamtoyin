@@ -20,6 +20,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSeparator;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
@@ -43,6 +44,15 @@ public class UserInterfaceView extends JFrame implements Observer {
 	private ArrayList<String> algorithms = new ArrayList<String>() {{ add("RandomAlgorithm"); add("FloodingAlgorithm"); add("ShortestPathAlgorithm"); }};
 	
 	/**
+	 * the console messages components 
+	 * TODO : 
+	 */
+	private JPanel frameOutputManager;
+	private JTextArea outputDescriptionTextArea;
+	private JScrollPane outputScroll;
+	
+	
+	/**
 	 * Constructor for UserInterfaceView
 	 */
 	public UserInterfaceView() {
@@ -61,6 +71,9 @@ public class UserInterfaceView extends JFrame implements Observer {
 		
 		//Add node manage section
 		this.createNodeManager();
+		
+		//Add the output messages section
+		this.createOutputManager();
 		
 		//Load algorithms into dropdown
 		this.loadAlgorithms();
@@ -576,6 +589,26 @@ public class UserInterfaceView extends JFrame implements Observer {
 		//Add node manager frame to window
 		this.add(frameNodeManager, BorderLayout.EAST);
 		
+	}
+	
+	/**
+	 * Creates the output messages section on the left of the GUI
+	 * TODO 
+	 */
+	
+	public void createOutputManager(){
+		
+		frameOutputManager= new JPanel(new BorderLayout());
+		//Set size of this panel
+		frameOutputManager.setPreferredSize(new Dimension(900, 200));
+		
+		 outputDescriptionTextArea = new JTextArea("");
+		 outputDescriptionTextArea.setEditable(false);
+
+		 outputScroll = new JScrollPane(outputDescriptionTextArea, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+
+		 frameOutputManager.add(outputScroll);
+		 this.add(frameOutputManager, BorderLayout.WEST);
 	}
 	
 	/**
