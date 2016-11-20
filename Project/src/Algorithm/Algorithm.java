@@ -1,6 +1,8 @@
 package Algorithm;
 
 
+import java.util.ArrayList;
+
 import Network.Message;
 import Network.Network;
 import Network.Node; 
@@ -16,7 +18,8 @@ public abstract class Algorithm {
 	protected int packet_count;
 	protected Network network;
 	private int max_injections = 20;
-
+	
+	private ArrayList<String> info = new ArrayList<String>();
 	/**
 	 * Run method which moves the specified message from the source
 	 * to its destination using the algorithms method for selecting 
@@ -108,4 +111,15 @@ public abstract class Algorithm {
 		return this.packet_count;
 	
 	}	
+	
+	/**
+	 * return a string of the information about the algorithm 
+	 * will be called in the model, so the information can be shown in the GUI
+	 * @return
+	 */
+	public ArrayList<String> getInfo(){
+		return info;
+	}
+	
+	
 }

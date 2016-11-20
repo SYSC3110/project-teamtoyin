@@ -602,7 +602,7 @@ public class UserInterfaceView extends JFrame implements Observer {
 		//Set size of this panel
 		frameOutputManager.setPreferredSize(new Dimension(900, 200));
 		
-		 outputDescriptionTextArea = new JTextArea("");
+		 outputDescriptionTextArea = new JTextArea("\t\t\t\t====Topology Information====\t\t");
 		 outputDescriptionTextArea.setEditable(false);
 
 		 outputScroll = new JScrollPane(outputDescriptionTextArea, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
@@ -754,8 +754,16 @@ public class UserInterfaceView extends JFrame implements Observer {
 			//If simulation ran successfully
 			if (e.getSuccess()) {
 				
+				//create array to split the passed string 
+				String[] str = e.getMessage().split(":");
+				String[] str1 = str[0].split("$");
+				for(String s: str1){
+					outputDescriptionTextArea.setText(s);
+				}
+				
+				JOptionPane.showMessageDialog(null, str[1]);
 				//Show success message
-				JOptionPane.showMessageDialog(null, e.getMessage());
+				//JOptionPane.showMessageDialog(null, e.getMessage());
 
 			//Simulation failed for some reason
 			} else {

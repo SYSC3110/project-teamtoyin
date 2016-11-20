@@ -47,6 +47,7 @@ public class FloodingAlgorithm extends Algorithm {
 		//If no more messages travelling in network and the network is not receiving new messages
 		if (!network.messagesMoving() && !network.isOpen()) {
 			System.out.println("No messages moving and network closed for new messages.");
+			getInfo().add(" No messages moving and network closed for new messages.\n");
 			return false;
 		}
 
@@ -65,6 +66,7 @@ public class FloodingAlgorithm extends Algorithm {
 			if (m.getNode() == m.getDestination()) {
 				
 				//Debug
+				getInfo().add(m.getContents() + " is at the destination node " + m.getNode().getName()+"\n");
 				System.out.println(m.getContents() + " is at the destination node " + m.getNode().getName());
 				
 				//Node is at destination so remove it
@@ -76,6 +78,7 @@ public class FloodingAlgorithm extends Algorithm {
 			} else {
 				
 				//Debug
+				getInfo().add(m.getContents() + " is at node " + m.getNode().getName() + " and is going to node " + m.getDestination().getName()+"\n");
 				System.out.println(m.getContents() + " is at node " + m.getNode().getName() + " and is going to node " + m.getDestination().getName());
 			
 			}
@@ -105,6 +108,7 @@ public class FloodingAlgorithm extends Algorithm {
 				this.countPacket();
 				
 				//Debug
+				getInfo().add("Copy of message going from " + m.getNode().getName() + " to " + new_m.getNode().getName()+"\n");
 				System.out.println("Copy of message going from " + m.getNode().getName() + " to " + new_m.getNode().getName());
 				
 				// Get next node to move message to
