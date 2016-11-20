@@ -3,13 +3,20 @@ package UserInterfaceV2;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.image.BufferedImage;
+import java.beans.Customizer;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
+import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
@@ -43,7 +50,7 @@ public class UserInterfaceGraphic extends JPanel  {
 	private NodeGraphic destNodeGraphic;
 	private NodeGraphic ng;
 	int xPos=200;
-	int yPos=150;
+	int yPos=10;
 	private int count;
 	private int setNodeCoordinatesCounter;
 	private JFrame f;
@@ -55,6 +62,13 @@ public class UserInterfaceGraphic extends JPanel  {
 	List<Integer> orders = new ArrayList<Integer>();
 
 	private MessageGraphic mg;
+	
+	
+	/*
+	 * saving the drawing to an image 
+	 */
+	
+			
 
 	public UserInterfaceGraphic(Network network,Message m){
 		
@@ -88,6 +102,22 @@ public class UserInterfaceGraphic extends JPanel  {
 		f.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		f.setSize(900,900);
 		f.setVisible(true);
+		topologyToImg();
+	}
+	
+	
+	/**
+	 * save an image of the created topology
+	 */
+	public void topologyToImg(){
+		BufferedImage image = new BufferedImage(this.getWidth(), this.getHeight(), BufferedImage.TYPE_INT_ARGB);
+		Graphics g = image.getGraphics();
+		this.paint(g);
+		 try {
+		        ImageIO.write(image, "png", new File("topology.png"));
+		    } catch (IOException ex) {
+		        Logger.getLogger(Customizer.class.getName()).log(Level.SEVERE, null, ex);
+		   }	
 	}
 	
 	public void paintComponent(Graphics g){
@@ -122,10 +152,13 @@ public class UserInterfaceGraphic extends JPanel  {
 				}	
 				g.setColor(Color.BLACK);
 				g.drawString("Path taken: ", 0, 10);
+				
+				
+			
 		}
 	
 
-					
+			
 		
 	/*
 	 * This method sets the coordinates of each node in the network
@@ -138,11 +171,11 @@ public class UserInterfaceGraphic extends JPanel  {
 			this.nodeGraphiclist.add(ng);
 
 			//placing the nodes bases on the count value 
-			if(count%3==0){
-				xPos+=150;
+			if(count%2==0){
+				xPos+=100;
 				yPos+=0;
 			}else {
-				yPos+=150;
+				yPos+=100;
 				xPos+=0;
 			}
 				count++;
@@ -228,6 +261,12 @@ public class UserInterfaceGraphic extends JPanel  {
 		Node n4 = new Node("D");
 		Node n5 = new Node("E");
 		Node n6 = new Node("F");
+		Node n7 = new Node("G");
+		Node n8 = new Node("H");
+		Node n9 = new Node("I");
+		Node n10 = new Node("J");
+		Node n11 = new Node("K");
+		
 		
 		n.add(n1);
 		n.add(n2);
@@ -235,6 +274,12 @@ public class UserInterfaceGraphic extends JPanel  {
 		n.add(n4);
 		n.add(n5);
 		n.add(n6);
+		n.add(n6);
+		n.add(n7);
+		n.add(n8);
+		n.add(n9);
+		n.add(n10);
+		n.add(n11);
 		
 		n.link(n1, n2);
 		n.link(n2, n3);
@@ -243,6 +288,11 @@ public class UserInterfaceGraphic extends JPanel  {
 		n.link(n6, n4);
 		n.link(n5, n6);
 		//n.link(n1,n6);
+		n.link(n7, n8);
+		n.link(n2, n9);
+		n.link(n9, n10);
+		n.link(n11, n10);
+		n.link(n5, n8);
 		Message m = new Message("MSG1", n1, n6);
 		Algorithm algo = new RandomAlgorithm(n);
 		boolean value = algo.run(m, 0);
