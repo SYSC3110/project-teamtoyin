@@ -26,23 +26,33 @@ public class LastAlgorithm extends Algorithm {
 		
 		this.traverseList = new ArrayList<Node>();
 		this.visited = new ArrayList<Node>();
+		
+		//Node node = network.getNodes().iterator().next();
+		//this.dfs(node.getNeighbors(), node);
 		//this.dfs(neighbors, node);
 	}
 	
 	public  void dfs(HashSet<Node> neighbors, Node node){
 		//Node dest = node2;
-		//System.out.print(node.getName() + "\t");
+		System.out.print(node.getName() + "\t");
+		
+		//Add present node to the list of nodes that are been traversed
 		this.getTraverseList().add(node);
 		
+		//Get each node in the neighbors list
 		for (Node n : neighbors) {
 			//System.out.println(n.data);
+			//if the node is not null and it is not contained in the visited list then proceed
 			if(n!=null && !visited.contains(n)){
+				//call the dfs method on that node for recursion 
 				dfs(n.getNeighbors(),n);
+				//add the node to the visited list
 				visited.add(n);
 			}
 		}
 	}
 	
+	//Returns the traverse list to be used in the next method
 	public ArrayList<Node> getTraverseList() {
 		return this.traverseList;
 	}
@@ -67,7 +77,7 @@ public class LastAlgorithm extends Algorithm {
 			
 			//Get message
 			Message m = i.next();
-
+			
 			// If the message is already at its destination, skip
 			if (m.getNode() == m.getDestination()) {
 				
@@ -116,9 +126,7 @@ public class LastAlgorithm extends Algorithm {
 		Node n;
 		
 		n = m.getNode();
-		
-		this.dfs(n.getNeighbors(), n);
-		
+			
 		// If the node isn't present in the network return
 		if (!network.contains(n) || !this.getTraverseList().contains(n)) {
 			System.out.println("Does not contain node " + n.getName());
@@ -156,9 +164,15 @@ public class LastAlgorithm extends Algorithm {
 		n.link(n4, n5);
 
 		LastAlgorithm algo = new LastAlgorithm(n);
-		//algo.dfs(n1.getNeighbors(), n1);
+		
 		Message m = new Message("MSG1", n1, n5);
-
+		algo.dfs(n1.getNeighbors(), n1);
+		
+		//print out the traverse list
+		//for(int i = 0; i< algo.getTraverseList().size(); i++){
+		//	System.out.println(algo.getTraverseList().get(i));
+		//}
+		
 		boolean value = algo.run(m, 0);
 		System.out.println("Packets sent during transmission: " + algo.getPacketCount());
 		System.out.println("true or false " + value);
