@@ -117,13 +117,15 @@ public class LastAlgorithm extends Algorithm {
 		
 		n = m.getNode();
 		
+		this.dfs(n.getNeighbors(), n);
+		
 		// If the node isn't present in the network return
 		if (!network.contains(n) || !this.getTraverseList().contains(n)) {
 			System.out.println("Does not contain node " + n.getName());
 			return null;
 		}
 		
-		for(int i = 0; i< this.traverseList.size(); i++){
+		for(int i = 0; i< this.getTraverseList().size(); i++){
 			if(this.traverseList.get(i) == n){
 				next_node= this.traverseList.get(i+1);
 			}
@@ -154,7 +156,7 @@ public class LastAlgorithm extends Algorithm {
 		n.link(n4, n5);
 
 		LastAlgorithm algo = new LastAlgorithm(n);
-		algo.dfs(n1.getNeighbors(), n1);
+		//algo.dfs(n1.getNeighbors(), n1);
 		Message m = new Message("MSG1", n1, n5);
 
 		boolean value = algo.run(m, 0);
