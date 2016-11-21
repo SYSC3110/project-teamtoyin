@@ -6,16 +6,16 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import Algorithm.LastAlgorithm;
+import Algorithm.DepthFirstAlgorithm;
 import Algorithm.ShortestPathAlgorithm;
 import Network.Message;
 import Network.Network;
 import Network.Node;
 
-public class LastAlgorithmTest {
+public class DepthFirstAlgorithmTest {
 
 	private Network network;
-	private LastAlgorithm sp;
+	private DepthFirstAlgorithm sp;
 	private Message msg;
 	private Node src, dest, n2, n3;
 	
@@ -34,7 +34,7 @@ public class LastAlgorithmTest {
 		network.link(n2, n3);
 		network.link(n3, dest);
 		msg = new Message("Hello", src, dest);
-		sp = new LastAlgorithm(network);	
+		sp = new DepthFirstAlgorithm(network);	
 		sp.dfs(src.getNeighbors(), src);
 	}
 
@@ -43,7 +43,7 @@ public class LastAlgorithmTest {
 	{
 		//Ensure it throws a null pointer exception
 		Network n = null;
-		LastAlgorithm sp2 = new LastAlgorithm(n);
+		DepthFirstAlgorithm sp2 = new DepthFirstAlgorithm(n);
 		
 		//Ensure the object has been initialized correctly
 		assertNotNull(sp2);		

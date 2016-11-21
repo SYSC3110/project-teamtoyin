@@ -10,11 +10,11 @@ import Network.Node;
 /*
  * Author: Toyin Odujebe
  */
-public class LastAlgorithm extends Algorithm {
+public class DepthFirstAlgorithm extends Algorithm {
 	private ArrayList<Node> visited;
 	private ArrayList<Node> traverseList;
 	
-	public LastAlgorithm(Network network) throws NullPointerException{
+	public DepthFirstAlgorithm(Network network) throws NullPointerException{
 		//If network is null throw exception
 		if (network == null)
 			throw new NullPointerException();
@@ -163,7 +163,7 @@ public class LastAlgorithm extends Algorithm {
 		n.link(n3, n4);		
 		n.link(n4, n5);
 
-		LastAlgorithm algo = new LastAlgorithm(n);
+		DepthFirstAlgorithm algo = new DepthFirstAlgorithm(n);
 		
 		Message m = new Message("MSG1", n1, n5);
 		algo.dfs(n1.getNeighbors(), n1);
@@ -178,7 +178,5 @@ public class LastAlgorithm extends Algorithm {
 		System.out.println("true or false " + value);
 		
 	}
-
-
 
 }
