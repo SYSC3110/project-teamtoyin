@@ -54,6 +54,7 @@ Lina El Sadek:
 Toyin Odujebe: 
 •	Implemented DepthFirstAlgorithm.java, DepthFirstAlgorithmTest.java
 •	Wrote the readMe file
+•	Fixed some messy code issues in some classes.
 
 Richard Hanton: 
 •	Implemented the Node.java class, Algorithm.java, Network.java, RandomAlgorithm.java, ShortestPathAlgorithm.java
