@@ -45,7 +45,7 @@ public class UserInterfaceView extends JFrame implements Observer {
 	private JComboBox<Node> nodeListCombo1;			//Combo box for listing nodes
 	private JComboBox<Node> nodeListCombo2;			//Combo box for listing nodes
 	private JComboBox<String> algorithmListCombo;	//List of agorithms
-	private ArrayList<String> algorithms = new ArrayList<String>() {{ add("RandomAlgorithm"); add("FloodingAlgorithm"); add("ShortestPathAlgorithm"); }};
+	private ArrayList<String> algorithms = new ArrayList<String>() {{ add("RandomAlgorithm"); add("FloodingAlgorithm"); add("ShortestPathAlgorithm"); add("DepthFirstAlgorithm"); }};
 	
 	/**
 	 * the console messages components 
