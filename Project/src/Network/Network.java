@@ -250,14 +250,25 @@ public class Network{
 		}
 	}
 	
-	//this method return the number of the nodes in the network 
-	public int getNetworkNodesNumber(){
+	/**
+	 * Returns the number of nodes in the network
+	 * @return
+	 */
+	public int getNetworkNodesNumber() {
+		
+		//Return nodes size
 		return nodes.size();
+		
 	}
 	
-	//returns the list of nodes
+	/**
+	 * Returns the list of nodes in the network
+	 */
 	public HashSet<Node> getNodes(){
+		
+		//Return nodes hashset
 		return this.nodes;
+		
 	}
 	
 	/**
