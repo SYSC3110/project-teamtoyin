@@ -9,10 +9,11 @@ import Network.Network;
 import Network.Node;
 /*
  * Author: Toyin Odujebe
+ * This algorithm uses a recursive depth first algorithm to determine how to traverse a network given an initial node
  */
 public class DepthFirstAlgorithm extends Algorithm {
-	private ArrayList<Node> visited;
-	private ArrayList<Node> traverseList;
+	private ArrayList<Node> visited;	//List that contains every node that has been visited
+	private ArrayList<Node> traverseList; //List that contains how the network was traversed from the initial node
 	
 	public DepthFirstAlgorithm(Network network) throws NullPointerException{
 		//If network is null throw exception
@@ -26,28 +27,21 @@ public class DepthFirstAlgorithm extends Algorithm {
 		
 		this.traverseList = new ArrayList<Node>();
 		this.visited = new ArrayList<Node>();
-		
-		//Node node = network.getNodes().iterator().next();
-		//this.dfs(node.getNeighbors(), node);
-		//this.dfs(neighbors, node);
+
 	}
 	
 	public void dfs(HashSet<Node> neighbors, Node node){
-		//Node dest = node2;
+
 		System.out.print(node.getName() + "\t");
-		
 		//Add present node to the list of nodes that are been traversed
 		this.getTraverseList().add(node);
 		visited.add(node);
 		//Get each node in the neighbors list
 		for (Node n : neighbors) {
-			//System.out.println(n.data);
 			//if the node is not null and it is not contained in the visited list then proceed
 			if(n!=null && !visited.contains(n)){
 				//call the dfs method on that node for recursion 
-				dfs(n.getNeighbors(),n);
-				//add the node to the visited list
-				//visited.add(n);
+				dfs(n.getNeighbors(),n);;
 			}
 		}
 	}
@@ -122,24 +116,24 @@ public class DepthFirstAlgorithm extends Algorithm {
 	@Override
 	protected Node next(Message m) {
 		// TODO Auto-generated method stub
-		Node next_node = null;
+		Node next_node = null;	//Node to be returned
 		Node n;
 		
-		n = m.getNode();
+		n = m.getNode();	//Set n to the present node
 			
-		// If the node isn't present in the network return
+		// If the node isn't present in the network or in the traverse list then just return
 		if (!network.contains(n) || !this.getTraverseList().contains(n)) {
 			System.out.println("Does not contain node " + n.getName());
 			return null;
 		}
-		
-		for(int i = 0; i< this.getTraverseList().size(); i++){
-			if(this.traverseList.get(i) == n){
-				next_node= this.traverseList.get(i+1);
+
+		for(int i = 0; i< this.getTraverseList().size(); i++){	//Iterate through the traverse list
+			if(this.traverseList.get(i) == n){	//When the present node is equal to the node in the traverse list
+				next_node= this.traverseList.get(i+1);	//set the next node to the next node in the traverse list after the present node
 			}
 		}
 		
-		return next_node;
+		return next_node;	//Return the next node
 	}
 	
 	public static void main(String[] args) {
