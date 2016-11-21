@@ -36,8 +36,8 @@ public class DepthFirstAlgorithm extends Algorithm {
 	 * Recursive method for depth first algorithm
 	 */
 	public void dfs(HashSet<Node> neighbors, Node node){
-
-		System.out.print(node.getName() + "\t");
+		
+		//System.out.print(node.getName() + "\t");	//Prints out the current node we are on
 		//Add present node to the list of nodes that are been traversed
 		this.getTraverseList().add(node);
 		visited.add(node);
@@ -168,7 +168,7 @@ public class DepthFirstAlgorithm extends Algorithm {
 
 		DepthFirstAlgorithm algo = new DepthFirstAlgorithm(n);
 		
-		Message m = new Message("MSG1", n1, n5);
+		Message m = new Message("MSG1", n1, n2);
 		//algo.dfs(n1.getNeighbors(), n1);
 		//algo.run(m,0);
 		//print out the traverse list
