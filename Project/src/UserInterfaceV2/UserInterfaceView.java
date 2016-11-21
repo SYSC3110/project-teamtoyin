@@ -45,7 +45,7 @@ public class UserInterfaceView extends JFrame implements Observer {
 	private JComboBox<Node> nodeListCombo1;			//Combo box for listing nodes
 	private JComboBox<Node> nodeListCombo2;			//Combo box for listing nodes
 	private JComboBox<String> algorithmListCombo;	//List of agorithms
-	private ArrayList<String> algorithms = new ArrayList<String>() {{ add("RandomAlgorithm"); add("FloodingAlgorithm"); add("ShortestPathAlgorithm"); }};
+	private ArrayList<String> algorithms = new ArrayList<String>() {{ add("RandomAlgorithm"); add("FloodingAlgorithm"); add("ShortestPathAlgorithm"); add("DepthFirstAlgorithm"); }};
 	
 	/**
 	 * the console messages components 
@@ -412,7 +412,7 @@ public class UserInterfaceView extends JFrame implements Observer {
 		/** 
 		 * Add Message Contents Label 
 		 */
-		//Label for add node
+		//Label for message contents
 		JLabel messageContentsLabel = new JLabel("Message Contents");
 		
 		//Label position
@@ -446,7 +446,7 @@ public class UserInterfaceView extends JFrame implements Observer {
 		/** 
 		 * Add Source Node Label
 		 */
-		//Label for add node
+		//Label for source node
 		JLabel sourceNodeLabel = new JLabel("Source Node");
 		
 		//Label position
@@ -482,7 +482,7 @@ public class UserInterfaceView extends JFrame implements Observer {
 		/** 
 		 * Add Injections Label 
 		 */
-		//Label for add node
+		//Label for destination node
 		JLabel destinationNodeLabel = new JLabel("Dest Node");
 		
 		//Label position
@@ -517,7 +517,7 @@ public class UserInterfaceView extends JFrame implements Observer {
 		/** 
 		 * Add Injections Label 
 		 */
-		//Label for add node
+		//Label for injection rate
 		JLabel addInjection = new JLabel("Injection Rate");
 		
 		//Label position
@@ -738,52 +738,68 @@ public class UserInterfaceView extends JFrame implements Observer {
 		//Cast incoming object to user interface event
 		UserInterfaceEvent e = (UserInterfaceEvent) arg;
 		
-		//Check if event type is new nodes added or removed
-		if (e.getType() == "Node Update") {
-			
-			//Update the node manager section
-			updateNodeManager(e);
+		//If our action was successfully performed
+		if (e.getSuccess()) {
 		
-		}
-		
-		//Check if event type is new links created, if nodes removes then links removed too 
-		if (e.getType() == "Node Link Update" || e.getType() == "Node Update") {
+			//Check if event type is new nodes added or removed
+			if (e.getType() == "Node Update") {
+				
+				//Update the node manager section
+				updateNodeManager(e);
 			
-			//Update the link nodes manager section
-			updateLinkManager(e);
+			}
 			
-		}
-		
-		//Check if simulation message is incoming
-		if (e.getType() == "Simulation") {
+			//Check if event type is new links created, if nodes removes then links removed too 
+			if (e.getType() == "Node Link Update" || e.getType() == "Node Update") {
+				
+				//Update the link nodes manager section
+				updateLinkManager(e);
+				
+			}
 			
-			//If simulation ran successfully
-			if (e.getSuccess()) {
+			//Check if simulation message is incoming
+			if (e.getType() == "Simulation") {
 				
-				//create array to split the passed string 
-				String[] str = e.getMessage().split(":");
-				String[] str1 = str[0].split("$");
-				//Show the information on the text area
-				for(String s: str1){
-					outputDescriptionTextArea.setText(s);
-				}
-				
-				//Show success message
-				JOptionPane.showMessageDialog(null, str[1]);
-				
-				//JOptionPane.showMessageDialog(null, e.getMessage());
-
-			//Simulation failed for some reason
-			} else {
-				
-				//If a message is present
-				if (e.getMessage() != "") {
+				//If simulation ran successfully
+				if (e.getSuccess()) {
 					
-					//Show message
-					JOptionPane.showMessageDialog(null, e.getMessage());
+					//create array to split the passed string 
+					String[] str = e.getMessage().split(":");
+					String[] str1 = str[0].split("$");
+					//Show the information on the text area
+					for(String s: str1){
+						outputDescriptionTextArea.setText(s);
+					}
 					
+					//Show success message
+					JOptionPane.showMessageDialog(null, str[1]);
+					
+					//JOptionPane.showMessageDialog(null, e.getMessage());
+	
+				//Simulation failed for some reason
+				} else {
+					
+					//If a message is present
+					if (e.getMessage() != "") {
+						
+						//Show message
+						JOptionPane.showMessageDialog(null, e.getMessage());
+						
+					}
 				}
 			}
+		
+		//Show error message if available
+		} else {
+			
+			//Check if error message set
+			if (e.getMessage() != "") {
+				
+				//Show message
+				JOptionPane.showMessageDialog(null, e.getMessage());
+				
+			}
+			
 		}
 		
 	}
@@ -793,47 +809,33 @@ public class UserInterfaceView extends JFrame implements Observer {
 	 */
 	public void updateNodeManager(UserInterfaceEvent e) {
 		
-		//Check if  success
-		if (e.getSuccess()) {
+		//Clear existing network node lists
+		this.nodeListModel.clear();
+		this.nodeListCombo1.removeAllItems();
+		this.nodeListCombo2.removeAllItems();
+		this.sourceNode.removeAllItems();
+		this.destinationNode.removeAllItems();
 		
-			//Clear existing network node lists
-			this.nodeListModel.clear();
-			this.nodeListCombo1.removeAllItems();
-			this.nodeListCombo2.removeAllItems();
-			this.sourceNode.removeAllItems();
-			this.destinationNode.removeAllItems();
+		//Loop each node in network to add to our lists
+		for (Node n : e.getNetwork().getNodes()) {
 			
-			//Loop each node in network to add to our lists
-			for (Node n : e.getNetwork().getNodes()) {
-				
-				//Add to list
-				this.nodeListModel.addElement(n);
-				
-				//Add node to node list combobox1
-				this.nodeListCombo1.addItem(n);
-				
-				//Add node to node list combobox2
-				this.nodeListCombo2.addItem(n);
-				
-				//Add node to node list source nodes
-				this.sourceNode.addItem(n);
-				
-				//Add node to node list destination nodes
-				this.destinationNode.addItem(n);
-				
-			}
-	
-		//Not successful
-		} else {
+			//Add to list
+			this.nodeListModel.addElement(n);
 			
-			//Check if error message set
-			if (e.getMessage() != "") {
-				
-				//Show message
-				JOptionPane.showMessageDialog(null, e.getMessage());
-				
-			}
+			//Add node to node list combobox1
+			this.nodeListCombo1.addItem(n);
+			
+			//Add node to node list combobox2
+			this.nodeListCombo2.addItem(n);
+			
+			//Add node to node list source nodes
+			this.sourceNode.addItem(n);
+			
+			//Add node to node list destination nodes
+			this.destinationNode.addItem(n);
+			
 		}
+	
 		
 	}
 	
@@ -842,43 +844,28 @@ public class UserInterfaceView extends JFrame implements Observer {
 	 */
 	public void updateLinkManager(UserInterfaceEvent e) {
 		ArrayList<Node> displayed = new ArrayList<Node>(); //List of main nodes we have displayed link for 
+				
+		this.linkedNodeListModel.clear();
 		
-		//Check if success
-		if (e.getSuccess()) {
-				
-			this.linkedNodeListModel.clear();
+		//Loop each node in network to add to our lists
+		for (Node n1 : e.getNetwork().getNodes()) {
 			
-			//Loop each node in network to add to our lists
-			for (Node n1 : e.getNetwork().getNodes()) {
+			//Add node to list of nodes displayed
+			displayed.add(n1);
+			
+			//For each of this nodes neighbors
+			for (Node n2 : n1.getNeighbors()) {
 				
-				//Add node to list of nodes displayed
-				displayed.add(n1);
+				//Check if node link already displayed
+				if (!displayed.contains(n2)) {
+					
+					//Display the link
+					this.linkedNodeListModel.addElement(n1.toString() + " - " + n2.toString() );
 				
-				//For each of this nodes neighbors
-				for (Node n2 : n1.getNeighbors()) {
-					
-					//Check if node link already displayed
-					if (!displayed.contains(n2)) {
-						
-						//Display the link
-						this.linkedNodeListModel.addElement(n1.toString() + " - " + n2.toString() );
-					
-					}
-						
 				}
-				
+					
 			}
-		
-		//Not successful
-		} else {
 			
-			//Check if error message set
-			if (e.getMessage() != "") {
-				
-				//Show message
-				JOptionPane.showMessageDialog(null, e.getMessage());
-				
-			}
 		}
 		
 	}
