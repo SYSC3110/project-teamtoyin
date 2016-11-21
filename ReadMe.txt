@@ -14,9 +14,32 @@ The whole UserInterface was updated for better, more navigatable User Interface.
 -The information about the run was displayed on the console, now it is displayed on the GUI since it is a GUI driven application.
 -Milestone 2's UI only allowed same number of edges as the number of nodes. Now we allow for as many edges as possible (n*n n = number of nodes)
 
+Algorithm.java:
+-The Algorithm class was changed to abstract because all algorithms have the same run method and the only difference will be the step and next methods.
+-run(Message m, int rate): this method takes in a message object and gets the message source and destination. The next node is selected in this method by invoking the next() method. The current node is then updated to the next node. The packet transmitted gets incremented each time a packet is received at a node and also the number of hops a message goes through gets incremented. The run method also take in an integer that represents the rate messages will be injected into the network.
+
 New Algorithms: 
+All algorithms are concrete Algorithm classes and it implements the abstract methods defined in the abstract Algorithm.java class. Their constructors takes in a network object.
 
+FloodingAlgorithm.java
+In this algorithm, a node sends a message to all its neighbours except for the node that it got the message from. 
+step(): this method performs a simulation step, moving messages to the next node and injecting new messages as required. It returns false if there are no further steps to be taken. This message does this by invoking the method next(Message m). In this method the hop count and packet counts are incremented to account for the metrics we are keeping track of. 
+next(Message m): this method takes in a Message object that represents a Message and determines the next node that a packet should traverse from the current node. It does this by:
+•	Checks if node actually exists in the Network
+•	Gets neighbours of the present node which are in the HashSet 
+•	For Flooding algorithm, if the neighbour is not already in the history of nodes the message has visited then return it as the next node to traverse to.
 
+ShortestPathAlgorithm.java:
+This algorithm prepopulates a routing table using the breadth first search algorithm. We create a routing entry for each node that contains a destination node and the next node to go to get to that destination node.
+loadRoutingTable(): loads the routing table with which neighbor node to travel to depending on the destination node. We use the breadth-first search algorithm in this method. 
+step(): this method performs a simulation step, moving messages to the next node and injecting new messages as required. It returns false if there are no further steps to be taken. This message does this by invoking the method next(Message m). In this method the hop count and packet counts are incremented to account for the metrics we are keeping track of. 
+next(Message m): this method takes in a Message object that represents a Message and determines the next node that a packet should traverse from the current node. It does this by:
+•	Checks if node actually exists in the Network
+•	Get routing table for that specific node and determine the next node to traverse to depending on the already populated routing table 
+•	Return the next node 
+
+DepthFirstAlgorithm.java:
+This algorithm uses a recursive depth first algorithm to determine how to traverse a network given an initial node
 =====================================================================================
 			Milestone 2
 =====================================================================================

@@ -59,6 +59,7 @@ public class DepthFirstAlgorithm extends Algorithm {
 
 		//If no more messages travelling in network and the network is not receiving new messages
 		if (!network.messagesMoving() && !network.isOpen()) {
+			getInfo().add("No messages moving and network closed for new messages.\n");
 			System.out.println("No messages moving and network closed for new messages.");
 			return false;
 		}
@@ -76,6 +77,7 @@ public class DepthFirstAlgorithm extends Algorithm {
 			if (m.getNode() == m.getDestination()) {
 				
 				//Debug
+				getInfo().add(m.getContents() + " is at the destination node " + m.getNode().getName()+"\n");
 				System.out.println(m.getContents() + " is at the destination node " + m.getNode().getName());
 				
 				//Node is at destination so remove it
@@ -87,6 +89,7 @@ public class DepthFirstAlgorithm extends Algorithm {
 			} else {
 				
 				//Debug
+				getInfo().add(m.getContents() + " is at node " + m.getNode().getName() + " and is going to node " + m.getDestination().getName()+"\n");
 				System.out.println(m.getContents() + " is at node " + m.getNode().getName() + " and is going to node " + m.getDestination().getName());
 			
 			}
@@ -123,6 +126,7 @@ public class DepthFirstAlgorithm extends Algorithm {
 			
 		// If the node isn't present in the network or in the traverse list then just return
 		if (!network.contains(n) || !this.getTraverseList().contains(n)) {
+			getInfo().add("Does not contain node " + n.getName()+"\n");
 			System.out.println("Does not contain node " + n.getName());
 			return null;
 		}

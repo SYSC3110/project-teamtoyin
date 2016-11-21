@@ -49,7 +49,6 @@ public class UserInterfaceView extends JFrame implements Observer {
 	
 	/**
 	 * the console messages components 
-	 * TODO : 
 	 */
 	private JPanel frameOutputManager;
 	private JTextArea outputDescriptionTextArea;
@@ -76,7 +75,7 @@ public class UserInterfaceView extends JFrame implements Observer {
 		//Add node manage section
 		this.createNodeManager();
 		
-		//Add the output messages section
+		//Add the information messages section
 		this.createOutputManager();
 		
 		//Load algorithms into dropdown
@@ -597,22 +596,25 @@ public class UserInterfaceView extends JFrame implements Observer {
 	
 	/**
 	 * Creates the output messages section on the left of the GUI
-	 * TODO 
 	 */
 	
 	public void createOutputManager(){
-		
+		//adding a new JPanel for the text area  
 		frameOutputManager= new JPanel(new BorderLayout());
 		//Set size of this panel
 		frameOutputManager.setPreferredSize(new Dimension(900, 200));
 		
-		 outputDescriptionTextArea = new JTextArea("\t\t\t\t====Topology Information====\t\t");
-		 outputDescriptionTextArea.setEditable(false);
+		//the message that will be printed initially 
+		outputDescriptionTextArea = new JTextArea("\t\t\t\t====Topology Information====\t\t");
+		
+		//the text area is not editable 
+		outputDescriptionTextArea.setEditable(false);
 
-		 outputScroll = new JScrollPane(outputDescriptionTextArea, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+		//adding a scroll bar when neededc 
+		outputScroll = new JScrollPane(outputDescriptionTextArea, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 
-		 frameOutputManager.add(outputScroll);
-		 this.add(frameOutputManager, BorderLayout.WEST);
+		frameOutputManager.add(outputScroll);
+		this.add(frameOutputManager, BorderLayout.WEST);
 	}
 	
 	/**

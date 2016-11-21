@@ -35,7 +35,7 @@ import Network.Network;
 import Network.Node;
 
 /**
- * 
+ * This class is to show the graphics of a topology of a given network 
  * @author Osama Buhamad
  *
  * @date 11/04/2016
@@ -63,35 +63,30 @@ public class UserInterfaceGraphic extends JPanel  {
 
 	private MessageGraphic mg;
 	
-	
-	/*
-	 * saving the drawing to an image 
-	 */
-	
 			
 
 	public UserInterfaceGraphic(Network network,Message m){
 		
 		f = new JFrame("Network Topology");
-		 f.setLayout(new BorderLayout());
-		
-		 f.getContentPane().add(this, BorderLayout.SOUTH);
-		
+		f.setLayout(new BorderLayout());
+
+		f.getContentPane().add(this, BorderLayout.SOUTH);
+
 		this.network=network;
-	    list = new ArrayList<Node>(network.getNodes());
-	    nodeGraphiclist = new ArrayList<NodeGraphic>();
-	    this.count=0;
-	    setNodeCoordinatesCounter = 0;
-	    
-	    mg= new MessageGraphic(getName(), 0, 0);
-	    messagePathList= new ArrayList<Node>();
-	    messageGraphicList = new ArrayList<NodeGraphic>();
-	    historyMap = new HashMap<String,List<Integer>>();
-	    
-	    this.messagePath(m);
-	    setHistoryhMap();
+		list = new ArrayList<Node>(network.getNodes());
+		nodeGraphiclist = new ArrayList<NodeGraphic>();
+		this.count=0;
+		setNodeCoordinatesCounter = 0;
+
+		mg= new MessageGraphic(getName(), 0, 0);
+		messagePathList= new ArrayList<Node>();
+		messageGraphicList = new ArrayList<NodeGraphic>();
+		historyMap = new HashMap<String,List<Integer>>();
+
+		this.messagePath(m);
+		setHistoryhMap();
 		//printhistoryMap();
-	    
+
 		table = new JTable(this.toTableModel(historyMap));
 		table.setSize(900,150);
 		table.setGridColor(Color.RED);
@@ -130,8 +125,9 @@ public class UserInterfaceGraphic extends JPanel  {
 				
 				for (int i=0;i<nodeGraphiclist.size();i++){
 					nodeGraphiclist.get(i).paintNode(g);
-				}	
+				}
 				
+				//painting the links between the drawn nodes  
 				for(int i=0;i<list.size()-1;i++){
 					for(int j=i;j<list.size();j++)
 					{
@@ -143,13 +139,7 @@ public class UserInterfaceGraphic extends JPanel  {
 					}		
 				}
 				
-			
-					//g.setColor(Color.RED);					
-				for (int i=0;i<messageGraphicList.size();i++){
-					//mg.paintMessage(g, messageGraphicList.get(i).getxPosition(),messageGraphicList.get(i).getyPosition(),i);
-					//mg.paintMessage(g, this.getMessagepath());
-					repaint();
-				}	
+
 				g.setColor(Color.BLACK);
 				g.drawString("Path taken: ", 0, 10);
 				
@@ -190,6 +180,10 @@ public class UserInterfaceGraphic extends JPanel  {
 		return f;
 	}
 	
+	/**
+	 * this method sets the locations of the nodes based on the message history 
+	 * @param m
+	 */
 	public void messagePath(Message m){
 		messagePathList = m.getHistory(); 
 		setNodeCoordinates();
@@ -234,15 +228,23 @@ public class UserInterfaceGraphic extends JPanel  {
 		
 	}
 	
+	/**
+	 * prints the path of a message of each node 
+	 */
 	public void printhistoryMap(){
 		for (Entry<String, List<Integer>> entry : historyMap.entrySet()) {
 		    System.out.println(entry.getKey()+" : "+entry.getValue());
 		}
 	}
 
+	/**
+	 * return the message history path in a table from 
+	 * @param map
+	 * @return
+	 */
 	public static TableModel toTableModel(Map map) {
 	     DefaultTableModel model = new DefaultTableModel (
-	   new Object[] { "Key", "Value" }, 0
+	   new Object[] { "Node", "Path" }, 0
 	  );
 	  for (Iterator it = map.entrySet().iterator(); it.hasNext();) {
 	   Map.Entry entry = (Map.Entry)it.next();
