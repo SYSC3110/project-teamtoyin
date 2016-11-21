@@ -32,7 +32,7 @@ public class LastAlgorithm extends Algorithm {
 		//this.dfs(neighbors, node);
 	}
 	
-	private  void dfs(HashSet<Node> neighbors, Node node){
+	public void dfs(HashSet<Node> neighbors, Node node){
 		//Node dest = node2;
 		System.out.print(node.getName() + "\t");
 		
@@ -167,7 +167,7 @@ public class LastAlgorithm extends Algorithm {
 		
 		Message m = new Message("MSG1", n1, n5);
 		algo.dfs(n1.getNeighbors(), n1);
-		
+		//algo.run(m,0);
 		//print out the traverse list
 		//for(int i = 0; i< algo.getTraverseList().size(); i++){
 		//	System.out.println(algo.getTraverseList().get(i));

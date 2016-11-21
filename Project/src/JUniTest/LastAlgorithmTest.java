@@ -2,18 +2,20 @@ package JUniTest;
 
 import static org.junit.Assert.*;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import Algorithm.LastAlgorithm;
 import Algorithm.ShortestPathAlgorithm;
 import Network.Message;
 import Network.Network;
 import Network.Node;
 
-public class ShortestPathAlgorithmTest {
+public class LastAlgorithmTest {
 
 	private Network network;
-	private ShortestPathAlgorithm sp;
+	private LastAlgorithm sp;
 	private Message msg;
 	private Node src, dest, n2, n3;
 	
@@ -32,23 +34,28 @@ public class ShortestPathAlgorithmTest {
 		network.link(n2, n3);
 		network.link(n3, dest);
 		msg = new Message("Hello", src, dest);
-		sp = new ShortestPathAlgorithm(network);		
+		sp = new LastAlgorithm(network);	
+		sp.dfs(src.getNeighbors(), src);
 	}
-	
+
 	@Test(expected = NullPointerException.class)
 	public void testShortestPathAlgorithm()
 	{
 		//Ensure it throws a null pointer exception
 		Network n = null;
-		ShortestPathAlgorithm sp2 = new ShortestPathAlgorithm(n);
+		LastAlgorithm sp2 = new LastAlgorithm(n);
 		
 		//Ensure the object has been initialized correctly
 		assertNotNull(sp2);		
 	}
 
 	@Test
+	public void testgetTraverseList(){
+		assertNotNull(sp.getTraverseList());
+	}
+	@Test
 	public void testRun() {
-
+		
 		//Pass negative rates
 		assertTrue(sp.run(msg, -1));
 		
@@ -66,6 +73,5 @@ public class ShortestPathAlgorithmTest {
 		sp.run(msg, 0);
 		assertEquals(sp.getPacketCount(), 3);
 	}
-
 
 }
