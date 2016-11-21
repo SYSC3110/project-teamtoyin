@@ -31,7 +31,7 @@ public class UserInterfaceController implements ActionListener {
 			String nodeText = uiv.getAddNodeTextField();
 			
 			//Check text entered
-			if (nodeText != "") {
+			if (nodeText != "" && !nodeText.isEmpty()) {
 				
 				//Add node to our network through model
 				uim.addNode(nodeText);
