@@ -29,4 +29,4 @@ This document contains two sections:
   - Optionally enter an injection rate for injecting new messages into the network during the simulation.
   - Click "Start Simulation" to simulate the message going through the network with your specified settings. 
   - While the simulation is running debug will be printed on the left hand side of the application.
-- Once the simulation is completed the network topology will appear in a new window showing the network layout and the path that the first message took. 
+  - Once the simulation is completed the network topology will appear in a new window showing the network layout and the path that the first message took. 
