@@ -18,12 +18,15 @@ This document contains two sections:
   - Once the algorithm is done running and the message has reached its destination, the overall statistics will be printed. This contains     number of packets generated, and number of hops taken.
  ==================================================
  Section B:
-  - Run UserInterfaceController.java (Which can be found in UserInterface package) in Eclipse.
-  - Enter the number of nodes you wish to have in your network in the text field and press enter. Make sure it is a positive integer.
-  - Select the algorithm you want by clicking on one of the radio buttons.
-  - Enter the rate in which you want a new message to be generated in the network. If the rate was left blank, then no new message will be     generated in the network.
-  - Enter the name you wish to give your nodes in the generated text fields. Press enter after each enter so the name is recorded.
-  - Enter the edge name which will connect your nodes. Each row will have two text fields. The left text field will represent the start       node. Once you enter the name press enter, and the right text field will be enabled for you to enter the end node.
-  - Enter the Message content, the start node name, and the end node name in the textfields that will be generated. Make sure after every     input you press enter.
-  - You can click on Show Topology button to see the graphical representation of the network
-  - You can also click run to run the algorithm. The default algorithm is the Random Algorithm.
+  - Run UserInterfaceView.java from the UserInterfaceV2 package.
+  - On the right hand side of the window select the algorithm you would like to use from the dropdown.
+  - Add nodes to the network by entering them in the text box beside "Add Node".
+  - To remove a node from the network, select the node name in the list and then click "Remove".
+  - To link 2 nodes together select each one from their respective dropdown menu under "Link Nodes" and then click "Link".
+  - To unlink 2 nodes select each one from their respective dropdown menu under "Link Nodes" and then click "Unlink". Note the process for unlinking nodes is not the same as deleting nodes, you cannot select the link in the list and click Unlink. You must select the 2 nodes from the dropdowns.
+  - Enter the message contents.
+  - Select a source and destination node for your message.
+  - Optionally enter an injection rate for injecting new messages into the network during the simulation.
+  - Click "Start Simulation" to simulate the message going through the network with your specified settings. 
+  - While the simulation is running debug will be printed on the left hand side of the application.
+- Once the simulation is completed the network topology will appear in a new window showing the network layout and the path that the first message took. 
