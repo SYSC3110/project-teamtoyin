@@ -27,9 +27,14 @@ public class DepthFirstAlgorithm extends Algorithm {
 		
 		this.traverseList = new ArrayList<Node>();
 		this.visited = new ArrayList<Node>();
+		//Now based on our logic we chose the first node from the list of nodes in the network
+		this.dfs(network.getNodes().iterator().next().getNeighbors(), network.getNodes().iterator().next());
 
 	}
 	
+	/*
+	 * Recursive method for depth first algorithm
+	 */
 	public void dfs(HashSet<Node> neighbors, Node node){
 
 		System.out.print(node.getName() + "\t");
@@ -164,7 +169,7 @@ public class DepthFirstAlgorithm extends Algorithm {
 		DepthFirstAlgorithm algo = new DepthFirstAlgorithm(n);
 		
 		Message m = new Message("MSG1", n1, n5);
-		algo.dfs(n1.getNeighbors(), n1);
+		//algo.dfs(n1.getNeighbors(), n1);
 		//algo.run(m,0);
 		//print out the traverse list
 		//for(int i = 0; i< algo.getTraverseList().size(); i++){
