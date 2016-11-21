@@ -71,13 +71,13 @@ public class UserInterfaceController implements ActionListener {
 			
 			//Get combo box selected nodes
 			Node n1 = uiv.getSelectedLinkNodeCombo1();
-			Node n2 = uiv.getSelectedLinkNodeCombo1();
+			Node n2 = uiv.getSelectedLinkNodeCombo2();
 			
 			//If items selected
 			if (n1 != null && n2 != null) {
 				
 				//Link the nodes if possible
-				uim.linkNodes(n1, n2);
+				uim.unlinkNodes(n1, n2);
 				
 			}
 			
