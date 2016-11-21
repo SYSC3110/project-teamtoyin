@@ -38,8 +38,63 @@ next(Message m): this method takes in a Message object that represents a Message
 •	Get routing table for that specific node and determine the next node to traverse to depending on the already populated routing table 
 •	Return the next node 
 
-DepthFirstAlgorithm.java:
-This algorithm uses a recursive depth first algorithm to determine how to traverse a network given an initial node
+DepthFirstAlgorithm.java (Our own routing algorithm):
+This algorithm uses a recursive depth first algorithm to determine how to traverse a network given the first node in the network. We chose the first node in the network so that the path taken is static and in real life scenario less costly for routers to have to perform the algorithm each time they get a network. No need for extremely smart routers when using this algorithm except for the first node which will be the centralized node. 
+dfs(HashSet<Node> neighbours, Node node): this method takes in a Node object and also takes in a HashSet<Node> object which represents the neighbours of the specific node. The node is added to the traverse list and also to the visited list and then we get each node in its neighbours list and recursively call the dfs method.
+getTraverseList(): returns the traverse list that contains how the messages will be traversed in the network based on current node position.
+step(): this method performs a simulation step, moving messages to the next node and injecting new messages as required. It returns false if there are no further steps to be taken. This message does this by invoking the method next(Message m). In this method the hop count and packet counts are incremented to account for the metrics we are keeping track of. 
+next(Message m): this method takes in a Message object that represents a Message and determines the next node that a packet should traverse from the current node. It does this by:
+•	Checks if node actually exists in the Network and if it is included in the traverse list
+•	Gets the current position of the message in the traverse list and sets the next node to the next node in the traverse list 
+•	Return the next node 
+
+Contributions:
+Lina El Sadek: 
+•	
+Toyin Odujebe: 
+•	Implemented DepthFirstAlgorithm.java, DepthFirstAlgorithmTest.java
+•	Wrote the readMe file
+
+Richard Hanton: 
+•	Implemented the Node.java class, Algorithm.java, Network.java, RandomAlgorithm.java, ShortestPathAlgorithm.java
+•	Worked on refactoring the GUI
+•	Modified FloodingAlgorithm.java. Fixed the rate issues in the algorithms
+•	Modified Message.java added hops a message goes through
+•	
+Osama Buhamad:
+•	Implemented Graphic.java, MessageGraphic.java, NodeGraphic.java, 
+•	Worked on rate for RandomAlgorithm.java
+•	Implemented test cases for MessageTest.java, NodeTest.java and RandomAlgorithm.java
+•	Implemented userInterfaceGraphic.java
+
+
+Known Issues:
+Please refer to our github repo for resolved and current issues.
+=====================================================================================
+			Milestone 2
+=====================================================================================
+Changes made to Milestone 1:
+New additions and Design Decisions:
+Node.java:
+	This class encapsulates everything that has to do with a node. This was done to have high cohesion and so that each node can keep track of its own neighbors instead of the network to do that job. For every instantiation of a new Node object, there will be a name to represent that specific node. The Node class has a Hashset that contains a specific node object’s neighbors. If nodes are linked, then they are neighbors and they are added to eachother’s Hashset. The method to add a neighbor to a node is addNeighbour(Node n). To remove the connection between two nodes, we call the method removeNeighbour(Node n) that removes a node from another node’s Hashset. 
+
+Message.java:
+	The addition to this class is an array list that takes in node objects called history. Every time the set node method (setNode(Node n)) is called, it signifies that the message is going from one node to the next. When this occurs, we want to remember the previous node the message was at so we store it in the history array list and then set the new message position to the node that was passed into the setNode method. 
+
+Network.java:
+	For high cohesion and low coupling, the attributes of a node were moved to Node.java. Nodes can still be added or removed from a network by calling the methods add(Node n) or remove(Node n) respectively and these nodes are added or removed from the Hashset that takes in node objects. Another addition is a list of messages in the network. This list keeps track of all the messages that have been injected into the network while the network is still active. When the injectMessage(Message m) method is invoked, the new message is added to the list of messages for the current instance of network. Everything else is still the same from Milestone 1. 
+ 
+RandomAlgorithm.java:
+The random algorithm class is almost the same as the previous except it was modified to have a maximum number of messages that can be injected into the network. This was done so the simulation does not run forever. 
+
+Implemented Model View Controller model in the following form:
+UserInterface is the view that takes care of the general layout of the various components.
+UserInterfaceController is the controller. It implements ActionListener and takes care of the actions performed in the view. Where appropriate, it called the relevant methods in the Model class.
+Network is the model. It implements methods to add/remove nodes, and link/unlink node.
+Implemented Observer Observable model as follows:
+UserInterface is the Observer. It listens to the observer and behaves based on a set of commands given to it from the Observable.
+Network is the Observable.  Applicable methods, notify observers of the state change in that class
+Created Enums which are set as action commands for the various components in the UserInterface class. Additional enums are created for communication between the Observer and Observable.
 
 
 Contributions:
@@ -68,31 +123,6 @@ Osama Buhamad:
 •	Implemented test cases for MessageTest.java, NodeTest.java and RandomAlgorithm.java
 •	Implemented userInterfaceGraphic.java
 
-=====================================================================================
-			Milestone 2
-=====================================================================================
-Changes made to Milestone 1:
-New additions and Design Decisions:
-Node.java:
-	This class encapsulates everything that has to do with a node. This was done to have high cohesion and so that each node can keep track of its own neighbors instead of the network to do that job. For every instantiation of a new Node object, there will be a name to represent that specific node. The Node class has a Hashset that contains a specific node object’s neighbors. If nodes are linked, then they are neighbors and they are added to eachother’s Hashset. The method to add a neighbor to a node is addNeighbour(Node n). To remove the connection between two nodes, we call the method removeNeighbour(Node n) that removes a node from another node’s Hashset. 
-
-Message.java:
-	The addition to this class is an array list that takes in node objects called history. Every time the set node method (setNode(Node n)) is called, it signifies that the message is going from one node to the next. When this occurs, we want to remember the previous node the message was at so we store it in the history array list and then set the new message position to the node that was passed into the setNode method. 
-
-Network.java:
-	For high cohesion and low coupling, the attributes of a node were moved to Node.java. Nodes can still be added or removed from a network by calling the methods add(Node n) or remove(Node n) respectively and these nodes are added or removed from the Hashset that takes in node objects. Another addition is a list of messages in the network. This list keeps track of all the messages that have been injected into the network while the network is still active. When the injectMessage(Message m) method is invoked, the new message is added to the list of messages for the current instance of network. Everything else is still the same from Milestone 1. 
- 
-RandomAlgorithm.java:
-The random algorithm class is almost the same as the previous except it was modified to have a maximum number of messages that can be injected into the network. This was done so the simulation does not run forever. 
-
-Implemented Model View Controller model in the following form:
-UserInterface is the view that takes care of the general layout of the various components.
-UserInterfaceController is the controller. It implements ActionListener and takes care of the actions performed in the view. Where appropriate, it called the relevant methods in the Model class.
-Network is the model. It implements methods to add/remove nodes, and link/unlink node.
-Implemented Observer Observable model as follows:
-UserInterface is the Observer. It listens to the observer and behaves based on a set of commands given to it from the Observable.
-Network is the Observable.  Applicable methods, notify observers of the state change in that class
-Created Enums which are set as action commands for the various components in the UserInterface class. Additional enums are created for communication between the Observer and Observable.
 
 Known Issues:
 Please refer to our github repo for resolved and current issues.
