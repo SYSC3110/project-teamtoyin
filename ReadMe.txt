@@ -1,4 +1,4 @@
-Authors:
+﻿Authors:
 Richard Hanton
 Lina Elsadek
 Osama Buhamad
@@ -63,10 +63,10 @@ Richard Hanton:
 •	Modified Message.java added hops a message goes through
 •	
 Osama Buhamad:
-•	Implemented Graphic.java, MessageGraphic.java, NodeGraphic.java, 
-•	Worked on rate for RandomAlgorithm.java
-•	Implemented test cases for MessageTest.java, NodeTest.java and RandomAlgorithm.java
-•	Implemented userInterfaceGraphic.java
+•	Improved UserIntefaceGraphic class by showing a table of the path that a message took along with the topology  
+•	
+•	
+•	
 
 
 Known Issues:
