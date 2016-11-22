@@ -127,7 +127,7 @@ public class UserInterfaceGraphic extends JPanel  {
 					nodeGraphiclist.get(i).paintNode(g);
 				}
 				
-				//painting the links between the drawn nodes  
+				//painting the links between the drawn nodes . 
 				for(int i=0;i<list.size()-1;i++){
 					for(int j=i;j<list.size();j++)
 					{
