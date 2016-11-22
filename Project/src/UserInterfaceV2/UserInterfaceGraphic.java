@@ -254,58 +254,6 @@ public class UserInterfaceGraphic extends JPanel  {
 	 }
 	
 	
-	public static void main(String[] args) {
-		Network n = new Network();
-		
-		Node n1 = new Node("A");
-		Node n2 = new Node("B");
-		Node n3 = new Node("C");
-		Node n4 = new Node("D");
-		Node n5 = new Node("E");
-		Node n6 = new Node("F");
-		Node n7 = new Node("G");
-		Node n8 = new Node("H");
-		Node n9 = new Node("I");
-		Node n10 = new Node("J");
-		Node n11 = new Node("K");
-		
-		
-		n.add(n1);
-		n.add(n2);
-		n.add(n3);
-		n.add(n4);
-		n.add(n5);
-		n.add(n6);
-		n.add(n6);
-		n.add(n7);
-		n.add(n8);
-		n.add(n9);
-		n.add(n10);
-		n.add(n11);
-		
-		n.link(n1, n2);
-		n.link(n2, n3);
-		n.link(n3, n4);
-		n.link(n5, n2);
-		n.link(n6, n4);
-		n.link(n5, n6);
-		//n.link(n1,n6);
-		n.link(n7, n8);
-		n.link(n2, n9);
-		n.link(n9, n10);
-		n.link(n11, n10);
-		n.link(n5, n8);
-		Message m = new Message("MSG1", n1, n6);
-		Algorithm algo = new RandomAlgorithm(n);
-		boolean value = algo.run(m, 0);
-		UserInterfaceGraphic graph = new UserInterfaceGraphic(n,m);
-		
-		
-
-		
-		
 	
-	
-	}
 
 }
