@@ -166,36 +166,4 @@ public class FloodingAlgorithm extends Algorithm {
 		return null;
 		
 	}
-	
-	public static void main(String[] args) {
-		
-		Network n = new Network();
-		Node n1 = new Node("A");
-		Node n2 = new Node("B");
-		Node n3 = new Node("C");		
-		Node n4 = new Node("D");
-		Node n5 = new Node("E");
-
-		n.add(n1);
-		n.add(n2);
-		n.add(n3);
-		n.add(n4);
-		n.add(n5);
-
-		n.link(n1, n2);
-		n.link(n2, n3);
-		n.link(n2, n4);	
-		n.link(n3, n5);		
-		n.link(n4, n5);
-
-		FloodingAlgorithm algo = new FloodingAlgorithm(n);
-
-		Message m = new Message("MSG1", n1, n5);
-		boolean value = algo.run(m, 0);
-		System.out.println("Packets sent during transmission: " + algo.getPacketCount());
-		System.out.println("true or false " + value);
-		
-	}
-
-
 }

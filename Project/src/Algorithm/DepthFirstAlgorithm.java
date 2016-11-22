@@ -37,7 +37,6 @@ public class DepthFirstAlgorithm extends Algorithm {
 	 */
 	public void dfs(HashSet<Node> neighbors, Node node){
 		
-		//System.out.print(node.getName() + "\t");	//Prints out the current node we are on
 		//Add present node to the list of nodes that are been traversed
 		this.getTraverseList().add(node);
 		visited.add(node);
@@ -143,43 +142,6 @@ public class DepthFirstAlgorithm extends Algorithm {
 		}
 		
 		return next_node;	//Return the next node
-	}
-	
-	public static void main(String[] args) {
-		
-		Network n = new Network();
-		Node n1 = new Node("1");
-		Node n2 = new Node("2");
-		Node n3 = new Node("3");		
-		Node n4 = new Node("4");
-		Node n5 = new Node("5");
-
-		n.add(n1);
-		n.add(n2);
-		n.add(n3);
-		n.add(n4);
-		n.add(n5);
-
-		n.link(n1, n2);
-		n.link(n2, n3);
-		n.link(n2, n4);	
-		n.link(n3, n4);		
-		n.link(n4, n5);
-
-		DepthFirstAlgorithm algo = new DepthFirstAlgorithm(n);
-		
-		Message m = new Message("MSG1", n1, n2);
-		//algo.dfs(n1.getNeighbors(), n1);
-		//algo.run(m,0);
-		//print out the traverse list
-		//for(int i = 0; i< algo.getTraverseList().size(); i++){
-		//	System.out.println(algo.getTraverseList().get(i));
-		//}
-		
-		boolean value = algo.run(m, 0);
-		System.out.println("Packets sent during transmission: " + algo.getPacketCount());
-		System.out.println("true or false " + value);
-		
 	}
 
 }
