@@ -3,6 +3,9 @@ package UserInterfaceV2;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
@@ -45,7 +48,12 @@ public class UserInterfaceView extends JFrame implements Observer {
 	private JComboBox<Node> nodeListCombo1;			//Combo box for listing nodes
 	private JComboBox<Node> nodeListCombo2;			//Combo box for listing nodes
 	private JComboBox<String> algorithmListCombo;	//List of agorithms
-	private ArrayList<String> algorithms = new ArrayList<String>() {{ add("RandomAlgorithm"); add("FloodingAlgorithm"); add("ShortestPathAlgorithm"); add("DepthFirstAlgorithm"); }};
+	private ArrayList<String> algorithms = new ArrayList<String>() {{ 
+																		add("RandomAlgorithm"); 
+																		add("FloodingAlgorithm"); 
+																		add("ShortestPathAlgorithm"); 
+																		add("DepthFirstAlgorithm"); 
+																	}};
 	
 	/**
 	 * the console messages components 
@@ -72,6 +80,9 @@ public class UserInterfaceView extends JFrame implements Observer {
 		//Set default layout for our main window
 		this.setLayout(new BorderLayout());
 		
+		//Create menu bar
+		this.createMenuBar();
+		
 		//Add node manage section
 		this.createNodeManager();
 		
@@ -87,6 +98,45 @@ public class UserInterfaceView extends JFrame implements Observer {
 		//Set window visible
 		this.setVisible(true);
 		
+	}
+	
+	/**
+	 * Creates the menu bar at the top of the application
+	 */
+	public void createMenuBar() {
+		
+		//New menu bar
+	    JMenuBar menuBar = new JMenuBar();
+	    
+	    //Create file tab for menu
+	    JMenu fileMenu = new JMenu("File");
+	    
+	    //Import option
+	    JMenuItem importMenuItem = new JMenuItem("Import");
+	    
+	    //Add action listener for import
+	    importMenuItem.setActionCommand("Import");
+	    importMenuItem.addActionListener(new UserInterfaceController(this, this.uim));
+	    
+	    //Add import to file menu
+	    fileMenu.add(importMenuItem);
+	    
+	    //Save option
+	    JMenuItem saveMenuItem = new JMenuItem("Save");
+	    
+	    //Add action listener for import
+	    saveMenuItem.setActionCommand("Save");
+	    saveMenuItem.addActionListener(new UserInterfaceController(this, this.uim));
+	    
+	    //Add import to file menu
+	    fileMenu.add(saveMenuItem);
+	    
+	    //Add file menu to menu bar
+	    menuBar.add(fileMenu);
+	    
+	    //Set menu to JFrame
+	    this.setJMenuBar(menuBar);
+	    
 	}
 	
 	/**
@@ -599,8 +649,10 @@ public class UserInterfaceView extends JFrame implements Observer {
 	 */
 	
 	public void createOutputManager(){
+		
 		//adding a new JPanel for the text area  
 		frameOutputManager= new JPanel(new BorderLayout());
+		
 		//Set size of this panel
 		frameOutputManager.setPreferredSize(new Dimension(900, 200));
 		
