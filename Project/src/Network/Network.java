@@ -285,21 +285,6 @@ public class Network{
 		return null;
 	}	
 	
-	/**
-	 * Testing
-	 */
-	public static void main(String[] args) {
-		
-		Network n = new Network();
-		Node n1 = new Node("A");
-		Node n2 = new Node("B");
-		
-		n.add(n1);
-		n.add(n2);
-		
-		n.link(n1,  n2);
-		n.unlink(n1,  n2);
-		
-	}
+	
 	
 }

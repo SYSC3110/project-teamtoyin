@@ -163,12 +163,12 @@ public class Run {
 		    
 		    if(choice <=0) {
 		    	System.out.println("That's not a positive number!");
-		    } else if(choice !=1) {
+		    } else if(choice <1 || choice>4) {
 		    	System.out.println("You have entered an invalid option.");
 		    	printAlgorithmMenu();
 		    }
 		    
-		} while (choice != 1);
+		} while (choice <1 ||choice >4 );
 		
 		//Prompt the user if he wants to add rate or not
 		System.out.println("Do you want to add a rate value enter yes or no?");
@@ -223,9 +223,9 @@ public class Run {
 	private static void printAlgorithmMenu() {
 		System.out.println("Enter the algorithm you want to be used. Your Options are:");
 		System.out.println("1) Random Algorithm");
-		//System.out.println("2) Flooding Algorithm");
-		//System.out.println("3) Shortest Path Algorithm");
-		//System.out.println("4) To be Decided");
+		System.out.println("2) Flooding Algorithm");
+		System.out.println("3) Shortest Path Algorithm");
+		System.out.println("4) Depth First Algorithm");
 	}
 	
 	private static void printWelcome() {
@@ -242,12 +242,16 @@ public class Run {
 				flag = true;
 				break;
 			case 2: 
-				//algorithm = new FloodingAlgorithm(network);
+				algorithm = new FloodingAlgorithm(network);
+				flag = true;
 				break;
 			case 3:
-				//algorithm = new ShortPathAlgorithm(network);
+				algorithm = new ShortestPathAlgorithm(network);
+				flag = true;
 				break;
 			case 4:
+				algorithm = new DepthFirstAlgorithm(network);
+				flag = true;
 				break;
 			default:
 				System.out.println("Invalid choice, no such algorithm");

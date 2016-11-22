@@ -148,32 +148,4 @@ public class RandomAlgorithm extends Algorithm {
 
 	}
 
-	/**
-	 * Testing
-	 */
-	public static void main(String[] args) {
-
-		Network n = new Network();
-		Node n1 = new Node("A");
-		Node n2 = new Node("B");
-		Node n3 = new Node("C");
-		Node n4 = new Node("D");
-
-		n.add(n1);
-		n.add(n2);
-		n.add(n3);
-		n.add(n4);
-
-		n.link(n1, n2);
-		n.link(n2, n3);
-		n.link(n3, n4);
-
-		Algorithm algo = new RandomAlgorithm(n);
-
-		Message m = new Message("MSG1", n1, n4);
-		boolean value = algo.run(m, 3);
-		System.out.println("Packets sent during transmission: " + algo.getPacketCount());
-		System.out.println("true or false " + value);
-	}
-
 }

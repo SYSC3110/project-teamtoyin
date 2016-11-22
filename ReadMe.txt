@@ -1,4 +1,4 @@
-Authors:
+﻿Authors:
 Richard Hanton
 Lina Elsadek
 Osama Buhamad
@@ -38,8 +38,40 @@ next(Message m): this method takes in a Message object that represents a Message
 •	Get routing table for that specific node and determine the next node to traverse to depending on the already populated routing table 
 •	Return the next node 
 
-DepthFirstAlgorithm.java:
-This algorithm uses a recursive depth first algorithm to determine how to traverse a network given an initial node
+DepthFirstAlgorithm.java (Our own routing algorithm):
+This algorithm uses a recursive depth first algorithm to determine how to traverse a network given the first node in the network. We chose the first node in the network so that the path taken is static and in real life scenario less costly for routers to have to perform the algorithm each time they get a network. No need for extremely smart routers when using this algorithm except for the first node which will be the centralized node. 
+dfs(HashSet<Node> neighbours, Node node): this method takes in a Node object and also takes in a HashSet<Node> object which represents the neighbours of the specific node. The node is added to the traverse list and also to the visited list and then we get each node in its neighbours list and recursively call the dfs method.
+getTraverseList(): returns the traverse list that contains how the messages will be traversed in the network based on current node position.
+step(): this method performs a simulation step, moving messages to the next node and injecting new messages as required. It returns false if there are no further steps to be taken. This message does this by invoking the method next(Message m). In this method the hop count and packet counts are incremented to account for the metrics we are keeping track of. 
+next(Message m): this method takes in a Message object that represents a Message and determines the next node that a packet should traverse from the current node. It does this by:
+•	Checks if node actually exists in the Network and if it is included in the traverse list
+•	Gets the current position of the message in the traverse list and sets the next node to the next node in the traverse list 
+•	Return the next node 
+
+Contributions:
+Lina El Sadek: 
+•	Added unit tests for all remaining algorithm classes, and User Interface classes.
+•	Redrew the UML Diagram using Draw.io.
+•	Refactored the Algorithm Classes to reduce code duplication.
+
+Toyin Odujebe: 
+•	Implemented DepthFirstAlgorithm.java, DepthFirstAlgorithmTest.java
+•	Wrote the readMe file
+•	Refactored classes that contain unnecessary methods and code.
+
+Richard Hanton: 
+•	Updated the User Manual for the new GUI.
+•	Implemented a new GUI.
+
+Osama Buhamad:
+•	Improved UserIntefaceGraphic class by showing a table of the path that a message took along with the topology.  
+•	Modified the GUI to show the information messages instead of the console. 
+•	refactored and cleaned up the code in some classes.  
+•	Added the ability to save the topology to an image to use it for next milestone.
+
+
+Known Issues:
+Please refer to our github repo for resolved and current issues.
 =====================================================================================
 			Milestone 2
 =====================================================================================

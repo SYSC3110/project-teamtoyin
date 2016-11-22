@@ -238,34 +238,4 @@ public class ShortestPathAlgorithm extends Algorithm {
 		
 	}
 	
-	public static void main(String[] args) {
-		
-		Network n = new Network();
-		Node n1 = new Node("1");
-		Node n2 = new Node("2");
-		Node n3 = new Node("3");		
-		Node n4 = new Node("4");
-		Node n5 = new Node("5");
-
-		n.add(n1);
-		n.add(n2);
-		n.add(n3);
-		n.add(n4);
-		n.add(n5);
-
-		n.link(n1, n2);
-		n.link(n2, n3);
-		n.link(n2, n4);	
-		n.link(n3, n4);		
-		n.link(n4, n5);
-
-		ShortestPathAlgorithm algo = new ShortestPathAlgorithm(n);
-		Message m = new Message("MSG1", n1, n5);
-		boolean value = algo.run(m, 0);
-		System.out.println("Packets sent during transmission: " + algo.getPacketCount());
-		System.out.println("true or false " + value);
-		
-	}
-	
-
 }
