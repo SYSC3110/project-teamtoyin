@@ -14,6 +14,8 @@ import Network.Node;
 public class DepthFirstAlgorithm extends Algorithm {
 	private ArrayList<Node> visited;	//List that contains every node that has been visited
 	private ArrayList<Node> traverseList; //List that contains how the network was traversed from the initial node
+	private boolean flag=false;
+	private Node source;
 	
 	public DepthFirstAlgorithm(Network network) throws NullPointerException{
 		//If network is null throw exception
@@ -28,7 +30,7 @@ public class DepthFirstAlgorithm extends Algorithm {
 		this.traverseList = new ArrayList<Node>();
 		this.visited = new ArrayList<Node>();
 		//Now based on our logic we chose the first node from the list of nodes in the network
-		this.dfs(network.getNodes().iterator().next().getNeighbors(), network.getNodes().iterator().next());
+		//this.dfs(network.getNodes().iterator().next().getNeighbors(), network.getNodes().iterator().next());
 
 	}
 	
@@ -125,7 +127,12 @@ public class DepthFirstAlgorithm extends Algorithm {
 		// TODO Auto-generated method stub
 		Node next_node = null;	//Node to be returned
 		Node n;
-		
+		//Check if its the first time this method is being called and sets the flag to true so it does not populate the table over and over again
+		if(flag==false){
+			source= m.getNode();
+			this.dfs(source.getNeighbors(), source);
+			flag=true;
+		}
 		n = m.getNode();	//Set n to the present node
 			
 		// If the node isn't present in the network or in the traverse list then just return
@@ -143,5 +150,5 @@ public class DepthFirstAlgorithm extends Algorithm {
 		
 		return next_node;	//Return the next node
 	}
-
+	
 }
