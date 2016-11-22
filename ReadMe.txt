@@ -56,19 +56,19 @@ Lina El Sadek:
 Toyin Odujebe: 
 •	Implemented DepthFirstAlgorithm.java, DepthFirstAlgorithmTest.java
 •	Wrote the readMe file
-•	Fixed some messy code issues in some classes.
+•	Refactored classes that contain unnecessary methods and code.
 
 Richard Hanton: 
-•	Implemented the Node.java class, Algorithm.java, Network.java, RandomAlgorithm.java, ShortestPathAlgorithm.java
-•	Worked on refactoring the GUI
-•	Modified FloodingAlgorithm.java. Fixed the rate issues in the algorithms
-•	Modified Message.java added hops a message goes through
+•	
+•	
+•	
+•	
 •	
 Osama Buhamad:
-•	Improved UserIntefaceGraphic class by showing a table of the path that a message took along with the topology  
-•	
-•	
-•	
+•	Improved UserIntefaceGraphic class by showing a table of the path that a message took along with the topology.  
+•	Modified the GUI to show the information messages instead of the console. 
+•	refactored and cleaned up the code in some classes.  
+•	Added the ability to save the topology to an image to use it for next milestone.
 
 
 Known Issues:
