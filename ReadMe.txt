@@ -50,20 +50,19 @@ next(Message m): this method takes in a Message object that represents a Message
 
 Contributions:
 Lina El Sadek: 
-•	 Added unit tests for all remaining algorithm classes, and User Interface classes.
-  Redrew the UML Diagram using Draw.io.
-  Refactored the Algorithm Classes to reduce code duplication.
+•	Added unit tests for all remaining algorithm classes, and User Interface classes.
+•	Redrew the UML Diagram using Draw.io.
+•	Refactored the Algorithm Classes to reduce code duplication.
+
 Toyin Odujebe: 
 •	Implemented DepthFirstAlgorithm.java, DepthFirstAlgorithmTest.java
 •	Wrote the readMe file
 •	Refactored classes that contain unnecessary methods and code.
 
 Richard Hanton: 
-•	
-•	
-•	
-•	
-•	
+•	Updated the User Manual for the new GUI.
+•	Implemented a new GUI.
+
 Osama Buhamad:
 •	Improved UserIntefaceGraphic class by showing a table of the path that a message took along with the topology.  
 •	Modified the GUI to show the information messages instead of the console. 
