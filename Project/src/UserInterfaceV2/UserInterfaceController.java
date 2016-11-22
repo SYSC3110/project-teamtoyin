@@ -109,6 +109,12 @@ public class UserInterfaceController implements ActionListener {
 				
 			}
 
+		//If importing a previously saved network
+		} else if (command == "Import") {
+			
+		//If saving the current network
+		} else if (command == "Save") {
+			
 		}
 		
 
