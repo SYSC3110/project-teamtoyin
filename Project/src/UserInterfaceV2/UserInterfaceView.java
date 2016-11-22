@@ -794,7 +794,7 @@ public class UserInterfaceView extends JFrame implements Observer {
 		if (e.getSuccess()) {
 		
 			//Check if event type is new nodes added or removed
-			if (e.getType() == "Node Update") {
+			if (e.getType() == "Node Update" || e.getType() == "Import Network") {
 				
 				//Update the node manager section
 				updateNodeManager(e);
@@ -802,7 +802,7 @@ public class UserInterfaceView extends JFrame implements Observer {
 			}
 			
 			//Check if event type is new links created, if nodes removes then links removed too 
-			if (e.getType() == "Node Link Update" || e.getType() == "Node Update") {
+			if (e.getType() == "Node Link Update" || e.getType() == "Node Update" || e.getType() == "Import Network") {
 				
 				//Update the link nodes manager section
 				updateLinkManager(e);
@@ -839,8 +839,22 @@ public class UserInterfaceView extends JFrame implements Observer {
 						
 					}
 				}
+				
 			}
-		
+			
+			//If saving network output message			
+			if (e.getType() == "Save Network" || e.getType() == "Import Network") {
+				
+				//If a message is present
+				if (e.getMessage() != "") {
+					
+					//Show message
+					JOptionPane.showMessageDialog(null, e.getMessage());
+					
+				}
+				
+			} 
+			
 		//Show error message if available
 		} else {
 			

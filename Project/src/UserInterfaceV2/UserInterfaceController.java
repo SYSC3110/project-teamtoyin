@@ -2,6 +2,9 @@ package UserInterfaceV2;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import javax.swing.JFileChooser;
+import javax.swing.JTextField;
+
 import Network.*;
 
 public class UserInterfaceController implements ActionListener {
@@ -110,10 +113,62 @@ public class UserInterfaceController implements ActionListener {
 			}
 
 		//If importing a previously saved network
-		} else if (command == "Import") {
+		} else if (command == "Save") {
+			
+			//Filename from save dialog
+			JTextField filename = new JTextField();
+			
+			//Path to directory from save dialog
+			JTextField dir = new JTextField();
+			
+			//File choose for saving file
+			JFileChooser c = new JFileChooser();
+			
+			//Save dialog
+			int rVal = c.showSaveDialog(uiv);
+			
+			//Get the file name they will save as 
+			if (rVal == JFileChooser.APPROVE_OPTION) {
+				
+				//Set filename text
+				filename.setText(c.getSelectedFile().getName());
+				
+				//Set directory text
+				dir.setText(c.getCurrentDirectory().toString());
+				
+				//Tell the model to save to the path they chose
+				uim.save(dir.getText() + "\\" +  filename.getText());
+				
+			}
 			
 		//If saving the current network
-		} else if (command == "Save") {
+		} else if (command == "Import") {
+			
+			//Filename from import dialog
+			JTextField filename = new JTextField();
+			
+			//Path to directory from save dialog
+			JTextField dir = new JTextField();
+			
+			//File choose to select file to import			
+			JFileChooser c = new JFileChooser();
+			
+			//Open dialog
+			int rVal = c.showOpenDialog(uiv);
+			
+			//File selected
+			if (rVal == JFileChooser.APPROVE_OPTION) {
+				
+				//Set filename text
+				filename.setText(c.getSelectedFile().getName());
+				
+				//Set directory text
+				dir.setText(c.getCurrentDirectory().toString());
+				
+				//Tell the model to load from the path they chose
+				uim.load(dir.getText() + "\\" +  filename.getText());
+				
+			}
 			
 		}
 		

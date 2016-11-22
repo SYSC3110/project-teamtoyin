@@ -1,4 +1,5 @@
 package Network;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashSet;
 
@@ -9,7 +10,7 @@ import java.util.HashSet;
  *	Modified By: Lina El Sadek on 10/25/2016
  */
 
-public class Network{
+public class Network {
 	
 	private HashSet<Node> nodes;			//Stores all of the network nodes
 	private ArrayList<Message> messages;	//List of messages present in the network

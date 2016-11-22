@@ -2,9 +2,16 @@ package UserInterfaceV2;
 
 import java.lang.reflect.Constructor;
 import java.util.Observable;
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.ObjectOutputStream;
 
 import Algorithm.*;
 import Network.*;
+
 /**
  * Author: Richard Hanton
  * Modified: Osama Buhamad
@@ -323,5 +330,54 @@ public class UserInterfaceModel extends Observable {
 		notifyObservers(e);				
 		
 	}
+
+
+	/**
+	 * Saves the network to the specified path
+	 */
+	public void save(String path) {
+		
+		//Create event
+		UserInterfaceEvent e = new UserInterfaceEvent(this);
+		
+		//Set type of event
+		e.setType("Save Network");
+		
+		
+		//SAVE HERE 
+		
+		
+		
+		//Set observer as changed 
+		setChanged();		
+		
+		//Notify view that the model updated
+		notifyObservers(e);			
+		
+	}
+	
+	/**
+	 * Import a saved network
+	 */
+	public void load(String path) {
+		
+		//Create event
+		UserInterfaceEvent e = new UserInterfaceEvent(this);
+		
+		//Set type of event
+		e.setType("Import Network");
+		
+		
+		//LOAD HERE
+		
+		
+		//Set observer as changed 
+		setChanged();		
+		
+		//Notify view that the model updated
+		notifyObservers(e);	
+				
+	}
+	
 }
 
