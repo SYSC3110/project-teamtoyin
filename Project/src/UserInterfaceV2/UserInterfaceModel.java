@@ -1,12 +1,23 @@
 package UserInterfaceV2;
 
 import java.lang.reflect.Constructor;
+import java.util.ArrayList;
 import java.util.Observable;
+
+import com.google.gson.ExclusionStrategy;
+import com.google.gson.FieldAttributes;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonIOException;
+
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.io.ObjectOutputStream;
 
 import Algorithm.*;
@@ -336,17 +347,34 @@ public class UserInterfaceModel extends Observable {
 	 * Saves the network to the specified path
 	 */
 	public void save(String path) {
-		
+				
 		//Create event
 		UserInterfaceEvent e = new UserInterfaceEvent(this);
 		
 		//Set type of event
 		e.setType("Save Network");
 		
-		
-		//SAVE HERE 
-		
-		
+		//Try/Catch
+		try {
+			
+			
+			//SAVE NETWORK HERE
+			
+			
+			//Success
+			e.setSuccess(true);
+			
+			//Success message
+			e.setMessage("Network saved.");
+			
+		//Caught exception
+		} catch (Exception ex) {
+			
+			//Assign error message to string
+			e.setMessage(ex.toString());
+			
+		}
+
 		
 		//Set observer as changed 
 		setChanged();		
@@ -367,9 +395,26 @@ public class UserInterfaceModel extends Observable {
 		//Set type of event
 		e.setType("Import Network");
 		
-		
-		//LOAD HERE
-		
+		//Try/Catch
+		try {
+			
+			
+			//LOAD NETWORK HERE
+			
+			
+			//Success
+			e.setSuccess(true);
+			
+			//Success message
+			e.setMessage("Network imported.");
+			
+		//Caught exception
+		} catch (Exception ex) {
+			
+			//Assign error message to string
+			e.setMessage(ex.toString());
+			
+		}
 		
 		//Set observer as changed 
 		setChanged();		
