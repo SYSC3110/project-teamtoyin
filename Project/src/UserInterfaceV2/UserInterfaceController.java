@@ -7,6 +7,10 @@ import javax.swing.JTextField;
 
 import Network.*;
 
+/**
+ * Author: Richard Hanton
+ *
+ */
 public class UserInterfaceController implements ActionListener {
 
 	private UserInterfaceModel uim;	//User interface model 

@@ -2,8 +2,12 @@ package UserInterfaceV2;
 
 import Network.*;
 
-import java.util.EventObject;
 
+import java.util.EventObject;
+/**
+ * Author: Richard Hanton
+ *
+ */
 public class UserInterfaceEvent extends EventObject {
 	
 	private Network network;

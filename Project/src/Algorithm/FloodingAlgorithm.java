@@ -38,6 +38,7 @@ public class FloodingAlgorithm extends Algorithm {
 	 */
 	@Override
 	protected boolean step() {
+		
 		Node new_n; 				//New node to move message to
 		Message new_m;				//New message created to flood out
 		ArrayList<Message> messages;//New list of messages for the network
@@ -47,6 +48,7 @@ public class FloodingAlgorithm extends Algorithm {
 		
 		//If no more messages travelling in network and the network is not receiving new messages
 		if (!network.messagesMoving() && !network.isOpen()) {
+			
 			getInfo().add(" No messages moving and network closed for new messages.\n");
 			System.out.println("No messages moving and network closed for new messages.");
 			
@@ -58,6 +60,7 @@ public class FloodingAlgorithm extends Algorithm {
 		
 		//For each message in network
 		while (i.hasNext()) {
+			
 			getInfo().add("Message under considering...\n");
 			System.out.println("Message under considering...");
 			
@@ -142,9 +145,11 @@ public class FloodingAlgorithm extends Algorithm {
 		
 		// If the node isn't present in the network return
 		if (!network.contains(n)) {
+			
 			getInfo().add("Does not contain node " + n.getName()+"\n");
 			System.out.println("Does not contain node " + n.getName());
 			return null;
+			
 		}
 
 		// Get the nodes neighbors
@@ -153,16 +158,20 @@ public class FloodingAlgorithm extends Algorithm {
 
 		// Fetch the random neighbor and return it
 		for (Node neighbor_n : neighbors) {
-			if (!m.getHistory().contains(neighbor_n))
+			
+			//If we havn't visited this node
+			if (!m.getHistory().contains(neighbor_n)) {
 				return neighbor_n;
-			else
+			} else {
 				getInfo().add("Message history contains " + neighbor_n.getName()+"\n");
 				System.out.println("Message history contains " + neighbor_n.getName());
+			}
 		}
 
 		// We should not get to this point
 		getInfo().add("No new neighbor nodes to send this message to \n");
 		System.out.println("No new neighbor nodes to send this message to");
+		
 		return null;
 		
 	}
