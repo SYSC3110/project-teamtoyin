@@ -936,9 +936,13 @@ public class UserInterfaceView extends JFrame implements Observer {
 		
 	}
 	
+	/**
+	 * For initializing the GUI and showing it 
+	 * @param args
+	 */
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
 
+		//Create a new instance of the view, will automatically show the GUI
 		UserInterfaceView view = new UserInterfaceView();
 		
 	}
