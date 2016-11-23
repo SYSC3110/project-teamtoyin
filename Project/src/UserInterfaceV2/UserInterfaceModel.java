@@ -1,8 +1,23 @@
 package UserInterfaceV2;
 
 import java.lang.reflect.Constructor;
+import java.util.ArrayList;
 import java.util.Observable;
 
+import java.io.File;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.OutputKeys;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerException;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
+
+import org.w3c.dom.Attr;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
 
 import Algorithm.*;
 import Network.*;
@@ -331,7 +346,8 @@ public class UserInterfaceModel extends Observable {
 	 * Saves the network to the specified path
 	 */
 	public void save(String path) {
-				
+		ArrayList<Node> linked = new ArrayList<Node>();
+		
 		//Create event
 		UserInterfaceEvent e = new UserInterfaceEvent(this);
 		
@@ -341,9 +357,94 @@ public class UserInterfaceModel extends Observable {
 		//Try/Catch
 		try {
 			
+			//New document builder factory
+			DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
 			
-			//SAVE NETWORK HERE
+			//New document builder
+			DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
+
+			//Root element of our document
+			Document doc = docBuilder.newDocument();
 			
+			//Network element of document
+			Element rootElement = doc.createElement("network");
+			
+			//Add network to doc
+			doc.appendChild(rootElement);
+			
+			//Nodes element of document
+			Element nodesElement = doc.createElement("nodes");
+			
+			//Add network to doc
+			rootElement.appendChild(nodesElement);
+			
+			//Append each node
+			for (Node n : this.network.getNodes()) {
+				
+				//Create node element
+				Element nodeElement = doc.createElement("node");
+				
+				//Add node name to element
+				nodeElement.appendChild(doc.createTextNode(n.getName()));
+				
+				//Add to nodes section
+				nodesElement.appendChild(nodeElement);
+				
+			}
+
+			//Nodes element of document
+			Element linksElement = doc.createElement("links");
+			
+			//Add network to doc
+			rootElement.appendChild(linksElement);
+			
+			//Append each node
+			for (Node n : this.network.getNodes()) {
+				
+				//For each link on this node
+				for (Node neighbor : n.getNeighbors()) {
+				
+					//If we have already linked from other node
+					if (linked.contains(neighbor)) 
+						continue;
+					
+					//Create node element
+					Element linkElement = doc.createElement("link");
+					
+					//Add from to link element
+					linkElement.setAttribute("from", n.getName());
+					
+					//Add to to link element
+					linkElement.setAttribute("to", neighbor.getName());
+					
+					//Add link element to links list
+					linksElement.appendChild(linkElement);					
+				
+				}
+				
+				//Add this node to linked
+				linked.add(n);
+				
+			}
+			
+			//New transformer factory
+			TransformerFactory transformerFactory = TransformerFactory.newInstance();
+			
+			//New transformer
+			Transformer transformer = transformerFactory.newTransformer();
+			
+			//Transformer settings
+			transformer.setOutputProperty(OutputKeys.INDENT, "yes");
+			transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "2");
+			
+			//Get document source
+			DOMSource source = new DOMSource(doc);
+			
+			//Stream to save file
+			StreamResult result = new StreamResult(new File(path));
+
+			//Save to file
+			transformer.transform(source, result);
 			
 			//Success
 			e.setSuccess(true);
@@ -359,7 +460,6 @@ public class UserInterfaceModel extends Observable {
 			
 		}
 
-		
 		//Set observer as changed 
 		setChanged();		
 		
@@ -373,6 +473,9 @@ public class UserInterfaceModel extends Observable {
 	 */
 	public void load(String path) {
 		
+		//Clear current network
+		this.network = new Network();
+		
 		//Create event
 		UserInterfaceEvent e = new UserInterfaceEvent(this);
 		
@@ -382,10 +485,70 @@ public class UserInterfaceModel extends Observable {
 		//Try/Catch
 		try {
 			
+			//Load file from path
+			File fXmlFile = new File(path);
 			
-			//LOAD NETWORK HERE
+			//New document builder factory
+			DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
 			
+			//New document builder
+			DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
 			
+			//Parse document
+			Document doc = dBuilder.parse(fXmlFile);
+			
+			//Normalize document
+			doc.getDocumentElement().normalize();
+			
+			//Get all nodes
+			org.w3c.dom.NodeList nodeList = doc.getElementsByTagName("node");
+				
+			//For each node
+			for (int temp = 0; temp < nodeList.getLength(); temp++) {
+
+				//Get individual node
+				org.w3c.dom.Node nNode = nodeList.item(temp);
+				
+				//Check node name not blank
+				if (nNode.getTextContent() != "") {
+					
+					//Create new node
+					Node n = new Node(nNode.getTextContent());
+					
+					//Add node to this network
+					this.network.add(n);
+				
+				}
+				
+			}
+			
+			//Get all links
+			org.w3c.dom.NodeList linkList = doc.getElementsByTagName("link");
+				
+			//For each node
+			for (int temp = 0; temp < linkList.getLength(); temp++) {
+
+				//Get individual node
+				org.w3c.dom.Node lNode = linkList.item(temp);
+									
+				//Get to and from node names
+				String fromNode = lNode.getAttributes().getNamedItem("from").getNodeValue();
+				String toNode = lNode.getAttributes().getNamedItem("to").getNodeValue();
+				
+				//If both nodes exist in the network, link them
+				if (this.network.getNode(fromNode) != null &&
+						this.network.getNode(toNode) != null) {
+								
+					//Create new node
+					this.network.link(this.network.getNode(fromNode), this.network.getNode(toNode));
+				
+				}
+		
+			}
+			
+			//Set network in event
+			e.setNetwork(this.network);
+				
 			//Success
 			e.setSuccess(true);
 			
@@ -396,8 +559,8 @@ public class UserInterfaceModel extends Observable {
 		} catch (Exception ex) {
 			
 			//Assign error message to string
-			e.setMessage(ex.toString());
-			
+			e.setMessage(ex.getMessage());
+
 		}
 		
 		//Set observer as changed 
