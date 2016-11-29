@@ -665,8 +665,12 @@ public class UserInterfaceView extends JFrame implements Observer {
 		//adding a scroll bar when neededc 
 		outputScroll = new JScrollPane(outputDescriptionTextArea, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 
+		//Add scroll to frame
 		frameOutputManager.add(outputScroll);
+		
+		//Add to main frame
 		this.add(frameOutputManager, BorderLayout.WEST);
+		
 	}
 	
 	/**

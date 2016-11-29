@@ -304,14 +304,11 @@ public class UserInterfaceModel extends Observable {
 		    //Initialize the algorithm
 		    algorithm = (Algorithm) con.newInstance(network);
 		    
-		   
-		    
 		    //Run the algorithm
 		    if (algorithm.run(message, rate)) {
 		    	
 		    	//Algorithm successfully executed
 		    	e.setSuccess(true);
-		    	
 		    	
 		    	//Set a success message and pass the information to be displayed 
 		    	e.setMessage(algorithm.getInfoStr()+": Algorithm ran successfully");
@@ -325,6 +322,7 @@ public class UserInterfaceModel extends Observable {
 		    	e.setMessage("Something went wrong running the algorithm...");
 		    	
 		    }
+		    
 		    	        
 		//Caught exception
 		} catch (Exception ex) {
@@ -340,7 +338,6 @@ public class UserInterfaceModel extends Observable {
 		notifyObservers(e);				
 		
 	}
-
 
 	/**
 	 * Saves the network to the specified path

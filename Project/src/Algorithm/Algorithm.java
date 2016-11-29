@@ -19,9 +19,9 @@ public abstract class Algorithm {
 	protected int packet_count;
 	protected Network network;
 	private int max_injections = 20;
-	
 	private ArrayList<String> info = new ArrayList<String>();
 	private String infoStr="";
+	
 	/**
 	 * Run method which moves the specified message from the source
 	 * to its destination using the algorithms method for selecting 
@@ -81,7 +81,6 @@ public abstract class Algorithm {
 		return true;
 		
 	}
-
 	
 	/**
 	 * Performs a simulation step on the messages within the network
