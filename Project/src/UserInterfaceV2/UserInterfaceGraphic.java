@@ -60,198 +60,187 @@ public class UserInterfaceGraphic extends JPanel  {
 	private ArrayList<NodeGraphic> messageGraphicList;
 	private static HashMap<String, List<Integer>> historyMap;
 	List<Integer> orders = new ArrayList<Integer>();
-
 	private MessageGraphic mg;
 	
-			
+	public UserInterfaceGraphic(Network network, Message m) {
 
-	public UserInterfaceGraphic(Network network,Message m){
-		
 		f = new JFrame("Network Topology");
 		f.setLayout(new BorderLayout());
 
 		f.getContentPane().add(this, BorderLayout.SOUTH);
 
-		this.network=network;
+		this.network = network;
 		list = new ArrayList<Node>(network.getNodes());
 		nodeGraphiclist = new ArrayList<NodeGraphic>();
-		this.count=0;
+		this.count = 0;
 		setNodeCoordinatesCounter = 0;
 
-		mg= new MessageGraphic(getName(), 0, 0);
-		messagePathList= new ArrayList<Node>();
+		mg = new MessageGraphic(getName(), 0, 0);
+		messagePathList = new ArrayList<Node>();
 		messageGraphicList = new ArrayList<NodeGraphic>();
-		historyMap = new HashMap<String,List<Integer>>();
+		historyMap = new HashMap<String, List<Integer>>();
 
 		this.messagePath(m);
 		setHistoryhMap();
-		//printhistoryMap();
+		// printhistoryMap();
 
 		table = new JTable(this.toTableModel(historyMap));
-		table.setSize(900,150);
+		table.setSize(900, 150);
 		table.setGridColor(Color.RED);
 		table.setEnabled(false);
-		//this.add(table);
+		// this.add(table);
 		f.add(this);
 		f.getContentPane().add(table, BorderLayout.NORTH);
 		f.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		f.setSize(900,900);
+		f.setSize(900, 900);
 		f.setVisible(true);
 		topologyToImg();
 	}
-	
-	
+
 	/**
 	 * save an image of the created topology
 	 */
-	public void topologyToImg(){
+	public void topologyToImg() {
 		BufferedImage image = new BufferedImage(this.getWidth(), this.getHeight(), BufferedImage.TYPE_INT_ARGB);
 		Graphics g = image.getGraphics();
 		this.paint(g);
-		 try {
-		        ImageIO.write(image, "png", new File("topology.png"));
-		    } catch (IOException ex) {
-		        Logger.getLogger(Customizer.class.getName()).log(Level.SEVERE, null, ex);
-		   }	
-	}
-	
-	public void paintComponent(Graphics g){
-			super.paintComponent(g);
-			this.setBackground(Color.WHITE);
-
-			//calling this method to set the coordinates of the nodes before painting them 
-				if(setNodeCoordinatesCounter == 0)
-					setNodeCoordinates();
-				
-				for (int i=0;i<nodeGraphiclist.size();i++){
-					nodeGraphiclist.get(i).paintNode(g);
-				}
-				
-				//painting the links between the drawn nodes  
-				for(int i=0;i<list.size()-1;i++){
-					for(int j=i;j<list.size();j++)
-					{
-						if(list.get(i).hasNeighbor(list.get(j))){
-							int x =nodeGraphiclist.get(j).getxPosition();
-							int y =nodeGraphiclist.get(j).getyPosition();
-							nodeGraphiclist.get(i).paintLink(g,x,y);
-						}
-					}		
-				}
-				
-
-				g.setColor(Color.BLACK);
-				g.drawString("Path taken: ", 0, 10);
-				
-				
-			
+		try {
+			ImageIO.write(image, "png", new File("topology.png"));
+		} catch (IOException ex) {
+			Logger.getLogger(Customizer.class.getName()).log(Level.SEVERE, null, ex);
 		}
-	
+	}
 
-			
-		
+	public void paintComponent(Graphics g) {
+		super.paintComponent(g);
+		this.setBackground(Color.WHITE);
+
+		// calling this method to set the coordinates of the nodes before
+		// painting them
+		if (setNodeCoordinatesCounter == 0)
+			setNodeCoordinates();
+
+		for (int i = 0; i < nodeGraphiclist.size(); i++) {
+			nodeGraphiclist.get(i).paintNode(g);
+		}
+
+		// painting the links between the drawn nodes
+		for (int i = 0; i < list.size() - 1; i++) {
+			for (int j = i; j < list.size(); j++) {
+				if (list.get(i).hasNeighbor(list.get(j))) {
+					int x = nodeGraphiclist.get(j).getxPosition();
+					int y = nodeGraphiclist.get(j).getyPosition();
+					nodeGraphiclist.get(i).paintLink(g, x, y);
+				}
+			}
+		}
+
+		g.setColor(Color.BLACK);
+		g.drawString("Path taken: ", 0, 10);
+
+	}
+
 	/*
 	 * This method sets the coordinates of each node in the network
 	 */
-	public void setNodeCoordinates(){	
+	public void setNodeCoordinates() {
 
-		for (int i=0;i<list.size();i++){
+		for (int i = 0; i < list.size(); i++) {
 
-			 ng = new NodeGraphic(list.get(i).getName(),xPos,yPos);
+			ng = new NodeGraphic(list.get(i).getName(), xPos, yPos);
 			this.nodeGraphiclist.add(ng);
 
-			//placing the nodes bases on the count value 
-			if(count%2==0){
-				xPos+=100;
-				yPos+=0;
-			}else {
-				yPos+=100;
-				xPos+=0;
+			// placing the nodes bases on the count value
+			if (count % 2 == 0) {
+				xPos += 100;
+				yPos += 0;
+			} else {
+				yPos += 100;
+				xPos += 0;
 			}
-				count++;
+			count++;
 		}
-			setNodeCoordinatesCounter++;
+		setNodeCoordinatesCounter++;
 	}
-	
-	
 
-	public JFrame getFrame()
-	{
+	public JFrame getFrame() {
 		return f;
 	}
-	
+
 	/**
-	 * this method sets the locations of the nodes based on the message history 
+	 * this method sets the locations of the nodes based on the message history
+	 * 
 	 * @param m
 	 */
-	public void messagePath(Message m){
-		messagePathList = m.getHistory(); 
+	public void messagePath(Message m) {
+		messagePathList = m.getHistory();
 		setNodeCoordinates();
-		
-		for(int i=0;i<nodeGraphiclist.size();i++){
-			if(nodeGraphiclist.get(i).getName().equals(m.getDestination().getName())){
-				destNodeGraphic = new NodeGraphic(nodeGraphiclist.get(i).getName(), nodeGraphiclist.get(i).getxPosition(), nodeGraphiclist.get(i).getyPosition());
+
+		for (int i = 0; i < nodeGraphiclist.size(); i++) {
+			if (nodeGraphiclist.get(i).getName().equals(m.getDestination().getName())) {
+				destNodeGraphic = new NodeGraphic(nodeGraphiclist.get(i).getName(),
+						nodeGraphiclist.get(i).getxPosition(), nodeGraphiclist.get(i).getyPosition());
 				break;
 			}
-			} 
-		for(int i=0;i<messagePathList.size();i++){
-			for(int j=0;j<nodeGraphiclist.size();j++){
-				if(messagePathList.get(i).getName().equals(nodeGraphiclist.get(j).getName())){
-					//System.out.print(""+nodeGraphiclist.get(j).getName()+" x:"+nodeGraphiclist.get(j).getxPosition()+" y:"+nodeGraphiclist.get(j).getyPosition()+" ");
+		}
+		for (int i = 0; i < messagePathList.size(); i++) {
+			for (int j = 0; j < nodeGraphiclist.size(); j++) {
+				if (messagePathList.get(i).getName().equals(nodeGraphiclist.get(j).getName())) {
+					// System.out.print(""+nodeGraphiclist.get(j).getName()+"
+					// x:"+nodeGraphiclist.get(j).getxPosition()+"
+					// y:"+nodeGraphiclist.get(j).getyPosition()+" ");
 					messageGraphicList.add(nodeGraphiclist.get(j));
 				}
-			}		
+			}
 		}
-		 
-		//System.out.print(""+destNodeGraphic.getName()+" x:"+destNodeGraphic.getxPosition()+" y:"+destNodeGraphic.getyPosition()+" ");
+
+		// System.out.print(""+destNodeGraphic.getName()+"
+		// x:"+destNodeGraphic.getxPosition()+"
+		// y:"+destNodeGraphic.getyPosition()+" ");
 		messageGraphicList.add(destNodeGraphic);
-		
-		
+
 	}
-	
-	
-	public ArrayList<NodeGraphic> getMessagepath(){
+
+	public ArrayList<NodeGraphic> getMessagepath() {
 		return messageGraphicList;
 	}
-	
-	public void setHistoryhMap(){
-		for(int x=0; x<nodeGraphiclist.size();x++){
-			for(int i=0; i<getMessagepath().size();i++){
-				if(getMessagepath().get(i).getName().equals(nodeGraphiclist.get(x).getName()))
-				{
-				orders.add(i);
-				historyMap.put(getMessagepath().get(i).getName(),orders );
+
+	public void setHistoryhMap() {
+		for (int x = 0; x < nodeGraphiclist.size(); x++) {
+			for (int i = 0; i < getMessagepath().size(); i++) {
+				if (getMessagepath().get(i).getName().equals(nodeGraphiclist.get(x).getName())) {
+					orders.add(i);
+					historyMap.put(getMessagepath().get(i).getName(), orders);
 				}
 			}
 			orders = new ArrayList<Integer>();
-		}	
-		
+		}
+
 	}
-	
+
 	/**
-	 * prints the path of a message of each node 
+	 * prints the path of a message of each node
 	 */
-	public void printhistoryMap(){
+	public void printhistoryMap() {
 		for (Entry<String, List<Integer>> entry : historyMap.entrySet()) {
-		    System.out.println(entry.getKey()+" : "+entry.getValue());
+			System.out.println(entry.getKey() + " : " + entry.getValue());
 		}
 	}
 
 	/**
-	 * return the message history path in a table from 
+	 * return the message history path in a table from
+	 * 
 	 * @param map
 	 * @return
 	 */
 	public static TableModel toTableModel(Map map) {
-	     DefaultTableModel model = new DefaultTableModel (
-	   new Object[] { "Node", "Path" }, 0
-	  );
-	  for (Iterator it = map.entrySet().iterator(); it.hasNext();) {
-	   Map.Entry entry = (Map.Entry)it.next();
-	   model.addRow(new Object[] { entry.getKey(), entry.getValue() });
-	  }
-	  return model;
-	 }
+		DefaultTableModel model = new DefaultTableModel(new Object[] { "Node", "Path" }, 0);
+		for (Iterator it = map.entrySet().iterator(); it.hasNext();) {
+			Map.Entry entry = (Map.Entry) it.next();
+			model.addRow(new Object[] { entry.getKey(), entry.getValue() });
+		}
+		return model;
+	}
 	
 	
 	
