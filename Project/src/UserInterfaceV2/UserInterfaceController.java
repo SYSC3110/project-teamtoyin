@@ -175,7 +175,16 @@ public class UserInterfaceController implements ActionListener {
 			}
 			
 		}
-		
+		else if (command == "Export") {
+			
+			UserInterfaceGraphic g = uiv.getTopology();
+			
+			if (g!= null)
+			{
+				g.topologyToImg();
+			}
+				
+		}
 
 	}
 

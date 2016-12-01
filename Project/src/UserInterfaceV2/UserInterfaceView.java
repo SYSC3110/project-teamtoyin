@@ -61,7 +61,8 @@ public class UserInterfaceView extends JFrame implements Observer {
 	private JPanel frameOutputManager;
 	private JTextArea outputDescriptionTextArea;
 	private JScrollPane outputScroll;
-	private UserInterfaceGraphic frameTopologyManager2;
+	private UserInterfaceGraphic frameTopologyManager;
+	private UserInterfaceController controller;
 	
 	
 	/**
@@ -74,6 +75,8 @@ public class UserInterfaceView extends JFrame implements Observer {
 		
 		//Add this as observer to model
 		this.uim.addObserver(this);
+		
+		this.controller = new UserInterfaceController(this, this.uim);
 		
 		//Set default close action
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -89,9 +92,6 @@ public class UserInterfaceView extends JFrame implements Observer {
 		
 		//Add the information messages section
 		this.createOutputManager();
-		
-		
-		//this.createTopologyManager();
 		
 		//Load algorithms into dropdown
 		this.loadAlgorithms();
@@ -121,17 +121,27 @@ public class UserInterfaceView extends JFrame implements Observer {
 	    
 	    //Add action listener for import
 	    importMenuItem.setActionCommand("Import");
-	    importMenuItem.addActionListener(new UserInterfaceController(this, this.uim));
+	    importMenuItem.addActionListener(this.controller);
 	    
 	    //Add import to file menu
 	    fileMenu.add(importMenuItem);
+	    
+	    //Import option
+	    JMenuItem exportMenuItem = new JMenuItem("Export Topology");
+	    
+	    //Add action listener for import
+	    exportMenuItem.setActionCommand("Export");
+	    exportMenuItem.addActionListener(this.controller);
+	    
+	    //Add import to file menu
+	    fileMenu.add(exportMenuItem);
 	    
 	    //Save option
 	    JMenuItem saveMenuItem = new JMenuItem("Save");
 	    
 	    //Add action listener for import
 	    saveMenuItem.setActionCommand("Save");
-	    saveMenuItem.addActionListener(new UserInterfaceController(this, this.uim));
+	    saveMenuItem.addActionListener(this.controller);
 	    
 	    //Add import to file menu
 	    fileMenu.add(saveMenuItem);
@@ -259,7 +269,7 @@ public class UserInterfaceView extends JFrame implements Observer {
 		
 		//Add action listener to add button
 		addButton.setActionCommand("Add Node");
-		addButton.addActionListener(new UserInterfaceController(this, this.uim));
+		addButton.addActionListener(this.controller);
 		
 		//Add button to window
 		frameNodeManager.add(addButton, c);	
@@ -273,7 +283,7 @@ public class UserInterfaceView extends JFrame implements Observer {
 		
 		//Add action listener to remove button
 		removeButton.setActionCommand("Remove Node");
-		removeButton.addActionListener(new UserInterfaceController(this, this.uim));
+		removeButton.addActionListener(this.controller);
 		
 		//Add button to window
 		frameNodeManager.add(removeButton, c);	
@@ -393,7 +403,7 @@ public class UserInterfaceView extends JFrame implements Observer {
 		
 		//Add action listener to add button
 		linkButton.setActionCommand("Link Nodes");
-		linkButton.addActionListener(new UserInterfaceController(this, this.uim));
+		linkButton.addActionListener(this.controller);
 		
 		//Add button to window
 		frameNodeManager.add(linkButton, c);	
@@ -413,7 +423,7 @@ public class UserInterfaceView extends JFrame implements Observer {
 		
 		//Add action listener to add button
 		unlinkButton.setActionCommand("Unlink Nodes");
-		unlinkButton.addActionListener(new UserInterfaceController(this, this.uim));
+		unlinkButton.addActionListener(this.controller);
 		
 		//Add button to window
 		frameNodeManager.add(unlinkButton, c);
@@ -636,7 +646,7 @@ public class UserInterfaceView extends JFrame implements Observer {
 		
 		//Add action listener to add button
 		startSimulation.setActionCommand("Start Simulation");
-		startSimulation.addActionListener(new UserInterfaceController(this, this.uim));
+		startSimulation.addActionListener(this.controller);
 		
 		//Add button to window
 		frameNodeManager.add(startSimulation, c);
@@ -824,8 +834,8 @@ public class UserInterfaceView extends JFrame implements Observer {
 				//If simulation ran successfully
 				if (e.getSuccess()) {
 					
-					frameTopologyManager2 = new UserInterfaceGraphic(uim.getNetwork(), uim.getMessage(), this);
-					frameTopologyManager2.revalidate();
+					frameTopologyManager = new UserInterfaceGraphic(uim.getNetwork(), uim.getMessage(), this);
+					frameTopologyManager.revalidate();
 					
 					//create array to split the passed string 
 					String[] str = e.getMessage().split(":");
@@ -915,6 +925,11 @@ public class UserInterfaceView extends JFrame implements Observer {
 		}
 	
 		
+	}
+	
+	public UserInterfaceGraphic getTopology()
+	{
+		return frameTopologyManager;
 	}
 	
 	/**
