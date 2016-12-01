@@ -26,8 +26,6 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 
-import Algorithm.Algorithm;
-import Algorithm.RandomAlgorithm;
 import Graphics.MessageGraphic;
 import Graphics.NodeGraphic;
 import Network.Message;
@@ -37,6 +35,7 @@ import Network.Node;
 /**
  * This class is to show the graphics of a topology of a given network 
  * @author Osama Buhamad
+ * Modified By: Lina El Sadek
  *
  * @date 11/04/2016
  *
@@ -53,21 +52,16 @@ public class UserInterfaceGraphic extends JPanel  {
 	int yPos=10;
 	private int count;
 	private int setNodeCoordinatesCounter;
-	private JFrame f;
 	private JTable table;
-	private Message m;
 	private ArrayList<Node> messagePathList;
 	private ArrayList<NodeGraphic> messageGraphicList;
 	private static HashMap<String, List<Integer>> historyMap;
 	List<Integer> orders = new ArrayList<Integer>();
 	private MessageGraphic mg;
 	
-	public UserInterfaceGraphic(Network network, Message m) {
+	public UserInterfaceGraphic(Network network, Message m, JFrame f) {
 
-		f = new JFrame("Network Topology");
-		f.setLayout(new BorderLayout());
-
-		f.getContentPane().add(this, BorderLayout.SOUTH);
+		super(new BorderLayout());
 
 		this.network = network;
 		list = new ArrayList<Node>(network.getNodes());
@@ -88,13 +82,8 @@ public class UserInterfaceGraphic extends JPanel  {
 		table.setSize(900, 150);
 		table.setGridColor(Color.RED);
 		table.setEnabled(false);
-		// this.add(table);
-		f.add(this);
-		f.getContentPane().add(table, BorderLayout.NORTH);
-		f.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		f.setSize(900, 900);
-		f.setVisible(true);
-		topologyToImg();
+		this.add(table, BorderLayout.SOUTH);
+		f.add(this, BorderLayout.CENTER);
 	}
 
 	/**
@@ -136,7 +125,7 @@ public class UserInterfaceGraphic extends JPanel  {
 		}
 
 		g.setColor(Color.BLACK);
-		g.drawString("Path taken: ", 0, 10);
+		//g.drawString("Path taken: ", 0, 10);
 
 	}
 
@@ -163,9 +152,6 @@ public class UserInterfaceGraphic extends JPanel  {
 		setNodeCoordinatesCounter++;
 	}
 
-	public JFrame getFrame() {
-		return f;
-	}
 
 	/**
 	 * this method sets the locations of the nodes based on the message history

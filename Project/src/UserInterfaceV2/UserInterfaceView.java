@@ -30,7 +30,7 @@ import javax.swing.SwingConstants;
 import Network.Node;
 /**
  * Author: Richard Hanton
- * Modified: Osama Buhamad
+ * Modified: Osama Buhamad, Lina El Sadek
  *
  */
 public class UserInterfaceView extends JFrame implements Observer {
@@ -61,6 +61,7 @@ public class UserInterfaceView extends JFrame implements Observer {
 	private JPanel frameOutputManager;
 	private JTextArea outputDescriptionTextArea;
 	private JScrollPane outputScroll;
+	private UserInterfaceGraphic frameTopologyManager2;
 	
 	
 	/**
@@ -89,12 +90,16 @@ public class UserInterfaceView extends JFrame implements Observer {
 		//Add the information messages section
 		this.createOutputManager();
 		
+		
+		//this.createTopologyManager();
+		
 		//Load algorithms into dropdown
 		this.loadAlgorithms();
 		
 		//Size window
 		this.pack();
 		
+		this.setExtendedState( getExtendedState() | JFrame.MAXIMIZED_VERT | this.MAXIMIZED_HORIZ);
 		//Set window visible
 		this.setVisible(true);
 		
@@ -654,7 +659,7 @@ public class UserInterfaceView extends JFrame implements Observer {
 		frameOutputManager= new JPanel(new BorderLayout());
 		
 		//Set size of this panel
-		frameOutputManager.setPreferredSize(new Dimension(900, 200));
+		//frameOutputManager.setPreferredSize(new Dimension(900, 20));
 		
 		//the message that will be printed initially 
 		outputDescriptionTextArea = new JTextArea("\t\t\t\t====Topology Information====\t\t");
@@ -818,6 +823,9 @@ public class UserInterfaceView extends JFrame implements Observer {
 				
 				//If simulation ran successfully
 				if (e.getSuccess()) {
+					
+					frameTopologyManager2 = new UserInterfaceGraphic(uim.getNetwork(), uim.getMessage(), this);
+					frameTopologyManager2.revalidate();
 					
 					//create array to split the passed string 
 					String[] str = e.getMessage().split(":");

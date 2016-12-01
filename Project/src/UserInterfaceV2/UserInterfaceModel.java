@@ -24,7 +24,7 @@ import Network.*;
 
 /**
  * Author: Richard Hanton
- * Modified: Osama Buhamad
+ * Modified: Osama Buhamad, Lina El Sadek
  *
  */
 public class UserInterfaceModel extends Observable {
@@ -313,9 +313,6 @@ public class UserInterfaceModel extends Observable {
 		    	//Set a success message and pass the information to be displayed 
 		    	e.setMessage(algorithm.getInfoStr()+": Algorithm ran successfully");
 		    	
-		    	//Show network topology
-			    new UserInterfaceGraphic(network,message);
-		    	
 		    } else {
 		    	
 		    	//Algorithm did not execute successfully
@@ -568,5 +565,14 @@ public class UserInterfaceModel extends Observable {
 				
 	}
 	
+	public Network getNetwork()
+	{
+		return network;
+	}
+	
+	public Message getMessage()
+	{
+		return message;
+	}
 }
 
