@@ -5,7 +5,8 @@ import java.util.ArrayList;
 
 import Network.Message;
 import Network.Network;
-import Network.Node; 
+import Network.Node;
+import UserInterfaceV2.UserInterfaceView; 
 
 /**
  * 
@@ -21,6 +22,10 @@ public abstract class Algorithm {
 	private int max_injections = 20;
 	private ArrayList<String> info = new ArrayList<String>();
 	private String infoStr="";
+	int count = 0;			//Counter for step while loop
+	int injected = 0;		//Counter for new message injections
+	int rate = 0;			//Rate at which new messages are injected into the network
+	Message m_original;		//Original message passed into the network
 	
 	/**
 	 * Run method which moves the specified message from the source
@@ -31,15 +36,19 @@ public abstract class Algorithm {
 	 */
 	public boolean run(Message m, int rate) {
 		
-		int count = 0;		//Counter for step while loop
-		int injected = 0;	//Counter for new message injections
 		Message new_m;		//New message to inject into the network
 		
+		//Specify rate globally
+		this.rate = rate;
+		
+		//Specify the message globally
+		this.m_original = m;
+		
 		//Inject message into network
-		network.injectMessage(m);
+		network.injectMessage(this.m_original);
 		
 		//If the rate is 0, the network is closed for new messages
-		if (rate <= 0) {
+		if (this.rate <= 0) {
 			
 			//Set network to closed
 			network.setOpen(false);
@@ -50,18 +59,18 @@ public abstract class Algorithm {
 		while (step()) {
 			
 			//If we should inject a new message 
-			if ( ( rate != 0 ) && ( (count % rate) == 0 ) && ( injected < this.max_injections ) ) {
+			if ( ( this.rate != 0 ) && ( (this.count % this.rate) == 0 ) && ( this.injected < this.max_injections ) ) {
 	
 				//Create a new message
-				new_m = new Message(m.getContents() + " - " + count, m.getSource(), m.getDestination());
+				new_m = new Message(this.m_original.getContents() + " - " + this.count, this.m_original.getSource(), this.m_original.getDestination());
 				
 				//Inject message into network
 				network.injectMessage(new_m);
 				
 				//Increment injected counter
-				injected ++;
+				this.injected ++;
 				
-			} else if (rate > 0 && injected >= this.max_injections) {
+			} else if (this.rate > 0 && injected >= this.max_injections) {
 				
 				//Network not open for new messages
 				network.setOpen(false);
@@ -73,13 +82,92 @@ public abstract class Algorithm {
 			System.out.println("Stepping again...");
 			
 			//Increment counter
-			count++;
+			this.count++;
 			
 		}
 		
 		//Algorithm successfully ran if we reach here
 		return true;
 		
+	}
+	
+	/**
+	 * Initializes stepping which moves the specified message from the source
+	 * to its destination using the algorithms method for selecting 
+	 * the next node, allows stepping through the process.
+	 * @param m
+	 * @param rate
+	 */
+	public void stepper_initialize(Message m, int rate) {
+				
+		//Specify rate globlaly
+		this.rate = rate;		
+		
+		//Specify the message globally
+		this.m_original = m;
+				
+		//Inject message into network
+		network.injectMessage(this.m_original);
+
+		
+		//If the rate is 0, the network is closed for new messages
+		if (this.rate <= 0) {
+			
+			//Set network to closed
+			network.setOpen(false);
+			
+		}
+		
+	}
+	
+	/**
+	 * Performs a single step of moving the message from the source
+	 * to the destination, allowing the user to see the message moving
+	 * on the topography.
+	 */
+	public boolean stepper() {
+		
+		Message new_m;		//New message to inject into the network
+		
+		//If we moved the message to the next node
+		if (step()) {
+			
+			//If we should inject a new message 
+			if ( ( this.rate != 0 ) && ( (this.count % this.rate) == 0 ) && ( this.injected < this.max_injections ) ) {
+	
+				//Create a new message
+				new_m = new Message(this.m_original.getContents() + " - " + this.count, this.m_original.getSource(), this.m_original.getDestination());
+				
+				//Inject message into network
+				network.injectMessage(new_m);
+				
+				//Increment injected counter
+				this.injected ++;
+				
+			} else if (this.rate > 0 && injected >= this.max_injections) {
+				
+				//Network not open for new messages
+				network.setOpen(false);
+				
+			}
+			
+			//Step again until no more stepping required
+			getInfo().add("Stepping again...\n");
+			System.out.println("Stepping again...");
+			
+			//Increment counter
+			this.count++;
+			
+			//Success moved message to next node(s)
+			return true;
+			
+		//Nothing else to do, we're done
+		} else {
+			
+			//Process done, return false
+			return false;
+			
+		}
 	}
 	
 	/**

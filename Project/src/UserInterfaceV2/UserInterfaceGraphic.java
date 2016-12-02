@@ -62,7 +62,6 @@ public class UserInterfaceGraphic extends JPanel  {
 	public UserInterfaceGraphic(Network network, Message m, JFrame f) {
 
 		super(new BorderLayout());
-
 		this.network = network;
 		list = new ArrayList<Node>(network.getNodes());
 		nodeGraphiclist = new ArrayList<NodeGraphic>();

@@ -32,6 +32,7 @@ public class UserInterfaceModel extends Observable {
 	private Network network;
 	private Algorithm algorithm;
 	private Message message;
+	private boolean stepping_initialized = false;
 	
 	/** 
 	 * Constructor for our user interface model
@@ -310,6 +311,9 @@ public class UserInterfaceModel extends Observable {
 		    	//Algorithm successfully executed
 		    	e.setSuccess(true);
 		    	
+		    	//Assign network to event
+		    	e.setNetwork(this.network);
+		    	
 		    	//Set a success message and pass the information to be displayed 
 		    	e.setMessage(algorithm.getInfoStr()+": Algorithm ran successfully");
 		    	
@@ -336,6 +340,144 @@ public class UserInterfaceModel extends Observable {
 		
 	}
 
+	/** 
+	 * Initializes stepping through the simulation 
+	 * 1 step at a time for the user.
+	 */
+	public void initializeStepping(String algo, int rate) {
+		
+		System.out.println("here");
+		
+		//Check message not null
+		if (this.message == null) { return; } 
+		
+		System.out.println("here2");
+		
+		//Create event
+		UserInterfaceEvent e = new UserInterfaceEvent(this);
+		
+		//Set event type
+		e.setType("Initialize Stepping");
+		 
+		//Check if class exists 
+		try {
+			
+			//Check class exists
+		    Class<?> class_temp = Class.forName("Algorithm."+algo);
+		    
+		    //Get algorithm constructor
+		    Constructor<?> con = class_temp.getConstructor(Network.class);
+		    
+		    //Initialize the algorithm
+		    algorithm = (Algorithm) con.newInstance(network);
+		    
+		    //Initialize the stepper
+		    algorithm.stepper_initialize(message, rate);
+		    	
+	    	//Algorithm successfully executed
+	    	e.setSuccess(true);
+		    	 
+	    	//Stepping is initialized within the model
+	    	this.stepping_initialized = true;
+	    	
+		//Caught exception
+		} catch (Exception ex) {
+					    
+		    e.setMessage("Algorithm not found.");
+		    
+		}
+		
+		//Set observer as changed 
+		setChanged();		
+		
+		//Notify view that the model updated
+		notifyObservers(e);	
+		
+	}
+	
+	/**
+	 * Performs a single step in the simulation of
+	 * transmitting a message from source to destination
+	 * through the network.
+	 */
+	public void stepForwards() {
+		
+		//Check that stepping is initialized
+		if (this.stepping_initialized == false) { return; } 
+		
+		//Create event
+		UserInterfaceEvent e = new UserInterfaceEvent(this);
+		
+		//Step successfully performed
+		e.setSuccess(true);
+		
+		//If we can step forward in the simulation
+		if (algorithm.stepper()) {
+			
+			//Set event type
+			e.setType("Simulation Step");
+			
+			//Set the message
+			e.setMessage("Step successfully performed");
+			
+		//Simulation is done
+		} else {
+			
+			//Set event type
+			e.setType("Simulation Done");
+			
+			//Set the messae
+			e.setMessage("Simulation is done");
+			
+			//Stepping is disabled now 
+			this.stepping_initialized = false;
+			
+		}
+		
+		//Set network in event
+		e.setNetwork(this.network);
+		
+		//Set observer as changed 
+		setChanged();		
+		
+		//Notify view that the model updated
+		notifyObservers(e);		
+		
+	}
+	
+	/**
+	 * Ends a stepping simulation
+	 */
+	public void endSimulation() {
+		
+		//If stepping is not initialized return
+		if (this.stepping_initialized == false) { return; } 
+		
+		//Set stepping initialized to false;
+		this.stepping_initialized = false;
+		
+		//Create event
+		UserInterfaceEvent e = new UserInterfaceEvent(this);
+		
+		//End simulation successfully performed
+		e.setSuccess(true);
+		
+		//Set event type
+		e.setType("Simulation Done");
+		
+		//Set the messae
+		e.setMessage("Simulation is done");	
+		
+		//Set network in event
+		e.setNetwork(this.network);
+		
+		//Set observer as changed 
+		setChanged();		
+		
+		//Notify view that the model updated
+		notifyObservers(e);	
+				
+	}
 	/**
 	 * Saves the network to the specified path
 	 */

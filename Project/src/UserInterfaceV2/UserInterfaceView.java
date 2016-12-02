@@ -48,6 +48,9 @@ public class UserInterfaceView extends JFrame implements Observer {
 	private JComboBox<Node> nodeListCombo1;			//Combo box for listing nodes
 	private JComboBox<Node> nodeListCombo2;			//Combo box for listing nodes
 	private JComboBox<String> algorithmListCombo;	//List of agorithms
+	private JButton stepForwards, stepBackwards;		//JButtons for stepping simulation 
+	private JButton	endSteppingSimulation, initializeStepping;	//JButtons for stepping simulation
+	
 	private ArrayList<String> algorithms = new ArrayList<String>() {{ 
 																		add("RandomAlgorithm"); 
 																		add("FloodingAlgorithm"); 
@@ -163,7 +166,7 @@ public class UserInterfaceView extends JFrame implements Observer {
 		JPanel frameNodeManager = new JPanel(new GridBagLayout());
 		
 		//Set size of this panel
-		frameNodeManager.setPreferredSize(new Dimension(240, 860));
+		frameNodeManager.setPreferredSize(new Dimension(260, 860));
 		
 		//Constraints for grid bag layout
 		GridBagConstraints c = new GridBagConstraints();
@@ -634,14 +637,14 @@ public class UserInterfaceView extends JFrame implements Observer {
 		 * Start Simulation Button
 		 */
 		//Add button for adding node
-		JButton startSimulation = new JButton("Start Simulation");
+		JButton startSimulation = new JButton("Run Simulation");
 		
 		//Button position		
 		c.gridx = 0;
 		c.gridy = 17;
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.gridwidth = GridBagConstraints.REMAINDER;
-		c.insets = new Insets(18, 5, 3, 5);
+		c.insets = new Insets(13, 5, 3, 5);
 
 		
 		//Add action listener to add button
@@ -656,6 +659,106 @@ public class UserInterfaceView extends JFrame implements Observer {
 		 */
 		//Add node manager frame to window
 		this.add(frameNodeManager, BorderLayout.EAST);
+		
+		/**
+		 * Initialize Stepping Simulation Button
+		 */
+		//Add button for adding node
+		initializeStepping = new JButton("Initialize Stepping");
+		
+		//Button position		
+		c.gridx = 0;
+		c.gridy = 18;
+		c.fill = GridBagConstraints.HORIZONTAL;
+		c.gridwidth = GridBagConstraints.REMAINDER;
+		c.insets = new Insets(3, 5, 3, 5);
+
+		
+		//Add action listener to add button
+		initializeStepping.setActionCommand("Initialize Stepping");
+		initializeStepping.addActionListener(this.controller);
+		
+		//Add button to window
+		frameNodeManager.add(initializeStepping, c);	
+		
+		/**
+		 * Step Backwards Button
+		 */
+		//Add button for adding node
+		stepBackwards = new JButton("Step Backwards");
+		
+		//Disabled by default
+		stepBackwards.setEnabled(false);
+		
+		//Button position		
+		c.gridx = 0;
+		c.gridy = 19;
+		c.fill = GridBagConstraints.NONE;
+		c.gridwidth = 1;
+		c.insets = new Insets(3, 5, 3, 5);
+
+		
+		//Add action listener to add button
+		stepBackwards.setActionCommand("Step Backwards");
+		stepBackwards.addActionListener(this.controller);
+		
+		//Add button to window
+		frameNodeManager.add(stepBackwards, c);			
+		
+		/**
+		 * Step Forward Button
+		 */
+		//Add button for adding node
+		stepForwards = new JButton("Step Forwards");
+		
+		//Disabled by default
+		stepForwards.setEnabled(false);
+		
+		//Button position		
+		c.gridx = 1;
+		c.gridy = 19;
+		c.fill = GridBagConstraints.NONE;
+		c.gridwidth = 1;
+		c.insets = new Insets(3, 5, 3, 5);
+
+		
+		//Add action listener to add button
+		stepForwards.setActionCommand("Step Forwards");
+		stepForwards.addActionListener(this.controller);
+		
+		//Add button to window
+		frameNodeManager.add(stepForwards, c);
+		
+		/**
+		 * End Stepping Simulation Button
+		 */
+		//Add button for adding node
+		endSteppingSimulation = new JButton("End Simulation");
+		
+		//Disabled by default
+		endSteppingSimulation.setEnabled(false);
+		
+		//Button position		
+		c.gridx = 0;
+		c.gridy = 20;
+		c.fill = GridBagConstraints.HORIZONTAL;
+		c.gridwidth = GridBagConstraints.REMAINDER;
+		c.insets = new Insets(3, 5, 3, 5);
+
+		
+		//Add action listener to add button
+		endSteppingSimulation.setActionCommand("End Simulation");
+		endSteppingSimulation.addActionListener(this.controller);
+		
+		//Add button to window
+		frameNodeManager.add(endSteppingSimulation, c);
+		
+		/**
+		 * Add frame to window
+		 */
+		//Add node manager frame to window
+		this.add(frameNodeManager, BorderLayout.EAST);		
+		
 		
 	}
 	
@@ -809,6 +912,8 @@ public class UserInterfaceView extends JFrame implements Observer {
 		//Cast incoming object to user interface event
 		UserInterfaceEvent e = (UserInterfaceEvent) arg;
 		
+		System.out.println(e.getType());
+		
 		//If our action was successfully performed
 		if (e.getSuccess()) {
 		
@@ -830,37 +935,72 @@ public class UserInterfaceView extends JFrame implements Observer {
 			
 			//Check if simulation message is incoming
 			if (e.getType() == "Simulation") {
+					
+				frameTopologyManager = new UserInterfaceGraphic(e.getNetwork(), uim.getMessage(), this);
+				frameTopologyManager.revalidate();
 				
-				//If simulation ran successfully
-				if (e.getSuccess()) {
-					
-					frameTopologyManager = new UserInterfaceGraphic(uim.getNetwork(), uim.getMessage(), this);
-					frameTopologyManager.revalidate();
-					
-					//create array to split the passed string 
-					String[] str = e.getMessage().split(":");
-					String[] str1 = str[0].split("$");
-					//Show the information on the text area
-					for(String s: str1){
-						outputDescriptionTextArea.setText(s);
-					}
-					
-					//Show success message
-					JOptionPane.showMessageDialog(null, str[1]);
-					
-					//JOptionPane.showMessageDialog(null, e.getMessage());
-	
-				//Simulation failed for some reason
-				} else {
-					
-					//If a message is present
-					if (e.getMessage() != "") {
-						
-						//Show message
-						JOptionPane.showMessageDialog(null, e.getMessage());
-						
-					}
+				//create array to split the passed string 
+				String[] str = e.getMessage().split(":");
+				String[] str1 = str[0].split("$");
+				
+				//Show the information on the text area
+				for(String s: str1){
+					outputDescriptionTextArea.setText(s);
 				}
+				
+				//Show success message
+				JOptionPane.showMessageDialog(null, str[1]);
+				
+			}
+			
+			//If stepper initialized
+			if (e.getType() == "Initialize Stepping") {
+				
+				//Make stepBackwards enabled
+				this.stepBackwards.setEnabled(true);
+				
+				//Make stepForwards enabled
+				this.stepForwards.setEnabled(true);
+				
+				//Make initialize stepping disabled
+				this.initializeStepping.setEnabled(false);
+				
+				//Enable end stepping simulation
+				this.endSteppingSimulation.setEnabled(true);
+				
+			}
+			
+			//If a simulation step was performed
+			if (e.getType() == "Simulation Step") {
+				
+				//Initialize a new graphic
+				frameTopologyManager = new UserInterfaceGraphic(e.getNetwork(), uim.getMessage(), this);
+				
+				//Update the graphic
+				frameTopologyManager.revalidate();
+				
+			}
+			
+			//If a simulation step lead to the end of simulation
+			if (e.getType() == "Simulation Done") {
+				
+				//Initialize a new graphic
+				frameTopologyManager = new UserInterfaceGraphic(e.getNetwork(), uim.getMessage(), this);
+				
+				//Update the graphic
+				frameTopologyManager.revalidate();
+				
+				//Make stepBackwards disabled
+				this.stepBackwards.setEnabled(false);
+				
+				//Make stepForwards disabled
+				this.stepForwards.setEnabled(false);
+				
+				//Make initialize stepping enabled
+				this.initializeStepping.setEnabled(true);
+				
+				//Disable end stepping simulation
+				this.endSteppingSimulation.setEnabled(false);
 				
 			}
 			
