@@ -26,33 +26,24 @@ public class MessageGraphic extends Graphic {
 	 */
 	public MessageGraphic(String nodeName, int xPosition, int yPosition) {
 		super(nodeName, xPosition, yPosition);
-		this.setHeight(25);
-		this.setWidth(25);
-		this.setxTextOffset(20);
-		this.setyTextOffset(15);
-		
-		points = new HashSet<Point>();
-		currentOffset=2;
+		this.setHeight(10);
+		this.setWidth(10);
+		this.setxTextOffset(10);
+		this.setyTextOffset(33);
+
 	}
 	
-	public void paintMessage(Graphics g, int xLocation, int yLocation,int order) {
+	public void paintMessage(Graphics g, int xLocation, int yLocation) {
 		
 		g.setColor(Color.RED);
-		Point p = new Point(xLocation,yLocation);
-		points.add(p);
-		
-		g.drawOval(xLocation+getWidth()+getxTextOffset(),yLocation+getWidth(), getWidth(), getHeight());
-		if(!points.contains(p)){
-			
-			g.drawString(String.valueOf(order)+", ", xLocation+getWidth()+getxTextOffset(), yLocation+getWidth()+getyTextOffset()+(currentOffset+(order+order+order))+33);
-			repaint();
-		}else{
-			//System.out.println("here");
-			//g .drawOval(xLocation+getWidth()+getxTextOffset()*order,yLocation+getWidth()*order, getWidth(), getHeight());
-			g.drawString(String.valueOf(order)+", ", xLocation+getWidth(), yLocation+getWidth()+(currentOffset*(order+order+order))+33);
-			repaint();
-		}
+		g.fillOval(xLocation+getxTextOffset(),yLocation+getyTextOffset(), getWidth(), getHeight());		
+		repaint();
 	
+		/**
+		 * TODO
+		 * When updated with stepping forward and backward, need to paint the old position with white(delete it) and 
+		 * go to the next position to paint it  
+		 */
 		
 	} //end of paintMessage
 	

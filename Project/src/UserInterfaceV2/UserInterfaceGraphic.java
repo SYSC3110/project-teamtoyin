@@ -123,8 +123,18 @@ public class UserInterfaceGraphic extends JPanel  {
 			}
 		}
 
-		g.setColor(Color.BLACK);
-		//g.drawString("Path taken: ", 0, 10);
+	
+		/**
+		 * TODO 
+		 * HERE 
+		 * need to update these value when stepping forward or backward
+		 * 
+		 * 
+		 */
+		int x = nodeGraphiclist.get(0).getxPosition();
+		int y = nodeGraphiclist.get(0).getyPosition();
+		mg=new MessageGraphic(nodeGraphiclist.get(0).getName(), x, y);
+		mg.paintMessage(g, x, y);
 
 	}
 
