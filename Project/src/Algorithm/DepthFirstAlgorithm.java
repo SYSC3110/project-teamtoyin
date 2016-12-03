@@ -14,7 +14,7 @@ import Network.Node;
 public class DepthFirstAlgorithm extends Algorithm {
 	private ArrayList<Node> visited;	//List that contains every node that has been visited
 	private ArrayList<Node> traverseList; //List that contains how the network was traversed from the initial node
-	private boolean flag=false;
+	private boolean flag=false;		//Flag that checks it is the first time the Dfs method is being called
 	private Node source;
 	
 	public DepthFirstAlgorithm(Network network) throws NullPointerException{
@@ -29,8 +29,6 @@ public class DepthFirstAlgorithm extends Algorithm {
 		
 		this.traverseList = new ArrayList<Node>();
 		this.visited = new ArrayList<Node>();
-		//Now based on our logic we chose the first node from the list of nodes in the network
-		//this.dfs(network.getNodes().iterator().next().getNeighbors(), network.getNodes().iterator().next());
 
 	}
 	
