@@ -58,6 +58,8 @@ public class UserInterfaceGraphic extends JPanel  {
 	private static HashMap<String, List<Integer>> historyMap;
 	List<Integer> orders = new ArrayList<Integer>();
 	private MessageGraphic mg;
+	private int counter=0;
+
 	
 	public UserInterfaceGraphic(Network network, Message m, JFrame f) {
 
@@ -75,7 +77,7 @@ public class UserInterfaceGraphic extends JPanel  {
 
 		this.messagePath(m);
 		setHistoryhMap();
-		// printhistoryMap();
+		 //printhistoryMap();
 
 		table = new JTable(this.toTableModel(historyMap));
 		table.setSize(900, 150);
@@ -131,11 +133,16 @@ public class UserInterfaceGraphic extends JPanel  {
 		 * 
 		 * 
 		 */
-		int x = nodeGraphiclist.get(0).getxPosition();
-		int y = nodeGraphiclist.get(0).getyPosition();
-		mg=new MessageGraphic(nodeGraphiclist.get(0).getName(), x, y);
-		mg.paintMessage(g, x, y);
-
+		
+		//if (setNodeCoordinatesCounter != 0){
+			int x = messageGraphicList.get(messagePathList.size()-1).getxPosition();
+			int y = messageGraphicList.get(messagePathList.size()-1).getyPosition();
+			mg=new MessageGraphic(messageGraphicList.get(messagePathList.size()-1).getName(), x, y);
+			mg.paintMessage(g, x, y);		
+			
+		//}
+		
+		
 	}
 
 	/*
@@ -237,6 +244,15 @@ public class UserInterfaceGraphic extends JPanel  {
 		return model;
 	}
 	
+	/**
+	 * method to call print message location--- not called for now maybe not going to be needed  
+	 */
+	private void callPrintMessage(){
+		int x = nodeGraphiclist.get(messagePathList.size()-1).getxPosition();
+		int y = nodeGraphiclist.get(messagePathList.size()-1).getyPosition();
+		mg=new MessageGraphic(nodeGraphiclist.get(messagePathList.size()-1).getName(), x, y);
+		//mg.paintMessage(g, x, y);
+	}
 	
 	
 
