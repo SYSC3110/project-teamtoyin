@@ -48,7 +48,7 @@ public class UserInterfaceGraphic extends JPanel  {
 	private List<NodeGraphic> nodeGraphiclist;
 	private NodeGraphic destNodeGraphic;
 	private NodeGraphic ng;
-	int xPos=200;
+	int xPos=20;
 	int yPos=10;
 	private int count;
 	private int setNodeCoordinatesCounter;
@@ -134,13 +134,18 @@ public class UserInterfaceGraphic extends JPanel  {
 		 * 
 		 */
 		
-		//if (setNodeCoordinatesCounter != 0){
-			int x = messageGraphicList.get(messagePathList.size()-1).getxPosition();
-			int y = messageGraphicList.get(messagePathList.size()-1).getyPosition();
-			mg=new MessageGraphic(messageGraphicList.get(messagePathList.size()-1).getName(), x, y);
+		if (messageGraphicList.size() == 1){
+			int x = messageGraphicList.get(messageGraphicList.size()-1).getxPosition();
+			int y = messageGraphicList.get(messageGraphicList.size()-1).getyPosition();
+			mg=new MessageGraphic(messageGraphicList.get(messageGraphicList.size()-1).getName(), x, y);
 			mg.paintMessage(g, x, y);		
 			
-		//}
+		}else{
+			int x = messageGraphicList.get(messageGraphicList.size()-2).getxPosition();
+			int y = messageGraphicList.get(messageGraphicList.size()-2).getyPosition();
+			mg=new MessageGraphic(messageGraphicList.get(messageGraphicList.size()-2).getName(), x, y);
+			mg.paintMessage(g, x, y);
+		}
 		
 		
 	}
