@@ -46,6 +46,17 @@ public class MessageGraphic extends Graphic {
 		 */
 		
 	} //end of paintMessage
+
+	/**
+	 * the method prints a green circle on the destination node when the message is delivered to it 
+	 */
+	public void paintLastMessage(Graphics g, int x, int y) {
+		// TODO Auto-generated method stub
+		g.setColor(Color.GREEN);
+		g.fillOval(x+getxTextOffset(),y+getyTextOffset(), 20, 22);
+		repaint();
+		
+	}
 	
 
 }

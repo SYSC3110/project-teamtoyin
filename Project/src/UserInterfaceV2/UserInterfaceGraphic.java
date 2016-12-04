@@ -59,7 +59,8 @@ public class UserInterfaceGraphic extends JPanel  {
 	List<Integer> orders = new ArrayList<Integer>();
 	private MessageGraphic mg;
 	private int counter=0;
-
+	private boolean done=false;
+	private static Graphics gr;
 	
 	public UserInterfaceGraphic(Network network, Message m, JFrame f) {
 
@@ -103,6 +104,7 @@ public class UserInterfaceGraphic extends JPanel  {
 
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
+		this.gr=g;
 		this.setBackground(Color.WHITE);
 
 		// calling this method to set the coordinates of the nodes before
@@ -145,6 +147,13 @@ public class UserInterfaceGraphic extends JPanel  {
 			int y = messageGraphicList.get(messageGraphicList.size()-2).getyPosition();
 			mg=new MessageGraphic(messageGraphicList.get(messageGraphicList.size()-2).getName(), x, y);
 			mg.paintMessage(g, x, y);
+			//this is true when we reach the final node 
+			if(done){
+				x = destNodeGraphic.getxPosition();
+				y = destNodeGraphic.getyPosition();
+				mg=new MessageGraphic(destNodeGraphic.getName(), x, y);
+				mg.paintLastMessage(g, x, y);
+			}
 		}
 		
 		
@@ -250,13 +259,10 @@ public class UserInterfaceGraphic extends JPanel  {
 	}
 	
 	/**
-	 * method to call print message location--- not called for now maybe not going to be needed  
+	 * method to call print the green Circle on the Destination node 
 	 */
-	private void callPrintMessage(){
-		int x = nodeGraphiclist.get(messagePathList.size()-1).getxPosition();
-		int y = nodeGraphiclist.get(messagePathList.size()-1).getyPosition();
-		mg=new MessageGraphic(nodeGraphiclist.get(messagePathList.size()-1).getName(), x, y);
-		//mg.paintMessage(g, x, y);
+	public void callPrintMessage(){
+		done=true;
 	}
 	
 	

@@ -937,6 +937,7 @@ public class UserInterfaceView extends JFrame implements Observer {
 			if (e.getType() == "Simulation") {
 					
 				frameTopologyManager = new UserInterfaceGraphic(e.getNetwork(), uim.getMessage(), this);
+				frameTopologyManager.callPrintMessage();
 				frameTopologyManager.revalidate();
 				
 				//create array to split the passed string 
@@ -1001,7 +1002,7 @@ public class UserInterfaceView extends JFrame implements Observer {
 				
 				//Disable end stepping simulation
 				this.endSteppingSimulation.setEnabled(false);
-				
+				frameTopologyManager.callPrintMessage();
 			}
 			
 			//If saving network output message			
