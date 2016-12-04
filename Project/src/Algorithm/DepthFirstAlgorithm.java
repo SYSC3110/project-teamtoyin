@@ -102,7 +102,7 @@ public class DepthFirstAlgorithm extends Algorithm {
 			new_n = this.next(m);
 			
 			//Update the messages position in the network
-			network.getMessages().get(index).setNode(new_n);
+			network.getMessages().get(index).setNode(new_n, true);
 			
 			//Increment packets sent
 			this.countPacket();

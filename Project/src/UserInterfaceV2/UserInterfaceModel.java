@@ -445,6 +445,94 @@ public class UserInterfaceModel extends Observable {
 		
 	}
 	
+	
+	/**
+	 * Steps backwards in the simulation returning messages
+	 * to their previous node.
+	 */
+	public void stepBackwards() {
+		
+		//Check that stepping is initialized
+		if (this.stepping_initialized == false) { return; } 
+		
+		//Create event
+		UserInterfaceEvent e = new UserInterfaceEvent(this);
+		
+		//Step successfully performed
+		e.setSuccess(true);
+		
+		//If the network has messages
+		if (this.network.getMessages().size() > 0) {
+			
+			//Move each message back
+			for (int i = 0; i < this.network.getMessages().size(); i++) {
+								
+				//If the message has history
+				if (this.network.getMessages().get(i).getHistory().size() > 0) {
+									
+					//Node to move back to
+					Node n_back = this.network.getMessages().get(i).getHistory().get(this.network.getMessages().get(i).getHistory().size() - 1);
+				
+					//Set the messages node to move back to 
+					this.network.getMessages().get(i).setNode(n_back, false);
+				
+					//Remove the node message returned to from its history
+					this.network.getMessages().get(i).getHistory().remove(this.network.getMessages().get(i).getHistory().size() - 1);
+					
+				} else {
+										
+					//Remove message from the network, it has no history
+					this.network.removeMessage(this.network.getMessages().get(i));
+					
+				}
+				
+			}
+			
+			//If the network has messages still
+			if (this.network.getMessages().size() > 0) {
+							
+				//Set event type
+				e.setType("Simulation Step");
+				
+				//Set the message
+				e.setMessage("Step successfully performed");
+				
+			} else {
+				
+				//Set event type
+				e.setType("Simulation Done");
+				
+				//Set the messae
+				e.setMessage("Simulation is done");
+				
+				//Stepping is disabled now 
+				this.stepping_initialized = false;
+				
+			}		
+			
+		} else {
+			
+			//Set event type
+			e.setType("Simulation Done");
+			
+			//Set the messae
+			e.setMessage("Simulation is done");
+			
+			//Stepping is disabled now 
+			this.stepping_initialized = false;
+			
+		}
+		
+		//Set network in event
+		e.setNetwork(this.network);
+		
+		//Set observer as changed 
+		setChanged();		
+		
+		//Notify view that the model updated
+		notifyObservers(e);	
+	}
+	
 	/**
 	 * Ends a stepping simulation
 	 */

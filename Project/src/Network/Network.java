@@ -173,6 +173,21 @@ public class Network {
 		return true;
 		
 	}
+	
+	/**
+	 * Removes a message from the network
+	 */
+	public void removeMessage(Message m) {
+		
+		//If the message is in the network
+		if (this.messages.contains(m)) {
+			
+			//Remove the message
+			this.messages.remove(m);
+			
+		}
+		
+	}
 	/**
 	 * Determines whether the network has messages which 
 	 * need to keep moving. 

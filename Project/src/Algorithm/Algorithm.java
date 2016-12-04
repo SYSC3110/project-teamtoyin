@@ -2,6 +2,7 @@ package Algorithm;
 
 
 import java.util.ArrayList;
+import java.util.Stack;
 
 import Network.Message;
 import Network.Network;
@@ -108,7 +109,6 @@ public abstract class Algorithm {
 				
 		//Inject message into network
 		network.injectMessage(this.m_original);
-
 		
 		//If the rate is 0, the network is closed for new messages
 		if (this.rate <= 0) {
@@ -128,7 +128,7 @@ public abstract class Algorithm {
 	public boolean stepper() {
 		
 		Message new_m;		//New message to inject into the network
-		
+
 		//If we moved the message to the next node
 		if (step()) {
 			
@@ -169,6 +169,7 @@ public abstract class Algorithm {
 			
 		}
 	}
+	
 	
 	/**
 	 * Performs a simulation step on the messages within the network

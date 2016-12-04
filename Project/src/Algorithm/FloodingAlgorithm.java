@@ -98,7 +98,7 @@ public class FloodingAlgorithm extends Algorithm {
 				new_m = new Message(m);
 				
 				//Move the message to the next node
-				new_m.setNode(new_n);
+				new_m.setNode(new_n, true);
 				
 				//Count a hop for this new message
 				new_m.countHop();

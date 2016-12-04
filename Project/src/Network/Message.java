@@ -124,14 +124,19 @@ public class Message {
 	 * Sets the node the message is currently on
 	 * @param n
 	 */
-	public void setNode(Node n) {
+	public void setNode(Node n, boolean addHistory) {
 		
 		//If node is not null
 		if(n != null) {
 			
-			//Save current node in history
-			this.history.add(this.position);
-						
+			//If we want to save the current node in history
+			if (addHistory) {
+				
+				//Save current node in history
+				this.history.add(this.position);
+				
+			}
+			
 			//Set messages position in the network
 			this.position = n;
 			

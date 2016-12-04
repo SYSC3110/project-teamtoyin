@@ -73,6 +73,12 @@ public class UserInterfaceController implements ActionListener {
 			//Call step forwards command
 			stepForwardsCommand();
 			
+		//If step backwards is clicked
+		}  else if (command == "Step Backwards") {
+		
+			//Call step forwards command
+			stepBackwardsCommand();
+			
 		//If end simulation clicked
 		} else if (command == "End Simulation") {
 			
@@ -254,6 +260,16 @@ public class UserInterfaceController implements ActionListener {
 		
 	}
 
+	/**
+	 * Step backwards in the stepping simulation
+	 */
+	public void stepBackwardsCommand() {
+		
+		//Call step forwards in model
+		uim.stepBackwards();
+		
+	}
+	
 	/** 
 	 * Ends a stepping simulation 
 	 */
