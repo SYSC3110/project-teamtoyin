@@ -4,7 +4,7 @@ import java.awt.Color;
 import java.awt.Graphics;
 
 /**
- * 
+ * This class is used to paint the network topology nodes and their links 
  * @author Osama Buhamad
  *
  * @date 11/04/2016
@@ -21,17 +21,6 @@ public class NodeGraphic extends Graphic {
 		this.setWidth(30);
 		this.setxTextOffset(17);
 		this.setyTextOffset(10);
-	}
-
-	
-	/*
-	 * returning NodeGraphic given a name 
-	 */
-	public NodeGraphic getNodeGraphicByName(String name){
-		if (name.equals(this.getName())){
-			return this;
-		}
-		return null;
 	}
 
 	/**

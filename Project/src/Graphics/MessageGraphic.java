@@ -5,7 +5,8 @@ import java.awt.Graphics;
 import java.awt.Point;
 import java.util.HashSet;
 /**
- * 
+ * This class is used to print a red ball beside the current node in the network topology.. and a green ball 
+ * beside the destination node at the end
  * @author Osama Buhamad
  *
  * @date 11/06/2016
@@ -13,11 +14,6 @@ import java.util.HashSet;
  */
 public class MessageGraphic extends Graphic {
 
-	/*
-	 * the variables for the animation part
-	 */
-	private HashSet<Point> points;
-	private int currentOffset;
 	/**
 	 * the instructor of the MessageGraphic 
 	 * @param nodeName
@@ -39,11 +35,6 @@ public class MessageGraphic extends Graphic {
 		g.fillOval(xLocation+getxTextOffset(),yLocation+getyTextOffset(), getWidth(), getHeight());		
 		repaint();
 	
-		/**
-		 * TODO
-		 * When updated with stepping forward and backward, need to paint the old position with white(delete it) and 
-		 * go to the next position to paint it  
-		 */
 		
 	} //end of paintMessage
 

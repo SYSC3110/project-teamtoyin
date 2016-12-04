@@ -48,8 +48,8 @@ public class UserInterfaceGraphic extends JPanel  {
 	private List<NodeGraphic> nodeGraphiclist;
 	private NodeGraphic destNodeGraphic;
 	private NodeGraphic ng;
-	int xPos=20;
-	int yPos=10;
+	private int xPos=20;
+	private int yPos=10;
 	private int count;
 	private int setNodeCoordinatesCounter;
 	private JTable table;
@@ -58,9 +58,8 @@ public class UserInterfaceGraphic extends JPanel  {
 	private static HashMap<String, List<Integer>> historyMap;
 	List<Integer> orders = new ArrayList<Integer>();
 	private MessageGraphic mg;
-	private int counter=0;
 	private boolean done=false;
-	private static Graphics gr;
+	
 	
 	public UserInterfaceGraphic(Network network, Message m, JFrame f) {
 
@@ -104,9 +103,7 @@ public class UserInterfaceGraphic extends JPanel  {
 
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
-		this.gr=g;
 		this.setBackground(Color.WHITE);
-
 		// calling this method to set the coordinates of the nodes before
 		// painting them
 		if (setNodeCoordinatesCounter == 0)
@@ -127,13 +124,9 @@ public class UserInterfaceGraphic extends JPanel  {
 			}
 		}
 
-	
-		/**
-		 * TODO 
-		 * HERE 
-		 * need to update these value when stepping forward or backward
-		 * 
-		 * 
+
+		/*
+		 * painting the current position of the node 
 		 */
 		
 		if (messageGraphicList.size() == 1){
