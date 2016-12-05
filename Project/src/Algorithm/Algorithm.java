@@ -258,7 +258,7 @@ public abstract class Algorithm {
 			
 			backinfo.add(info.get(info.size()-3));
 			backinfo.add(info.get(info.size()-2));
-			backinfo.add(info.get(info.size()-1));
+			
 			for(String s: backinfo){
 				stpinfoStr+=s;
 			}
