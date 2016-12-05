@@ -22,11 +22,15 @@ public abstract class Algorithm {
 	protected Network network;
 	private int max_injections = 20;
 	private ArrayList<String> info = new ArrayList<String>();
+	private ArrayList<String> backinfo = new ArrayList<String>();
+	
 	private String infoStr="";
+	private String stpinfoStr="";
 	int count = 0;			//Counter for step while loop
 	int injected = 0;		//Counter for new message injections
 	int rate = 0;			//Rate at which new messages are injected into the network
 	Message m_original;		//Original message passed into the network
+	private boolean flag = true;
 	
 	/**
 	 * Run method which moves the specified message from the source
@@ -221,6 +225,49 @@ public abstract class Algorithm {
 			infoStr=infoStr+s+" ";
 		}
 		return infoStr;
+	}
+	
+	/**
+	 * remove the last message when step back is performed 
+	 */
+	public String removeLastMessage(){
+				stpinfoStr="";
+
+				if(backinfo.size()>2){
+					backinfo.remove(backinfo.size()-2);
+					backinfo.remove(backinfo.size()-1);
+					for(String s: backinfo){
+						stpinfoStr+=s;
+					}
+				}
+				return stpinfoStr;
+		
+	}
+	/*
+	 * Updates the list when stepping based on if you have stepped back previously or not
+	 */
+	public String updateInfo(){
+		stpinfoStr="";
+		if(flag){
+			for(int i=0;i<=info.size()-2;i++){
+				backinfo.add(info.get(i));
+				stpinfoStr+=backinfo.get(i);
+			}
+			flag = false;
+		}
+		else{
+			
+			backinfo.add(info.get(info.size()-3));
+			backinfo.add(info.get(info.size()-2));
+			for(String s: backinfo){
+				stpinfoStr+=s;
+			}
+			
+		}
+		
+	
+		return stpinfoStr;
+	
 	}
 	
 	
