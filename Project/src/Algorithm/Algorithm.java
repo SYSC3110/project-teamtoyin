@@ -181,7 +181,7 @@ public abstract class Algorithm {
 	protected abstract boolean step();
 	
 	/**
-	 * Returns the next node to travel to basd on the message
+	 * Returns the next node to travel to based on the message
 	 */
 	protected abstract Node next(Message m);	
 	
@@ -228,7 +228,7 @@ public abstract class Algorithm {
 	}
 	
 	/**
-	 * remove the last message when step back is performed 
+	 * Remove the last message when step back is performed 
 	 */
 	public String removeLastMessage(){
 				stpinfoStr="";
@@ -241,7 +241,6 @@ public abstract class Algorithm {
 					}
 				}
 				return stpinfoStr;
-		
 	}
 	/*
 	 * Updates the list when stepping based on if you have stepped back previously or not
@@ -262,12 +261,8 @@ public abstract class Algorithm {
 			for(String s: backinfo){
 				stpinfoStr+=s;
 			}
-			
 		}
-		
-	
 		return stpinfoStr;
-	
 	}
 	
 	/*
