@@ -13,9 +13,9 @@ New additions and Design Decisions:
 -When the message is traversing the topology it is represented by a red ball beside the current node. When the message gets to its destination node, it is represented by a green ball also beside the current node.
 
 New features:
--Import: Now you can import an xml file into the simulation. 
--Export Topology: used to export the topology as a png file.
--save: you can now save the topology as an xml document.
+- Import: Now you can import an xml file into the simulation. 
+- Export Topology: used to export the topology as a png file.
+- Save: you can now save the topology as an xml document.
 
 Algorithm.java:
 -This class was modified to account for the above change of stepping from one node to the next. 
@@ -40,7 +40,9 @@ Toyin Odujebe:
 
 
 Richard Hanton: 
-•	
+•	Implemented the xml export and import features to save the network or import a previously saved network
+•	Added the ability to step through a simulation to view the messages path as it travels from source to destination
+•	Added "Step Backwards" to undo a step when stepping through the simulation.
 
 Osama Buhamad:
 •	
