@@ -49,3 +49,9 @@ j) Click "Initialize Stepping" to start the simulation of the message going from
 k) Click on Step Forwards to go from one node to the next till you get to the desired 
 l) If you want to go back to a previous step, you simply click on "Step Backwards" at anytime
 m) To end the simulation at anytime, you click on "End Simulation"
+
+To save, import or export:
+n) Simply click on the File menu label
+To save the topology as an XML document: select the save option from the drop down menu and then enter a name and path where the document should be saved
+To import an xml document: select the import option from the drop down menu and select the file to be imported
+To export the topology as a png file: select the Export Topology option from the drop down menu and it gets saved in the Project folder.
