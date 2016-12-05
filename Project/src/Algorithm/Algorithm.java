@@ -270,5 +270,16 @@ public abstract class Algorithm {
 	
 	}
 	
+	/*
+	 * Reset everything when End simulation is clicked
+	 */
+	public void topologyReseter(){
+		this.info.clear();
+		this.backinfo.clear();
+		this.stpinfoStr = "";
+		this.infoStr = "";
+		this.flag = true;
+	}
+	
 	
 }

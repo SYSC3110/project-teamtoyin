@@ -345,7 +345,6 @@ public class UserInterfaceModel extends Observable {
 	 * 1 step at a time for the user.
 	 */
 	public void initializeStepping(String algo, int rate) {
-		
 		System.out.println("here");
 		
 		//Check message not null
@@ -376,6 +375,8 @@ public class UserInterfaceModel extends Observable {
 		    	
 	    	//Algorithm successfully executed
 	    	e.setSuccess(true);
+			algorithm.topologyReseter();
+
 		    	 
 	    	//Stepping is initialized within the model
 	    	this.stepping_initialized = true;
@@ -553,7 +554,7 @@ public class UserInterfaceModel extends Observable {
 		
 		//Set event type
 		e.setType("Simulation Done");
-		
+		algorithm.topologyReseter();
 		//Set the messae
 		e.setMessage("Simulation is done");	
 		
