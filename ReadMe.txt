@@ -5,6 +5,51 @@ Osama Buhamad
 Toyin Odujebe
 
 =====================================================================================
+			Milestone 4
+=====================================================================================
+Changes to Milestone 3:
+New additions and Design Decisions:
+-We updated the simulation where by now instead of you just running the simulation and it does all the stepping at once, now you can step from one node to the next based on the path configured by the algorithm in use. 
+-When the message is traversing the topology it is represented by a red ball beside the current node. When the message gets to its destination node, it is represented by a green ball also beside the current node.
+
+New features:
+-Import: Now you can import an xml file into the simulation. 
+-Export Topology: used to export the topology as a png file.
+-save: you can now save the topology as an xml document.
+
+Algorithm.java:
+-This class was modified to account for the above change of stepping from one node to the next. 
+-New methods:
+-stepper_intialize(Message m, int rate): this method initializes stepping which moves the specified message from the source to its destination using the algorithms method for selecting the next node, allows stepping through the process.
+-stepper(): Performs a single step of moving the message from the source to the destination, allowing the user to see the message moving on the topography.
+-removeLastMessage(): this method removes the last message when step back is performed and removes the information about the message from the UI.
+-updateInfo(): this method updates the list of visited nodes when moving messages and also checks if step back was performed or not
+-topologyReseter(): void method that resets everything when end simulation is clicked in the UI. So no information is saved from the previous steps. 
+
+MessageGraphic.java:
+-paintLastMessage(Graphics g, int x, int y): this method prints a green circle on the destination node when the message is delivered to it. 
+
+Contributions:
+Lina El Sadek: 
+•	Update
+
+Toyin Odujebe: 
+•	Updated the ReadMe and User Manual
+•	Fixed major bugs in Algorthm.java class when stepping back, stepping forward and ending simulation
+•	Updated UML
+
+
+Richard Hanton: 
+•	
+
+Osama Buhamad:
+•	
+
+
+Known Issues:
+Please refer to our github repo for resolved and current issues.
+
+=====================================================================================
 			Milestone 3
 =====================================================================================
 Changes to Milestone 2:
