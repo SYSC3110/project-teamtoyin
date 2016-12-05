@@ -979,6 +979,13 @@ public class UserInterfaceView extends JFrame implements Observer {
 				
 				//Update the graphic
 				frameTopologyManager.revalidate();
+				String[] str = e.getMessage().split(":");
+				String[] str1 = str[0].split("$");
+				
+				//Show the information on the text area
+				for(String s: str1){
+					outputDescriptionTextArea.setText(s);
+				}
 				
 			}
 			
@@ -987,7 +994,7 @@ public class UserInterfaceView extends JFrame implements Observer {
 				
 				//Initialize a new graphic
 				frameTopologyManager = new UserInterfaceGraphic(e.getNetwork(), uim.getMessage(), this);
-				
+				frameTopologyManager.callPrintMessage();
 				//Update the graphic
 				frameTopologyManager.revalidate();
 				
@@ -1002,7 +1009,15 @@ public class UserInterfaceView extends JFrame implements Observer {
 				
 				//Disable end stepping simulation
 				this.endSteppingSimulation.setEnabled(false);
-				frameTopologyManager.callPrintMessage();
+				
+				
+				String[] str = e.getMessage().split(":");
+				//String[] str1 = str[0].split("$");
+				
+				//Show the information on the text area
+			//	for(String s: str1){
+					outputDescriptionTextArea.setText(str[0]);
+				//}
 			}
 			
 			//If saving network output message			

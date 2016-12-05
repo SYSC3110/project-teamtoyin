@@ -418,7 +418,7 @@ public class UserInterfaceModel extends Observable {
 			e.setType("Simulation Step");
 			
 			//Set the message
-			e.setMessage("Step successfully performed");
+			e.setMessage(algorithm.updateInfo()+"\n Step successfully performed");
 			
 		//Simulation is done
 		} else {
@@ -427,7 +427,7 @@ public class UserInterfaceModel extends Observable {
 			e.setType("Simulation Done");
 			
 			//Set the messae
-			e.setMessage("Simulation is done");
+			e.setMessage(algorithm.updateInfo()+"\nSimulation is done");
 			
 			//Stepping is disabled now 
 			this.stepping_initialized = false;
@@ -495,7 +495,8 @@ public class UserInterfaceModel extends Observable {
 				e.setType("Simulation Step");
 				
 				//Set the message
-				e.setMessage("Step successfully performed");
+				
+				e.setMessage(algorithm.removeLastMessage()+"\nStep BACK successfully performed");
 				
 			} else {
 				
@@ -516,7 +517,7 @@ public class UserInterfaceModel extends Observable {
 			e.setType("Simulation Done");
 			
 			//Set the messae
-			e.setMessage("Simulation is done");
+			e.setMessage(algorithm.getInfoStr()+"\nSimulation is done");
 			
 			//Stepping is disabled now 
 			this.stepping_initialized = false;
