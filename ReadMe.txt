@@ -49,7 +49,9 @@ Richard Hanton:
 •	Added "Step Backwards" to undo a step when stepping through the simulation.
 
 Osama Buhamad:
-•	
+•	improved the graphics by showing a red ball that moves to the current position of the node and a green ball it the end. 
+•	Added the ability to save the topology to an image.
+•	updated the information messages shown on the User Interface to work with stepping forward and backward.
 
 
 Known Issues:
