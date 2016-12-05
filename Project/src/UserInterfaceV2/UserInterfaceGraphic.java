@@ -135,10 +135,10 @@ public class UserInterfaceGraphic extends JPanel  {
 			mg=new MessageGraphic(messageGraphicList.get(messageGraphicList.size()-1).getName(), x, y);
 			mg.paintMessage(g, x, y);		
 			
-		}else{
-			int x = messageGraphicList.get(messageGraphicList.size()-2).getxPosition();
-			int y = messageGraphicList.get(messageGraphicList.size()-2).getyPosition();
-			mg=new MessageGraphic(messageGraphicList.get(messageGraphicList.size()-2).getName(), x, y);
+		}else if(messageGraphicList.size()!=0){
+			int x = messageGraphicList.get(messageGraphicList.size()-1).getxPosition();
+			int y = messageGraphicList.get(messageGraphicList.size()-1).getyPosition();
+			mg=new MessageGraphic(messageGraphicList.get(messageGraphicList.size()-1).getName(), x, y);
 			mg.paintMessage(g, x, y);
 			//this is true when we reach the final node 
 			if(done){
@@ -206,7 +206,8 @@ public class UserInterfaceGraphic extends JPanel  {
 		// System.out.print(""+destNodeGraphic.getName()+"
 		// x:"+destNodeGraphic.getxPosition()+"
 		// y:"+destNodeGraphic.getyPosition()+" ");
-		messageGraphicList.add(destNodeGraphic);
+		//THIS LINE TO ADD THE DEST NODE TO THE LIST 
+		//messageGraphicList.add(destNodeGraphic);
 
 	}
 
