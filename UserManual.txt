@@ -4,7 +4,7 @@ This document contains two sections:
   C. User manual for the user interface application using Initialize Stepping
  ==================================================
  
- Section A:
+ Section A: NO GUI
   - Run Run.java in Eclipse.
   - Enter the number of nodes you wish to have in your network. Make sure it is a positive integer, 
     otherwise you will be prompted to re-enter a valid input. 
@@ -24,7 +24,7 @@ This document contains two sections:
     
  ==================================================
  
- Section B:
+ Section B: Run Simulation Without Stepping
   a) Run UserInterfaceView.java from the UserInterfaceV2 package.
   b) On the right hand side of the window select the algorithm you would like to use from the dropdown Select Algorithm menu.
   c) Add nodes to the network by entering them in the text box beside "Add Node".
@@ -40,18 +40,20 @@ This document contains two sections:
   j) Click "Run Simulation" to simulate the message going through the network with your specified settings all at once. 
   k) While the simulation is running debug will be printed on the left hand side of the application.
   l) Once the simulation is completed the network topology with the layout and path the first message took will appear in the        same window.
-  m) 
+
   ==================================================
 
-Section C:
--Same steps a) - i) in Section B
-j) Click "Initialize Stepping" to start the simulation of the message going from the source node with your speficied settings. 
-k) Click on Step Forwards to go from one node to the next till you get to the desired 
-l) If you want to go back to a previous step, you simply click on "Step Backwards" at anytime
-m) To end the simulation at anytime, you click on "End Simulation"
+ Section C: Run Simulation With Stepping
+  -Same steps a) - i) in Section B
+  j) Click "Initialize Stepping" to start the simulation of the message going from the source node with your speficied settings. 
+  k) Click on Step Forwards to go from one node to the next till you get to the desired 
+  l) If you want to go back to a previous step, you simply click on "Step Backwards" at anytime
+  m) To end the simulation at anytime, you click on "End Simulation"
 
-To save, import or export:
-n) Simply click on the File menu label
-To save the topology as an XML document: select the save option from the drop down menu and then enter a name and path where the document should be saved
-To import an xml document: select the import option from the drop down menu and select the file to be imported
-To export the topology as a png file: select the Export Topology option from the drop down menu and it gets saved in the Project folder.
+==================================================
+
+Section D: To Save Image, Import or Export:
+  Simply click on the File menu label
+  To save the topology as an XML document: select the save option from the drop down menu and then enter a name and path where the document   should be saved
+  To import an xml document: select the import option from the drop down menu and select the file to be imported
+  To export the topology as a png file: select the Export Topology option from the drop down menu and it gets saved in the Project folder.
