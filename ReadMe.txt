@@ -9,8 +9,8 @@ Toyin Odujebe
 =====================================================================================
 Changes to Milestone 3:
 New additions and Design Decisions:
--We updated the simulation where by now instead of you just running the simulation and it does all the stepping at once, now you can step from one node to the next based on the path configured by the algorithm in use. 
--When the message is traversing the topology it is represented by a red ball beside the current node. When the message gets to its destination node, it is represented by a green ball also beside the current node.
+- We updated the simulation where by now instead of you just running the simulation and it does all the stepping at once, now you can step from one node to the next based on the path configured by the algorithm in use. 
+- When the message is traversing the topology it is represented by a red ball beside the current node. When the message gets to its destination node, it is represented by a green ball also beside the current node.
 
 New features:
 - Import: Now you can import an xml file into the simulation. 
@@ -18,16 +18,20 @@ New features:
 - Save: you can now save the topology as an xml document.
 
 Algorithm.java:
--This class was modified to account for the above change of stepping from one node to the next. 
--New methods:
--stepper_intialize(Message m, int rate): this method initializes stepping which moves the specified message from the source to its destination using the algorithms method for selecting the next node, allows stepping through the process.
--stepper(): Performs a single step of moving the message from the source to the destination, allowing the user to see the message moving on the topography.
--removeLastMessage(): this method removes the last message when step back is performed and removes the information about the message from the UI.
--updateInfo(): this method updates the list of visited nodes when moving messages and also checks if step back was performed or not
--topologyReseter(): void method that resets everything when end simulation is clicked in the UI. So no information is saved from the previous steps. 
+This class was modified to account for the above change of stepping from one node to the next. 
+New methods:
+- stepper_intialize(Message m, int rate): this method initializes stepping which moves the specified message from the source to its destination using the algorithms method for selecting the next node, allows stepping through the process.
+- stepper(): Performs a single step of moving the message from the source to the destination, allowing the user to see the message moving on the topography.
+- removeLastMessage(): this method removes the last message when step back is performed and removes the information about the message from the UI.
+- updateInfo(): this method updates the list of visited nodes when moving messages and also checks if step back was performed or not
+- topologyReseter(): void method that resets everything when end simulation is clicked in the UI. So no information is saved from the previous steps. 
 
 MessageGraphic.java:
--paintLastMessage(Graphics g, int x, int y): this method prints a green circle on the destination node when the message is delivered to it. 
+- paintLastMessage(Graphics g, int x, int y): this method prints a green circle on the destination node when the message is delivered to it. 
+
+UserInterfaceModel.java
+- save(String filename): This method saves the current network as an XML document. The document is structured with a network node that contains all the nodes in the network and all of the link between these nodes.
+- load(String filename): This method loads a network XML document and populates the program with the list of nodes, and the links between these nodes as retrieves from the XML file.
 
 Contributions:
 Lina El Sadek: 
