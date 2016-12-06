@@ -35,8 +35,7 @@ UserInterfaceModel.java
 
 Contributions:
 Lina El Sadek: 
-•	Update
-
+•added export topology to image to UI added the graphics to UI so everything displays in one window and bug fixes
 Toyin Odujebe: 
 •	Updated the ReadMe and User Manual
 •	Fixed major bugs in Algorthm.java class when stepping back, stepping forward and ending simulation
